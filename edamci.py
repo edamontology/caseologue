@@ -3,7 +3,7 @@ from rdflib import ConjunctiveGraph, Namespace
 import json
 import os
 
-class edamQueryTest(edam):
+class edamQueryTest(unittest.TestCase):
       
     def parse_edam(self, edam_file):
         g = ConjunctiveGraph()
