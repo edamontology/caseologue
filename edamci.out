@@ -1,5 +1,1 @@
-ERROR	deprecated_replacement_obsolete	http://edamontology.org/data_2539	'Alignment data'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/data_2083'
-ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0747	'Nucleic acid sites and features'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0640'
-ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0748	'Protein sites and features'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0639'
-ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0751	'Phosphorylation sites'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0748'
-ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_2280	'Nucleic acid structure comparison'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_1770'
+Level	Test Name	Entity	Label	Debug Message
