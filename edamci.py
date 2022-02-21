@@ -35,9 +35,6 @@ def parsing () :
     sys.argv[1:] = args.unittest_args 
 
 
-    # run_all == aucune 3 variabem (not xx and ...) 
-    #     esle if  not args_error && not run_all = run_error = False
-
     return(run_error,run_essential,run_curation)
 
 def suite ():
@@ -46,11 +43,16 @@ def suite ():
         suite.addTest(EdamQueryTest('test_deprecated_replacement_obsolete'))
     if run_essential == True :
         suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
+    if run_essential == True :
+        suite.addTest(EdamQueryTest('test_bad_uri'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_mandatory_property_missing'))
     return suite
 
-# each test is added in function of the boolean input (error essential curation), to change level category, change tested variable 
 
-#addTest() add TestCase object or TestSuite != addTests() adds all instances of a TestCase object (same as interating on all tests with a addTest() function)
+
+# each test is added in function of the boolean input (error essential curation), to change level category, change tested variable (+ change level error when adding new_error in data frame)
+
 
 class EdamQueryTest(unittest.TestCase):
 
@@ -74,9 +76,7 @@ class EdamQueryTest(unittest.TestCase):
         for r in results:
             new_error = pd.DataFrame([['ERROR','deprecated_replacement_obsolete',r['entity'],r['label'],(f"concept is replaced by ({r['property']}) an obsolete concept: {r['replacement']}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-            #self.report = self.report.append({'Level':'ERROR','Test Name':'deprecated_replacement_obsolete','Entity':r['entity'],'Label':r['label'],'Debug Message':(f"concept is replaced by ({r['property']}) an obsolete concept: {r['replacement']}")}, ignore_index=True)
-        
-        #print(self.__class__.report)
+
         
         self.assertEqual(nb_err, 0)
 
@@ -90,14 +90,60 @@ class EdamQueryTest(unittest.TestCase):
             nb_err = len(results)
 
             for r in results:
-                new_error = pd.DataFrame([['ERROR','super_class_refers_to_self',r['entity'],r['label'],'concept declared as superclass of itself']], columns=['Level','Test Name','Entity','Label','Debug Message'])
+                new_error = pd.DataFrame([['ESSENTIAL','super_class_refers_to_self',r['entity'],r['label'],'concept declared as superclass of itself']], columns=['Level','Test Name','Entity','Label','Debug Message'])
                 self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
             
-            #print(self.__class__.report)
 
             self.assertEqual(nb_err, 0)
 
+    def test_bad_uri(self):
+            
+            query = "queries/bad_uri.rq"
+            with open(query,'r') as f:
+                query_term = f.read()
 
+            results = self.edam_graph.query(query_term)
+            nb_err = len(results)
+
+            for r in results:
+                new_error = pd.DataFrame([['ESSENTIAL','bad_rui',r['entity'],r['label'],'has a bad URI (entity) (regex :^http://edamontology.org/(data|topic|operation|format)_[0-9]\{4\}$)']], columns=['Level','Test Name','Entity','Label','Debug Message'])
+                self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+            
+
+            self.assertEqual(nb_err, 0)
+    
+    def test_mandatory_property_missing(self):
+            
+            query = "queries/mandatory_property_missing.rq"
+            with open(query,'r') as f:
+                query_term = f.read()
+
+            results = self.edam_graph.query(query_term)
+            nb_err = len(results)
+
+            for r in results:
+                #here put a filter for root concept missing subClassOf? 
+                new_error = pd.DataFrame([['ERROR','mandatory_property_missing',r['entity'],r['label'],(f"is missing mandatory property: {r['property']} ")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+                self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+            
+
+            self.assertEqual(nb_err, 0)
+
+    def test_XXXTEST_NAMEXXX(self):
+            
+            query = "queries/XXXQUERY_FILEXXX"
+            with open(query,'r') as f:
+                query_term = f.read()
+
+            results = self.edam_graph.query(query_term)
+            nb_err = len(results)
+
+            for r in results:
+                new_error = pd.DataFrame([['XXXLEVELXXX','XXXTEST_NAMEXXX',r['entity'],r['label'],'XXXDEBUG_MESSAGEXXX']], columns=['Level','Test Name','Entity','Label','Debug Message'])
+                self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+            
+
+            self.assertEqual(nb_err, 0)
     
     @classmethod
     def tearDownClass(cls):

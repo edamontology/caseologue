@@ -22,7 +22,7 @@ SELECT DISTINCT ?entity ?property ?label ?property_subs_edam WHERE {
     }
     UNION
     {
-    VALUES ?property_subs_edam { oboInOwl:inSubset
+    VALUES ?property { oboInOwl:inSubset
                         }
     FILTER NOT EXISTS {?entity ?property <http://purl.obolibrary.org/obo/edam#edam> .}
     }

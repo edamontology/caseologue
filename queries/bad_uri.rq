@@ -6,7 +6,7 @@ PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX edam:<http://edamontology.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?entity ?property ?label ?value WHERE {
+SELECT DISTINCT ?entity ?label WHERE {
     
     ?entity a owl:Class .
     ?entity rdfs:label ?label .
@@ -17,4 +17,3 @@ SELECT DISTINCT ?entity ?property ?label ?value WHERE {
    }
 }
 ORDER BY ?entity
-LIMIT 50
