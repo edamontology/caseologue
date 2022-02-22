@@ -1,7 +1,62 @@
 	Level	Test Name	Entity	Label	Debug Message
-0	ERROR	deprecated_replacement_obsolete	http://edamontology.org/data_2539	Alignment data	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/data_2083
-1	ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0747	Nucleic acid sites and features	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0640
-2	ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0748	Protein sites and features	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0639
-3	ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0751	Phosphorylation sites	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0748
-4	ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_2280	Nucleic acid structure comparison	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_1770
-5	ERROR	super_class_refers_to_self	http://edamontology.org/topic_4033	Microfluidics	concept declared as superclass of itself
+0	ERROR	deprecated_replacement_obsolete	http://edamontology.org/data_2539	'Alignment data'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/data_2083
+1	ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0747	'Nucleic acid sites and features'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0640
+2	ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0748	'Protein sites and features'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0639
+3	ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_0751	'Phosphorylation sites'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0748
+4	ERROR	deprecated_replacement_obsolete	http://edamontology.org/topic_2280	'Nucleic acid structure comparison'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_1770
+5	ESSENTIAL	super_class_refers_to_self	http://edamontology.org/topic_4033	'Microfluidics'	concept declared as superclass of itself
+6	ESSENTIAL	bad_rui	http://edamontology.org/OUPS_4027	'Ribosome Profiling'	has a bad URI (entity) (regex :^http://edamontology.org/(data|topic|operation|format)_[0-9]\{4\}$)
+7	ERROR	mandatory_property_missing	http://edamontology.org/data_0006	'Data'	is missing mandatory property: http://www.w3.org/2000/01/rdf-schema#subClassOf 
+8	ERROR	mandatory_property_missing	http://edamontology.org/data_3914	'Quality control report'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+9	ERROR	mandatory_property_missing	http://edamontology.org/format_1915	'Format'	is missing mandatory property: http://www.w3.org/2000/01/rdf-schema#subClassOf 
+10	ERROR	mandatory_property_missing	http://edamontology.org/format_3665	'K-mer countgraph'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+11	ERROR	mandatory_property_missing	http://edamontology.org/format_3884	'FF parameter format'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+12	ERROR	mandatory_property_missing	http://edamontology.org/format_3889	'AMBER off'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+13	ERROR	mandatory_property_missing	http://edamontology.org/format_3910	'trr'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+14	ERROR	mandatory_property_missing	http://edamontology.org/format_3913	'Loom'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+15	ERROR	mandatory_property_missing	http://edamontology.org/format_3915	'Zarr'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+16	ERROR	mandatory_property_missing	http://edamontology.org/format_3916	'MTX'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+17	ERROR	mandatory_property_missing	http://edamontology.org/format_3951	'BcForms'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+18	ERROR	mandatory_property_missing	http://edamontology.org/operation_0004	'Operation'	is missing mandatory property: http://www.w3.org/2000/01/rdf-schema#subClassOf 
+19	ERROR	mandatory_property_missing	http://edamontology.org/operation_3894	'DNA profiling'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+20	ERROR	mandatory_property_missing	http://edamontology.org/operation_3918	'Genome analysis'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+21	ERROR	mandatory_property_missing	http://edamontology.org/operation_3923	'Genome resequencing'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+22	ERROR	mandatory_property_missing	http://edamontology.org/operation_3925	'Network visualisation'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+23	ERROR	mandatory_property_missing	http://edamontology.org/operation_4009	'Small molecule design'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+24	ERROR	mandatory_property_missing	http://edamontology.org/topic_0003	'Topic'	is missing mandatory property: http://www.w3.org/2000/01/rdf-schema#subClassOf 
+25	ERROR	mandatory_property_missing	http://edamontology.org/topic_3940	'Chromosome conformation capture'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+26	ERROR	mandatory_property_missing	http://edamontology.org/topic_3943	'Paleogenomics'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+27	ERROR	mandatory_property_missing	http://edamontology.org/topic_3948	'Immunoinformatics'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+28	ERROR	mandatory_property_missing	http://edamontology.org/topic_3955	'Fluxomics'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+29	ERROR	mandatory_property_missing	http://edamontology.org/topic_3958	'Copy number variation'	is missing mandatory property: http://www.geneontology.org/formats/oboInOwl#inSubset 
+30	CURATION	end_dot_def_missing	http://edamontology.org/data_0942	'2D PAGE image'	A dot is missing at the end of the definition.
+31	CURATION	end_dot_def_missing	http://edamontology.org/data_1895	'Locus ID (AGI)'	A dot is missing at the end of the definition.
+32	CURATION	end_dot_def_missing	http://edamontology.org/deprecation_comment	'deprecation_comment'	A dot is missing at the end of the definition.
+33	CURATION	end_dot_def_missing	http://edamontology.org/format_3327	'BAI'	A dot is missing at the end of the definition.
+34	CURATION	end_dot_def_missing	http://edamontology.org/format_3328	'HMMER2'	A dot is missing at the end of the definition.
+35	CURATION	end_dot_def_missing	http://edamontology.org/format_3329	'HMMER3'	A dot is missing at the end of the definition.
+36	CURATION	end_dot_def_missing	http://edamontology.org/format_3331	'BLAST XML results format'	A dot is missing at the end of the definition.
+37	CURATION	end_dot_def_missing	http://edamontology.org/format_3462	'CRAM'	A dot is missing at the end of the definition.
+38	CURATION	end_dot_def_missing	http://edamontology.org/format_3466	'EPS'	A dot is missing at the end of the definition.
+39	CURATION	end_dot_def_missing	http://edamontology.org/format_3508	'PDF'	A dot is missing at the end of the definition.
+40	CURATION	end_dot_def_missing	http://edamontology.org/format_3582	'afg'	A dot is missing at the end of the definition.
+41	CURATION	end_dot_def_missing	http://edamontology.org/format_3583	'bedgraph'	A dot is missing at the end of the definition.
+42	CURATION	end_dot_def_missing	http://edamontology.org/format_3605	'rast'	A dot is missing at the end of the definition.
+43	CURATION	end_dot_def_missing	http://edamontology.org/format_3696	'PS'	A dot is missing at the end of the definition.
+44	CURATION	end_dot_def_missing	http://edamontology.org/format_3817	'latex'	A dot is missing at the end of the definition.
+45	CURATION	end_dot_def_missing	http://edamontology.org/format_3830	'ARB'	A dot is missing at the end of the definition.
+46	CURATION	end_dot_def_missing	http://edamontology.org/format_3886	'RST'	A dot is missing at the end of the definition.
+47	CURATION	end_dot_def_missing	http://edamontology.org/operation_2947	'Article analysis'	A dot is missing at the end of the definition.
+48	CURATION	end_dot_def_missing	http://edamontology.org/operation_3359	'Splitting'	A dot is missing at the end of the definition.
+49	CURATION	end_dot_def_missing	http://edamontology.org/operation_3642	'Dimethyl'	A dot is missing at the end of the definition.
+50	CURATION	end_dot_def_missing	http://edamontology.org/operation_3893	'Forcefield parameterisation'	A dot is missing at the end of the definition.
+51	CURATION	end_dot_def_missing	http://edamontology.org/refactor_comment	'refactor_comment'	A dot is missing at the end of the definition.
+52	CURATION	end_dot_def_missing	http://edamontology.org/topic_0655	'Coding RNA'	A dot is missing at the end of the definition.
+53	CURATION	end_dot_def_missing	http://edamontology.org/topic_0767	'Protein and peptide identification'	A dot is missing at the end of the definition.
+54	CURATION	end_dot_def_missing	http://edamontology.org/topic_0771	'Theoretical biology'	A dot is missing at the end of the definition.
+55	CURATION	end_dot_def_missing	http://edamontology.org/topic_3044	'Protein interaction networks'	A dot is missing at the end of the definition.
+56	ESSENTIAL	concept_id_inferior_to_next_id	http://edamontology.org/topic_4033	'Microfluidics'	The concept URI (numerical id) is equal or superior to the next_id info--> update one or the other http://edamontology.org/next_id: '4031'
+57	ESSENTIAL	bad_uri_reference	http://edamontology.org/topic_4028	'Single-Cell Sequencing'	The property http://www.w3.org/2000/01/rdf-schema#subClassOf refers not an undeclared URI: 'http://edamontology.org/topic_331x'
+58	ESSENTIAL	bad_uri_reference	http://edamontology.org/topic_4028	'Acoustics'	The property http://www.w3.org/2000/01/rdf-schema#subClassOf refers not an undeclared URI: 'http://edamontology.org/topic_331x'
+59	ESSENTIAL	bad_uri_reference	http://edamontology.org/topic_4033	'Microfluidics'	The property http://www.w3.org/2000/01/rdf-schema#subClassOf refers not an undeclared URI: 'http://edamontology.org/topic_32922'
+60	ESSENTIAL	bad_uri_reference	http://edamontology.org/topic_4033	'Microfluidics'	The property http://www.w3.org/2000/01/rdf-schema#subClassOf refers not an undeclared URI: 'http://edamontology.org/blabla_3297'

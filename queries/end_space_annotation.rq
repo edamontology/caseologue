@@ -6,8 +6,10 @@ PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX edam:<http://edamontology.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?entity ?property ?value WHERE {
+SELECT DISTINCT ?entity ?property ?value ?label WHERE {
    ?entity ?property ?value .
+   ?entity rdfs:label ?label .
+
    FILTER REGEX(str(?value), "[\\s\r\n]+$")
    FILTER (!isBlank(?entity))
 

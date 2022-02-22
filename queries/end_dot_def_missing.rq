@@ -6,13 +6,15 @@ PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX edam:<http://edamontology.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?entity ?property ?value WHERE {
+SELECT DISTINCT ?entity ?property ?def ?label WHERE {
    VALUES ?property {oboInOwl:hasDefinition}   
-   ?entity ?property ?value .
+   ?entity ?property ?def .
+   ?entity rdfs:label ?label .
+
    FILTER NOT EXISTS {
-       FILTER REGEX(str(?value), "['.']+$")
+       FILTER REGEX(str(?def), "['.']+$")
    }
-   FILTER (!isBlank(?entity))
+   FILTER (!isBlank(?def))
 
 }
 ORDER BY ?entity
