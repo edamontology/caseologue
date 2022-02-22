@@ -1,7 +1,5 @@
-from cProfile import run
 import unittest
 from rdflib import ConjunctiveGraph, Namespace
-import json
 import os
 import pandas as pd
 import argparse

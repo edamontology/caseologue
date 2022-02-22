@@ -1,0 +1,6 @@
+rdflib
+unittest
+os
+pandas
+argparse
+sys

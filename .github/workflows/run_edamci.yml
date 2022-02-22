@@ -13,6 +13,10 @@ jobs:
       
     - uses: actions/checkout@v2
 
+    -name: Install requirements
+     run: |
+        pip install -r requirements.txt
+
     - name: run 
       run: |
         wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
