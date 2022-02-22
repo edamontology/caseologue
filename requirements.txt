@@ -1,5 +1,3 @@
 rdflib
-os
 pandas
 argparse
-sys
