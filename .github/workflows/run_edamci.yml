@@ -13,8 +13,8 @@ jobs:
       
     - uses: actions/checkout@v2
 
-    -name: Install requirements
-     run: |
+    - name: Install requirements
+      run: |
         pip install -r requirements.txt
 
     - name: run 
