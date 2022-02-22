@@ -1,7 +1,7 @@
 name: EDAMCI
 
 on:
-   [workflow_dispatch]
+   [push ,workflow_dispatch]
 
 jobs:
   
