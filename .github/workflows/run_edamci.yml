@@ -1,0 +1,35 @@
+name: EDAMCI
+
+on:
+   [push ,workflow_dispatch]
+
+jobs:
+  
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - uses: actions/checkout@v2
+
+    - name: Install requirements
+      run: |
+        pip install -r requirements.txt
+        wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
+
+    - name: run 
+      run: |
+        EDAM_PATH=./EDAM_dev.owl python3 edamci.py   
+     
+    - name: Print output
+      if: always()
+      run: |
+        cat output_edamci.tsv 
+
+    - name: Archive tests output
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: output_edamci
+        path: output_edamci.tsv
