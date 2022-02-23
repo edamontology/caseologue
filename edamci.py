@@ -16,7 +16,7 @@ def parsing () :
 
     args = parser.parse_args()
 
-    print("args argparse",args.error,args.essential,args.curation)
+    #print("args argparse",args.error,args.essential,args.curation)
 
     if (args.error!=False or args.essential!=False or args.curation!=False) :
         run_error = args.error
@@ -29,7 +29,7 @@ def parsing () :
         run_essential = True
         run_curation = True
 
-    print("def parsing",run_error,run_essential,run_curation)
+    #print("def parsing",run_error,run_essential,run_curation)
 
     sys.argv[1:] = args.unittest_args 
 
@@ -285,8 +285,10 @@ class EdamQueryTest(unittest.TestCase):
                 new_error = pd.DataFrame([['ESSENTIAL','bad_uri_reference',r['entity'],(f"'{r['label']}'"),(f"The property {r['property']} refers not an undeclared URI: '{r['reference']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
                 self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
-
+        
         self.assertEqual(nb_err, 0)
+
+
     
     
     def test_XXXTEST_NAMEXXX(self):
@@ -316,7 +318,12 @@ class EdamQueryTest(unittest.TestCase):
 if __name__ == '__main__':
 
     run_error,run_essential,run_curation = parsing()
-    print('main',run_error,run_essential,run_curation)
+    print(f"error = {run_error}, essential = {run_essential}, curation = {run_curation}")
 
+    
     runner = unittest.TextTestRunner()
-    runner.run(suite())
+    sys.exit(runner.run(suite()))
+    
+
+
+    
