@@ -16,10 +16,10 @@ jobs:
     - name: Install requirements
       run: |
         pip install -r requirements.txt
+        wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
 
     - name: run 
       run: |
-        wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
         EDAM_PATH=./EDAM_dev.owl python3 edamci.py   
      
     - name: Print output
