@@ -54,6 +54,8 @@ def suite ():
         suite.addTest(EdamQueryTest('test_concept_id_inferior_to_next_id'))
     if run_essential == True :
         suite.addTest(EdamQueryTest('test_bad_uri_reference'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
 
     return suite
 
@@ -288,7 +290,22 @@ class EdamQueryTest(unittest.TestCase):
         
         self.assertEqual(nb_err, 0)
 
+    def test_missing_deprecated_property(self):
+            
+        query = "queries/missing_deprecated_property.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
 
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['ERROR','missing_deprecated_property',r['entity'],(f"'{r['label']}'"),(f"is missing mandatory deprecated property: {r['property']}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+
+        self.assertEqual(nb_err, 0)
     
     
     def test_XXXTEST_NAMEXXX(self):
