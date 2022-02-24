@@ -56,7 +56,7 @@ def suite ():
         suite.addTest(EdamQueryTest('test_bad_uri_reference'))
     if run_error == True :
         suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
-    if run_error == True :
+    if run_curation == True :
         suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
 
     return suite
