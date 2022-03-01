@@ -75,6 +75,7 @@ class EdamQueryTest(unittest.TestCase):
         cls.report = pd.DataFrame(columns = ['Level','Test Name','Entity','Label','Debug Message'])
         #print(cls.report)
     
+    ################# DEPRECATED REPLACEMENT OBSOLETE ###########################
 
     def test_deprecated_replacement_obsolete(self):
         
@@ -91,6 +92,8 @@ class EdamQueryTest(unittest.TestCase):
 
         
         self.assertEqual(nb_err, 0)
+
+    ################# SUPERCLASS REFERS TO SELF ###########################
 
     def test_super_class_refers_to_self(self):
             
@@ -109,6 +112,8 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
+    ################# BAD URI ###########################
+
     def test_bad_uri(self):
             
         query = "queries/bad_uri.rq"
@@ -125,7 +130,9 @@ class EdamQueryTest(unittest.TestCase):
         
 
         self.assertEqual(nb_err, 0)
-    
+
+    ################# MANDATORY PROPERTY MISSING ###########################
+
     def test_mandatory_property_missing(self):
             
         query = "queries/mandatory_property_missing.rq"
@@ -137,12 +144,13 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            #here put a filter for root concept missing subClassOf? 
             new_error = pd.DataFrame([['ERROR','mandatory_property_missing',r['entity'],(f"'{r['label']}'"),(f"is missing mandatory property: {r['property']} ")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
 
         self.assertEqual(nb_err, 0)
+
+    ################# FORMATING ###########################
 
     def test_formating(self):
             
@@ -226,6 +234,8 @@ class EdamQueryTest(unittest.TestCase):
         self.assertEqual(nb_err, 0)
 
 
+    ################# DEPRECATED REPLACEMENT ###########################
+
     def test_deprecated_replacement(self):
             
         query = "queries/deprecated_replacement.rq"
@@ -244,6 +254,8 @@ class EdamQueryTest(unittest.TestCase):
         self.assertEqual(nb_err, 0)
 
 
+    ################# CONCEPT ID INFERIOR TO NEXT ###########################
+
     def test_concept_id_inferior_to_next_id(self):
             
         query = "queries/concept_id_inferior_to_next_id.rq"
@@ -260,7 +272,9 @@ class EdamQueryTest(unittest.TestCase):
         
 
         self.assertEqual(nb_err, 0)
-    
+
+
+    ################# BAD URI REFERENCE ###########################
 
     def test_bad_uri_reference(self):
             
@@ -292,6 +306,9 @@ class EdamQueryTest(unittest.TestCase):
         
         self.assertEqual(nb_err, 0)
 
+
+    ################# MISSING DEPRECATED PROPERTY ###########################
+
     def test_missing_deprecated_property(self):
             
         query = "queries/missing_deprecated_property.rq"
@@ -310,6 +327,8 @@ class EdamQueryTest(unittest.TestCase):
         self.assertEqual(nb_err, 0)
 
 
+    ################# MISSING WIKIPEDIA LINK ###########################
+
     def test_check_wikipedia_link(self):
             
         query = "queries/check_wikipedia_link.rq"
@@ -327,6 +346,8 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
+
+    ################# TEST NAME ###########################
     
     def test_XXXTEST_NAMEXXX(self):
             
