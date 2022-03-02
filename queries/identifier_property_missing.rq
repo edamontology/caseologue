@@ -6,10 +6,12 @@ PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX edam:<http://edamontology.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?entity ?label WHERE {
+SELECT ?entity ?label ?property WHERE
+{
+    ?entity rdfs:subClassOf+ edam:data_2091 .
+    ?entity rdfs:label ?label .
+        VALUES ?property { edam:regex               
+                        }
+    FILTER NOT EXISTS {?entity ?property ?value .}
     
-    ?entity a owl:Class .
-    OPTIONAL  {?entity rdfs:label ?label .}
-    
-}
-ORDER BY ?entity
+}ORDER BY ?entity

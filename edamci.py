@@ -1,9 +1,11 @@
 import unittest
-from rdflib import ConjunctiveGraph, Namespace
+from rdflib import OWL, ConjunctiveGraph, Namespace
 import os
 import pandas as pd
 import argparse
 import sys
+from collections import Counter
+from rdflib.namespace import RDF, RDFS, _OWL
 
 
 def parsing () :
@@ -58,7 +60,10 @@ def suite ():
         suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
     if run_curation == True :
         suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
-
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_id_unique'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_identifier_property_missing'))
     return suite
 
 
@@ -172,7 +177,7 @@ class EdamQueryTest(unittest.TestCase):
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
-        nb_err += len(results)
+        nb_err += len(results)  # add to same counter for the test 
         f.close()
 
         for r in results:
@@ -283,7 +288,7 @@ class EdamQueryTest(unittest.TestCase):
         with open(query,'r') as f:
             query_term = f.read()
 
-        results = self.edam_graph.query(query_term)
+        results = self.edam_graph.query(query_term)  #retrieve all URI
         f.close()
 
         for r in results :
@@ -293,12 +298,12 @@ class EdamQueryTest(unittest.TestCase):
         with open(query,'r') as f:
             query_term = f.read()
 
-        results = self.edam_graph.query(query_term)
+        results = self.edam_graph.query(query_term)  # retrieve all referenced URI
         f.close()
 
         nb_err = 0
         for r in results:
-            if r['reference'] not in uri :
+            if r['reference'] not in uri : # checks if the references URI is in the declared concept URI
                 nb_err += 1
                 new_error = pd.DataFrame([['ESSENTIAL','bad_uri_reference',r['entity'],(f"'{r['label']}'"),(f"The property {r['property']} refers not an undeclared URI: '{r['reference']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
                 self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
@@ -346,6 +351,56 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
+    ################# ID UNIQUE ###########################
+    
+    def test_id_unique(self):
+        
+        query = "queries/get_uri.rq"
+        uri=[]
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term) #retrieves all URI and labels 
+        f.close()
+
+
+        index_of_id = []
+        for subject,predicate,obj in self.edam_graph.triples((None, RDF.type, OWL.Class)):
+            if "_" in str(subject):
+                indent = str(subject).split("_")[1]
+                index_of_id.append(indent)
+        
+
+        id_counter = Counter(index_of_id)   #finds all duplicate in numerical id 
+        nb_err = 0
+        for duplicate_id in filter(lambda x: x[1]>1 , id_counter.items()):
+            nb_err +=1
+            for r in results:
+                if duplicate_id[0] in str(r['entity']):    #from numerical id duplicate, retrieve URI and label 
+                    new_error = pd.DataFrame([['ERROR','id_unique',r['entity'],(f"'{r['label']}'"),(f"numerical id is used several times:{duplicate_id[0]}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+                    self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+                
+
+        self.assertEqual(nb_err, 0)
+
+    ################# IDENTIFIER PROPERTY MISSING ###########################
+    
+    def test_identifier_property_missing(self):
+            
+        query = "queries/identifier_property_missing.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['CURATION','identifier_property_missing',r['entity'],(f"'{r['label']}'"),"Missing regex property"]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+
+        self.assertEqual(nb_err, 0)
 
     ################# TEST NAME ###########################
     
@@ -369,7 +424,11 @@ class EdamQueryTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         #output = cls.report.sort('Level',)
-        print(cls.report)
+        if cls.report.empty == False:
+            print("\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________")
+            pd.set_option("display.max_rows",None,"display.max_colwidth", 250)
+            print(cls.report[['Entity','Label','Debug Message']])
+        # print(cls.report)
         cls.report.to_csv("./output_edamci.tsv", sep='\t')
         return super().tearDownClass()
 
