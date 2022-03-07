@@ -20,7 +20,7 @@ jobs:
 
     - name: run 
       run: |
-        EDAM_PATH=./EDAM_dev.owl python3 edamci.py   
+        EDAM_PATH=./EDAM_dev.owl python3 edamci.py -e -E
      
     # - name: Print output
     #   if: always()
