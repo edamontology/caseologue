@@ -1,3 +1,4 @@
+import inspect
 import unittest
 from rdflib import OWL, ConjunctiveGraph, Namespace
 import os
@@ -40,7 +41,7 @@ def parsing () :
 
 def suite ():
     suite = unittest.TestSuite()
-    if run_error == True :
+    if run_curation == True :
         suite.addTest(EdamQueryTest('test_deprecated_replacement_obsolete'))
     if run_essential == True :
         suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
@@ -83,6 +84,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# DEPRECATED REPLACEMENT OBSOLETE ###########################
 
     def test_deprecated_replacement_obsolete(self):
+
+        """
+        Checks that the suggested replacement (replacedBy/consider) for a deprecated term is not obsolete.
+        """
         
         query = "queries/deprecated_replacement_obsolete.rq"
         with open(query,'r') as f:
@@ -92,7 +97,7 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['ERROR','deprecated_replacement_obsolete',r['entity'],(f"'{r['label']}'"),(f"concept is replaced by ({r['property']}) an obsolete concept: {r['replacement']}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            new_error = pd.DataFrame([['CURATION','deprecated_replacement_obsolete',r['entity'],(f"'{r['label']}'"),(f"concept is replaced by ({r['property']}) an obsolete concept: {r['replacement']}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
 
         
@@ -101,6 +106,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# SUPERCLASS REFERS TO SELF ###########################
 
     def test_super_class_refers_to_self(self):
+
+        """
+        Checks if a given consept doesn't refers to itself as superclass.
+        """
             
         query = "queries/super_class_refers_to_self.rq"
         with open(query,'r') as f:
@@ -120,7 +129,11 @@ class EdamQueryTest(unittest.TestCase):
     ################# BAD URI ###########################
 
     def test_bad_uri(self):
-            
+
+        """
+        Checks that the concepts URI matches the regex ^http://edamontology.org/(data|topic|operation|format)_[0-9]{4}$.
+        """
+
         query = "queries/bad_uri.rq"
         with open(query,'r') as f:
             query_term = f.read()
@@ -139,6 +152,11 @@ class EdamQueryTest(unittest.TestCase):
     ################# MANDATORY PROPERTY MISSING ###########################
 
     def test_mandatory_property_missing(self):
+
+        """
+        Checks that no mandatory property for all concepts are missing (oboInOwl:hasDefinition, rdfs:subClassOf, created_in, oboInOwl:inSubset, rdfs:label).
+)
+        """
             
         query = "queries/mandatory_property_missing.rq"
         with open(query,'r') as f:
@@ -158,6 +176,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# FORMATING ###########################
 
     def test_formating(self):
+
+        """
+        Checks that no property has a space neither at the start nor the end, no tab and no end of line. Checks that label have not dot at the end and that definition do have a dot at the end. 
+        """
             
         query = "queries/end_dot_def_missing.rq"
         with open(query,'r') as f:
@@ -242,6 +264,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# DEPRECATED REPLACEMENT ###########################
 
     def test_deprecated_replacement(self):
+
+        """"
+        checks that every deprecated concept has a replacement suggested (replaced_by or consider).
+        """
             
         query = "queries/deprecated_replacement.rq"
         with open(query,'r') as f:
@@ -262,6 +288,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# CONCEPT ID INFERIOR TO NEXT ###########################
 
     def test_concept_id_inferior_to_next_id(self):
+
+        """
+        Checks that the numerical part of the concept URI is inferior to the "next id" variable (header).
+        """
             
         query = "queries/concept_id_inferior_to_next_id.rq"
         with open(query,'r') as f:
@@ -282,13 +312,19 @@ class EdamQueryTest(unittest.TestCase):
     ################# BAD URI REFERENCE ###########################
 
     def test_bad_uri_reference(self):
+
+        """
+        Check that a reference (e.g. superclass) to another concept is actually declared in EDAM.
+
+        "get_uri.rq" retrieves all URI. "uri_reference.rq" retrieves all referenced URI. Then check if the references URIs are in the declared concept URIs.
+        """
             
         query = "queries/get_uri.rq"
         uri=[]
         with open(query,'r') as f:
             query_term = f.read()
 
-        results = self.edam_graph.query(query_term)  #retrieve all URI
+        results = self.edam_graph.query(query_term) 
         f.close()
 
         for r in results :
@@ -298,12 +334,12 @@ class EdamQueryTest(unittest.TestCase):
         with open(query,'r') as f:
             query_term = f.read()
 
-        results = self.edam_graph.query(query_term)  # retrieve all referenced URI
+        results = self.edam_graph.query(query_term) 
         f.close()
 
         nb_err = 0
         for r in results:
-            if r['reference'] not in uri : # checks if the references URI is in the declared concept URI
+            if r['reference'] not in uri : 
                 nb_err += 1
                 new_error = pd.DataFrame([['ESSENTIAL','bad_uri_reference',r['entity'],(f"'{r['label']}'"),(f"The property {r['property']} refers not an undeclared URI: '{r['reference']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
                 self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
@@ -315,6 +351,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# MISSING DEPRECATED PROPERTY ###########################
 
     def test_missing_deprecated_property(self):
+
+        """
+        Checks that no mandatory property for deprecated concept are missing (edam:obsolete_since, edam:oldParent, oboInOwl:inSubset <http://purl.obolibrary.org/obo/edam#obsolete>, rdfs:subClassOf <http://www.w3.org/2002/07/owl#DeprecatedClass>).
+        """
             
         query = "queries/missing_deprecated_property.rq"
         with open(query,'r') as f:
@@ -335,6 +375,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# MISSING WIKIPEDIA LINK ###########################
 
     def test_check_wikipedia_link(self):
+
+        """
+        Checks that every topic has a wikipedia link filled in the seeAlso property.
+        """
             
         query = "queries/check_wikipedia_link.rq"
         with open(query,'r') as f:
@@ -354,13 +398,19 @@ class EdamQueryTest(unittest.TestCase):
     ################# ID UNIQUE ###########################
     
     def test_id_unique(self):
+
+        """
+        Checks that no numeriacal part of the URI is duplicated.
+
+        "get_uri.rq" retrieves all URI and labels. Then retrieve all numerical part of URI, find all duplicate in numerical id. Finally match duplicate to concept URI. 
+        """
         
         query = "queries/get_uri.rq"
         uri=[]
         with open(query,'r') as f:
             query_term = f.read()
 
-        results = self.edam_graph.query(query_term) #retrieves all URI and labels 
+        results = self.edam_graph.query(query_term)
         f.close()
 
 
@@ -371,7 +421,7 @@ class EdamQueryTest(unittest.TestCase):
                 index_of_id.append(indent)
         
 
-        id_counter = Counter(index_of_id)   #finds all duplicate in numerical id 
+        id_counter = Counter(index_of_id) 
         nb_err = 0
         for duplicate_id in filter(lambda x: x[1]>1 , id_counter.items()):
             nb_err +=1
@@ -386,6 +436,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# IDENTIFIER PROPERTY MISSING ###########################
     
     def test_identifier_property_missing(self):
+
+        """
+        Checks the no mandatory property for identifier (subclass of accession) are missing (regex).
+        """
             
         query = "queries/identifier_property_missing.rq"
         with open(query,'r') as f:
@@ -405,6 +459,10 @@ class EdamQueryTest(unittest.TestCase):
     ################# TEST NAME ###########################
     
     def test_XXXTEST_NAMEXXX(self):
+
+        """
+        Docstring documentation. 
+        """
             
         query = "queries/XXXQUERY_FILEXXX"
         with open(query,'r') as f:
@@ -437,7 +495,6 @@ if __name__ == '__main__':
     run_error,run_essential,run_curation = parsing()
     print(f"error = {run_error}, essential = {run_essential}, curation = {run_curation}")
 
-    
     runner = unittest.TextTestRunner()
     sys.exit(runner.run(suite()))
     
