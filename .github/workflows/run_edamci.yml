@@ -22,10 +22,10 @@ jobs:
       run: |
         EDAM_PATH=./EDAM_dev.owl python3 edamci.py   
      
-    - name: Print output
-      if: always()
-      run: |
-        cat output_edamci.tsv 
+    # - name: Print output
+    #   if: always()
+    #   run: |
+    #     cat output_edamci.tsv 
 
     - name: Archive tests output
       if: always()

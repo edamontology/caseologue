@@ -15,5 +15,7 @@ SELECT DISTINCT ?entity ?label WHERE {
     FILTER NOT EXISTS {
         FILTER REGEX(str(?entity), "^http://edamontology.org/(data|topic|operation|format)_[0-9]{4}$")
    }
+    FILTER ( ?entity != <http://www.geneontology.org/formats/oboInOwl#ObsoleteClass>)
+
 }
 ORDER BY ?entity

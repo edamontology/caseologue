@@ -15,8 +15,14 @@ SELECT DISTINCT ?entity ?property ?label ?property_subs_edam WHERE {
                        rdfs:label
                         }
     ?entity a owl:Class .
+
     FILTER NOT EXISTS {?entity owl:deprecated true .}
-    ?entity rdfs:label ?label .
+    OPTIONAL {?entity rdfs:label ?label .}
+    FILTER ( ?entity != <http://edamontology.org/data_0006>)
+    FILTER ( ?entity != <http://edamontology.org/topic_0003>)
+    FILTER ( ?entity != <http://www.w3.org/2002/07/owl#DeprecatedClass>)
+    FILTER ( ?entity != <http://edamontology.org/operation_0004>)
+    FILTER ( ?entity != <http://edamontology.org/format_1915>)
 
     FILTER NOT EXISTS {?entity ?property ?value .}
     }
@@ -26,6 +32,7 @@ SELECT DISTINCT ?entity ?property ?label ?property_subs_edam WHERE {
                         }
     FILTER NOT EXISTS {?entity ?property <http://purl.obolibrary.org/obo/edam#edam> .}
     }
+    
     #should specify thet there shoul be 2 subset, one edam and one different with a value "not in"?
 }
 ORDER BY ?entity
