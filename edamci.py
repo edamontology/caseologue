@@ -7,7 +7,7 @@ import argparse
 import sys
 from collections import Counter
 from rdflib.namespace import RDF, RDFS, _OWL
-
+from tabulate import tabulate
 
 def parsing () :
 
@@ -484,8 +484,8 @@ class EdamQueryTest(unittest.TestCase):
         #output = cls.report.sort('Level',)
         if cls.report.empty == False:
             print("\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________")
-            pd.set_option("display.max_rows",None,"display.max_colwidth", 250)
-            print(cls.report[['Entity','Label','Debug Message']])
+            pd.set_option("display.max_rows",None,"display.max_colwidth", 5000,"display.width",5000)
+            print(tabulate(cls.report[['Entity','Label','Debug Message']], headers=['Entity','Label','Debug Message']))
         # print(cls.report)
         cls.report.to_csv("./output_edamci.tsv", sep='\t')
         return super().tearDownClass()
