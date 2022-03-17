@@ -2,3 +2,4 @@ rdflib
 pandas
 argparse
 tabulate
+lxml

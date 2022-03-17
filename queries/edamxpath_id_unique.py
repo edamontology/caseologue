@@ -4,7 +4,6 @@
 import sys
 import argparse
 from lxml import etree
-from blessings import Terminal
 
 # parsing and declaring namespaces...
 EDAM_NS = {'owl' : 'http://www.w3.org/2002/07/owl#',
@@ -12,8 +11,6 @@ EDAM_NS = {'owl' : 'http://www.w3.org/2002/07/owl#',
            'rdfs':"http://www.w3.org/2000/01/rdf-schema#",
            'oboInOwl': "http://www.geneontology.org/formats/oboInOwl#",
            'eo': 'http://edamontology.org/'}
-
-term = Terminal()
 
 
 def check_unique_id(file_path):
