@@ -8,7 +8,7 @@ import sys
 from collections import Counter
 from rdflib.namespace import RDF, RDFS, _OWL
 from tabulate import tabulate
-from rich_dataframe import prettify
+# from rich_dataframe import prettify
 from queries.edamxpath_id_unique import check_unique_id
 
 def parsing () :
