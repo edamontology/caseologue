@@ -67,6 +67,8 @@ def suite ():
         suite.addTest(EdamQueryTest('test_identifier_property_missing'))
     if run_error == True :
         suite.addTest(EdamQueryTest('test_id_unique'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_relation_too_broad'))
     return suite
 
 
@@ -421,6 +423,7 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
+    
     ################# ID UNIQUE ###########################
     
     def test_id_unique(self):
@@ -443,11 +446,36 @@ class EdamQueryTest(unittest.TestCase):
         for id in duplicate_id:
             for r in results:
                 if id in str(r['entity']):   
-                    new_error = pd.DataFrame([['ERROR','id_unique',r['entity'],(f"'{r['label']}'"),(f"numerical id is used several times:{duplicate_id[0]}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+                    new_error = pd.DataFrame([['ERROR','id_unique',r['entity'],(f"'{r['label']}'"),(f"numerical id is used several times")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
                     self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
 
         self.assertEqual(nb_err, 0)    
 
+
+    ################# RELATION TOO BROAD ###########################
+    
+    def test_relation_too_broad(self):
+
+        """
+        Checks that concept is not in relation (restriction) with a concept not recommanded for annotation. 
+        """
+            
+        query = "queries/relation_too_broad.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['CURATION','relation_too_broad',r['entity'],(f"'{r['label']}'"),(f"linked ({r['property']}) with a concept not recomanded for annotation : '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+
+        self.assertEqual(nb_err, 0)
+
+        
     ################# TEST NAME ###########################
     
     def test_XXXTEST_NAMEXXX(self):
