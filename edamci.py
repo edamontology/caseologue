@@ -8,6 +8,8 @@ import sys
 from collections import Counter
 from rdflib.namespace import RDF, RDFS, _OWL
 from tabulate import tabulate
+from rich_dataframe import prettify
+from queries.edamxpath_id_unique import check_unique_id
 
 def parsing () :
 
@@ -61,10 +63,10 @@ def suite ():
         suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
     if run_curation == True :
         suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_id_unique'))
     if run_curation == True :
         suite.addTest(EdamQueryTest('test_identifier_property_missing'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_id_unique'))
     return suite
 
 
@@ -395,43 +397,6 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
-    ################# ID UNIQUE ###########################
-    
-    def test_id_unique(self):
-
-        """
-        Checks that no numeriacal part of the URI is duplicated.
-
-        "get_uri.rq" retrieves all URI and labels. Then retrieve all numerical part of URI, find all duplicate in numerical id. Finally match duplicate to concept URI. 
-        """
-        
-        query = "queries/get_uri.rq"
-        uri=[]
-        with open(query,'r') as f:
-            query_term = f.read()
-
-        results = self.edam_graph.query(query_term)
-        f.close()
-
-
-        index_of_id = []
-        for subject,predicate,obj in self.edam_graph.triples((None, RDF.type, OWL.Class)):
-            if "_" in str(subject):
-                indent = str(subject).split("_")[1]
-                index_of_id.append(indent)
-        
-
-        id_counter = Counter(index_of_id) 
-        nb_err = 0
-        for duplicate_id in filter(lambda x: x[1]>1 , id_counter.items()):
-            nb_err +=1
-            for r in results:
-                if duplicate_id[0] in str(r['entity']):    #from numerical id duplicate, retrieve URI and label 
-                    new_error = pd.DataFrame([['ERROR','id_unique',r['entity'],(f"'{r['label']}'"),(f"numerical id is used several times:{duplicate_id[0]}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-                    self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-                
-
-        self.assertEqual(nb_err, 0)
 
     ################# IDENTIFIER PROPERTY MISSING ###########################
     
@@ -455,6 +420,33 @@ class EdamQueryTest(unittest.TestCase):
         
 
         self.assertEqual(nb_err, 0)
+
+    ################# ID UNIQUE ###########################
+    
+    def test_id_unique(self):
+
+        """
+        Checks that no numeriacal part of the URI is duplicated.
+        """
+            
+        duplicate_id = check_unique_id(os.environ.get('EDAM_PATH'))
+        nb_err = len(duplicate_id)
+
+        query = "queries/get_uri.rq"
+        uri=[]
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        f.close()
+
+        for id in duplicate_id:
+            for r in results:
+                if id in str(r['entity']):   
+                    new_error = pd.DataFrame([['ERROR','id_unique',r['entity'],(f"'{r['label']}'"),(f"numerical id is used several times:{duplicate_id[0]}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+                    self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+
+        self.assertEqual(nb_err, 0)    
 
     ################# TEST NAME ###########################
     
@@ -485,8 +477,8 @@ class EdamQueryTest(unittest.TestCase):
         if cls.report.empty == False:
             print("\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________")
             pd.set_option("display.max_rows",None,"display.max_colwidth", 5000,"display.width",5000)
-            print(tabulate(cls.report[['Entity','Label','Debug Message']], headers=['Entity','Label','Debug Message']))
-        # print(cls.report)
+            print(tabulate(cls.report[['Test Name','Entity','Label','Debug Message']], headers=['Test Name','Entity','Label','Debug Message']))
+            # prettify(cls.report[['Entity','Label','Debug Message']])
         cls.report.to_csv("./output_edamci.tsv", sep='\t')
         return super().tearDownClass()
 
