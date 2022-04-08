@@ -17,9 +17,12 @@
 <!-- http://edamontology.org/topic_0203 -->
 
 <owl:Class rdf:about="http://edamontology.org/topic_0203">
+    <rdfs:subClassOf rdf:resource="http://edamontology.org/topic_3321"/>
+    <created_in>beta12orEarlier</created_in>
     <isdebtag rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isdebtag>
     <oboInOwl:hasAlternativeId>http://edamontology.org/topic_0197</oboInOwl:hasAlternativeId>
-    <oboInOwl:hasExactSynonym>Expression</oboInOwl:hasExactSynonym>
+    <oboInOwl:hasDefinition>The analysis of levels and patterns of synthesis of gene products (proteins and functional RNA) including interpretation in functional terms of gene expression data.</oboInOwl:hasDefinition>
+    <oboInOwl:hasExactSynonym>Gene regulation</oboInOwl:hasExactSynonym>
     <oboInOwl:hasHumanReadableId>Gene_expression</oboInOwl:hasHumanReadableId>
     <oboInOwl:hasNarrowSynonym>Codon usage</oboInOwl:hasNarrowSynonym>
     <oboInOwl:hasNarrowSynonym>DNA chips</oboInOwl:hasNarrowSynonym>
@@ -44,10 +47,13 @@
     <rdfs:subClassOf rdf:resource="http://edamontology.org/topic_0203"/>
     <created_in>beta12orEarlier</created_in>
     <isdebtag rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isdebtag>
-    <oboInOwl:hasDefinition>The regulation	 of gene expression</oboInOwl:hasDefinition>
+    <oboInOwl:hasDefinition>The regulation of gene expression.</oboInOwl:hasDefinition>
     <oboInOwl:hasNarrowSynonym>Regulatory genomics</oboInOwl:hasNarrowSynonym>
+    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#topics"/>
+    <rdfs:label>Gene regulation</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://en.wikipedia.org/wiki/Regulation_of_gene_expression"/>
 </owl:Class>
-
 
 
 </rdf:RDF>

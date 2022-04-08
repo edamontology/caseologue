@@ -43,32 +43,36 @@ def parsing () :
 
 def suite ():
     suite = unittest.TestSuite()
+    # if run_curation == True :
+    #     suite.addTest(EdamQueryTest('test_deprecated_replacement_obsolete'))
+    # if run_essential == True :
+    #     suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
+    # if run_essential == True :
+    #     suite.addTest(EdamQueryTest('test_bad_uri'))
+    # if run_error == True :
+    #     suite.addTest(EdamQueryTest('test_mandatory_property_missing'))
+    # if run_curation == True :
+    #     suite.addTest(EdamQueryTest('test_formating'))
+    # if run_error == True :
+    #     suite.addTest(EdamQueryTest('test_deprecated_replacement'))
+    # if run_essential == True :
+    #     suite.addTest(EdamQueryTest('test_concept_id_inferior_to_next_id'))
+    # if run_essential == True :
+    #     suite.addTest(EdamQueryTest('test_bad_uri_reference'))
+    # if run_error == True :
+    #     suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
+    # if run_curation == True :
+    #     suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
+    # if run_curation == True :
+    #     suite.addTest(EdamQueryTest('test_identifier_property_missing'))
+    # if run_error == True :
+    #     suite.addTest(EdamQueryTest('test_id_unique'))
+    # if run_curation == True :
+    #     suite.addTest(EdamQueryTest('test_relation_too_broad'))
+    # if run_curation == True :
+    #     suite.addTest(EdamQueryTest('test_duplicate_in_concept'))
     if run_curation == True :
-        suite.addTest(EdamQueryTest('test_deprecated_replacement_obsolete'))
-    if run_essential == True :
-        suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
-    if run_essential == True :
-        suite.addTest(EdamQueryTest('test_bad_uri'))
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_mandatory_property_missing'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_formating'))
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_deprecated_replacement'))
-    if run_essential == True :
-        suite.addTest(EdamQueryTest('test_concept_id_inferior_to_next_id'))
-    if run_essential == True :
-        suite.addTest(EdamQueryTest('test_bad_uri_reference'))
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_identifier_property_missing'))
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_id_unique'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_relation_too_broad'))
+        suite.addTest(EdamQueryTest('test_duplicate_all'))
     return suite
 
 
@@ -475,7 +479,58 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
+ 
+    ################# DUPLICATE IN CONCEPT ###########################
+    
+    def test_duplicate_in_concept(self):
+
+        """
+        Checks that there is no duplicate content (case insensitive) within a concept on given properties (see SPARQL query). 
+        """
+            
+        query = "queries/duplicate_in_concept.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['CURATION','duplicate_in_concept',r['entity'],(f"'{r['label']}'"),(f"{r['property']} and {r['property2']} have the same content: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
+        #here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
+
+        self.assertEqual(nb_err, 0)
+
+
+    ################# DUPLICATE ALL ###########################
+    
+    def test_duplicate_all(self):
+
+        """
+        Checks that there is no duplicate content (case sensitive) across all the ontology on given properties (see SPARQl query). 
+        """
+        # this is case sensitive for computational time reasons
+    
+        query = "queries/duplicate_all.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['CURATION','duplicate_all',r['entity'],(f"'{r['label']}'"),(f"have the same content on {r['property']} as {r['entity2']} '{r['label2']}' on {r['property2']}: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+        #here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
+
+        self.assertEqual(nb_err, 0)
+
+
     ################# TEST NAME ###########################
     
     def test_XXXTEST_NAMEXXX(self):
