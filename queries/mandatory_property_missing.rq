@@ -11,7 +11,7 @@ SELECT DISTINCT ?entity ?property ?label ?property_subs_edam WHERE {
     VALUES ?property { oboInOwl:hasDefinition
                        rdfs:subClassOf
                        edam:created_in
-                       oboInOwl:inSubset
+                       #oboInOwl:inSubset
                        rdfs:label
                         }
     ?entity a owl:Class .

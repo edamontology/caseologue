@@ -6,7 +6,7 @@ PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX edam:<http://edamontology.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?entity ?property ?entity2 ?property2 ?value ?label ?label2 WHERE { 
+SELECT DISTINCT ?entity ?label ?property ?entity2 ?label2 ?property2 ?value WHERE { 
     VALUES ?property {
                       oboInOwl:hasDefinition
                       oboInOwl:hasExactSynonym

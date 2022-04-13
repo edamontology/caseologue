@@ -10,6 +10,8 @@ SELECT DISTINCT ?entity ?property ?label WHERE {
     
     ?entity owl:deprecated true .
     ?entity rdfs:label ?label .
+    FILTER ( ?entity != <http://www.geneontology.org/formats/oboInOwl#ObsoleteClass>)
+    
     {VALUES ?property { edam:obsolete_since
                        edam:oldParent                
                         }

@@ -43,36 +43,38 @@ def parsing () :
 
 def suite ():
     suite = unittest.TestSuite()
-    # if run_curation == True :
-    #     suite.addTest(EdamQueryTest('test_deprecated_replacement_obsolete'))
-    # if run_essential == True :
-    #     suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
-    # if run_essential == True :
-    #     suite.addTest(EdamQueryTest('test_bad_uri'))
-    # if run_error == True :
-    #     suite.addTest(EdamQueryTest('test_mandatory_property_missing'))
-    # if run_curation == True :
-    #     suite.addTest(EdamQueryTest('test_formating'))
-    # if run_error == True :
-    #     suite.addTest(EdamQueryTest('test_deprecated_replacement'))
-    # if run_essential == True :
-    #     suite.addTest(EdamQueryTest('test_concept_id_inferior_to_next_id'))
-    # if run_essential == True :
-    #     suite.addTest(EdamQueryTest('test_bad_uri_reference'))
-    # if run_error == True :
-    #     suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
-    # if run_curation == True :
-    #     suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
-    # if run_curation == True :
-    #     suite.addTest(EdamQueryTest('test_identifier_property_missing'))
-    # if run_error == True :
-    #     suite.addTest(EdamQueryTest('test_id_unique'))
-    # if run_curation == True :
-    #     suite.addTest(EdamQueryTest('test_relation_too_broad'))
-    # if run_curation == True :
-    #     suite.addTest(EdamQueryTest('test_duplicate_in_concept'))
     if run_curation == True :
-        suite.addTest(EdamQueryTest('test_duplicate_all'))
+        suite.addTest(EdamQueryTest('test_deprecated_replacement_obsolete'))
+    if run_essential == True :
+        suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
+    if run_essential == True :
+        suite.addTest(EdamQueryTest('test_bad_uri'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_mandatory_property_missing'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_formating'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_deprecated_replacement'))
+    if run_essential == True :
+        suite.addTest(EdamQueryTest('test_concept_id_inferior_to_next_id'))
+    if run_essential == True :
+        suite.addTest(EdamQueryTest('test_bad_uri_reference'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_identifier_property_missing'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_id_unique'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_relation_too_broad'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_duplicate_in_concept'))
+    # if run_curation == True :
+    #     suite.addTest(EdamQueryTest('test_duplicate_all'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_literal_links'))
     return suite
 
 
@@ -527,6 +529,30 @@ class EdamQueryTest(unittest.TestCase):
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
         #here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
+
+        self.assertEqual(nb_err, 0)
+
+
+    ################# LITERAL LINKS ###########################
+    
+    def test_literal_links(self):
+
+        """
+        Checks that all webpage and doi are literal links. 
+        """
+            
+        query = "queries/literal_links.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['CURATION','literal_links',r['entity'],(f"'{r['label']}'"),(f"{r['property']} value is not declared as a literal: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
 
         self.assertEqual(nb_err, 0)
 
