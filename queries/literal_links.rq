@@ -22,6 +22,9 @@ SELECT DISTINCT ?entity ?property ?label ?value WHERE {
                     <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
                     <http://www.w3.org/2002/07/owl#annotatedProperty>
                     <http://www.w3.org/2002/07/owl#inverseOf>
+                    <http://www.w3.org/2002/07/owl#disjointWith>
+                    <http://www.w3.org/2000/01/rdf-schema#domain>
+                    <http://www.w3.org/2000/01/rdf-schema#range>
 
 
 }

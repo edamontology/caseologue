@@ -6,7 +6,7 @@ PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 PREFIX edam:<http://edamontology.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?entity ?property ?value ?label WHERE {
+SELECT ?entity ?property ?value ?label ?id WHERE {
     
     VALUES ?property { edam:next_id }
     #retrieve the last ID
@@ -14,11 +14,14 @@ SELECT ?entity ?property ?value ?label WHERE {
     
     #match all IDs
     ?entity rdf:type owl:Class .
+    FILTER ( ?entity != <http://www.geneontology.org/formats/oboInOwl#ObsoleteClass>) .
+
     ?entity rdfs:label ?label .    
     BIND(strafter(str(?entity), "_") AS ?id) .
 
-    #retrieve the ones that should me lower than the last id
-    FILTER (?id >= ?value)
 } 
+
+
+
 
 

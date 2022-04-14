@@ -56,8 +56,6 @@ def suite ():
     if run_error == True :
         suite.addTest(EdamQueryTest('test_deprecated_replacement'))
     if run_essential == True :
-        suite.addTest(EdamQueryTest('test_concept_id_inferior_to_next_id'))
-    if run_essential == True :
         suite.addTest(EdamQueryTest('test_bad_uri_reference'))
     if run_error == True :
         suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
@@ -75,6 +73,8 @@ def suite ():
     #     suite.addTest(EdamQueryTest('test_duplicate_all'))
     if run_curation == True :
         suite.addTest(EdamQueryTest('test_literal_links'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_next_id_modif'))
     return suite
 
 
@@ -289,30 +289,6 @@ class EdamQueryTest(unittest.TestCase):
 
         for r in results:
             new_error = pd.DataFrame([['ERROR','deprecated_replacement',r['entity'],(f"'{r['label']}'"),'is deprecated and is missing either a replacedBy property or a consider property']], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
-
-        self.assertEqual(nb_err, 0)
-
-
-    ################# CONCEPT ID INFERIOR TO NEXT ###########################
-
-    def test_concept_id_inferior_to_next_id(self):
-
-        """
-        Checks that the numerical part of the concept URI is inferior to the "next id" variable (header).
-        """
-            
-        query = "queries/concept_id_inferior_to_next_id.rq"
-        with open(query,'r') as f:
-            query_term = f.read()
-
-        results = self.edam_graph.query(query_term)
-        nb_err = len(results)
-        f.close()
-
-        for r in results:
-            new_error = pd.DataFrame([['ESSENTIAL','concept_id_inferior_to_next_id',r['entity'],(f"'{r['label']}'"),(f"The concept URI (numerical id) is equal or superior to the next_id info--> update one or the other {r['property']}: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
 
@@ -551,6 +527,35 @@ class EdamQueryTest(unittest.TestCase):
 
         for r in results:
             new_error = pd.DataFrame([['CURATION','literal_links',r['entity'],(f"'{r['label']}'"),(f"{r['property']} value is not declared as a literal: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+
+        self.assertEqual(nb_err, 0)
+
+
+    ################# NEXT ID MODIF ###########################
+    
+    def test_next_id_modif(self):
+
+        """
+        Checks that the next id property is equal to the maximum id +1.  
+        """
+            
+        query = "queries/get_id_and_next_id.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        f.close()
+        nb_err = 0
+        ids = []
+        for r in results:
+            ids.append(int(r['id']))
+            next_id = int(r['value'])
+        max_ids = max(ids)
+        if next_id != (max_ids+1) : 
+            nb_err = 1
+            new_error = pd.DataFrame([['ERROR','next_id_modif','None','None',(f"The 'next_id' property has not been updated, it is not equal to the max id +1")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
 

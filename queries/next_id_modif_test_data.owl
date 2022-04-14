@@ -14,8 +14,9 @@
      xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
      xmlns:oboOther="http://purl.obolibrary.org/obo/">
 
+
 <owl:Ontology rdf:about="http://edamontology.org">
-        <next_id>0201</next_id>
+    <next_id>4015</next_id>
 </owl:Ontology>
 
 <!-- http://edamontology.org/topic_0204 -->
@@ -31,5 +32,25 @@
     <rdfs:label>Gene regulation</rdfs:label>
     <rdfs:seeAlso rdf:resource="https://en.wikipedia.org/wiki/Regulation_of_gene_expression"/>
 </owl:Class>
+
+<!-- http://edamontology.org/data_0914 -->
+
+<owl:Class rdf:about="http://edamontology.org/data_0914">
+    <rdfs:subClassOf rdf:resource="http://edamontology.org/data_0006"/>
+    <rdfs:subClassOf>
+        <owl:Restriction>
+            <owl:onProperty rdf:resource="http://edamontology.org/has_topic"/>
+            <owl:someValuesFrom rdf:resource="http://edamontology.org/topic_0203"/>
+        </owl:Restriction>
+    </rdfs:subClassOf>
+    <created_in>beta12orEarlier</created_in>
+    <oboInOwl:hasDefinition>Data derived from analysis of codon usage (typically a codon usage table) of DNA sequences.</oboInOwl:hasDefinition>
+    <oboInOwl:hasExactSynonym>Codon usage report</oboInOwl:hasExactSynonym>
+    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#data"/>
+    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+    <rdfs:comment>This is a broad data type and is used a placeholder for other, more specific types.</rdfs:comment>
+    <rdfs:label>Codon usage data</rdfs:label>
+</owl:Class>
+
 
 </rdf:RDF>
