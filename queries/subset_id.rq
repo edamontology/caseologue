@@ -1,0 +1,22 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX edam:<http://edamontology.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?entity ?label ?id ?subset ?superclass ?label_sc ?id_sc ?subset_sc WHERE {
+
+    ?entity a owl:Class .
+    ?entity rdfs:label ?label .    
+    BIND(strafter(str(?entity), "org/") AS ?id) .
+    BIND(strbefore(str(?id), "_") AS ?subset) .
+    
+    ?entity rdfs:subClassOf ?superclass .
+    ?superclass rdfs:label ?label_sc .    
+    BIND(strafter(str(?superclass), "org/") AS ?id_sc) .
+    BIND(strbefore(str(?id_sc), "_") AS ?subset_sc) .
+    
+    FILTER ( ?subset_sc != ?subset) .
+} 

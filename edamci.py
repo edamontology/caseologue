@@ -75,6 +75,8 @@ def suite ():
         suite.addTest(EdamQueryTest('test_literal_links'))
     if run_error == True :
         suite.addTest(EdamQueryTest('test_next_id_modif'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_subset_id'))
     return suite
 
 
@@ -556,6 +558,30 @@ class EdamQueryTest(unittest.TestCase):
         if next_id != (max_ids+1) : 
             nb_err = 1
             new_error = pd.DataFrame([['ERROR','next_id_modif','None','None',(f"The 'next_id' property has not been updated, it is not equal to the max id +1")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+
+        self.assertEqual(nb_err, 0)
+
+
+    ################# SUBSET ID ###########################
+    
+    def test_subset_id(self):
+
+        """
+        Checks that the "subset" part of the id is the same as the superclass (e.g. data only subclass of data). 
+        """
+            
+        query = "queries/subset_id.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['ERROR','subset_id',r['entity'],(f"'{r['label']}'"),(f"Concept subset id ({r['subset']}) is different from its subclass {r['superclass']} '{r['label_sc']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
 
