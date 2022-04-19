@@ -14,22 +14,33 @@
      xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
      xmlns:oboOther="http://purl.obolibrary.org/obo/">
 
-<!-- http://edamontology.org/topic_0608 -->
+    <!-- http://edamontology.org/data_0006 -->
 
-<owl:Class rdf:about="http://edamontology.org/topic_0608">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#DeprecatedClass"/>
-    <created_in>beta12orEarlier</created_in>
-    <obsolete_since>1.3</obsolete_since>
-    <oldParent rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    <oboInOwl:consider rdf:resource="http://edamontology.org/topic_2229"/>
-    <oboInOwl:hasDefinition>General cell culture or data on a specific cell lines.</oboInOwl:hasDefinition>
-    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#obsolete"/>
-    <notRecommendedForAnnotation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</notRecommendedForAnnotation>
-    <rdfs:label>Cell and tissue culture</rdfs:label>
-    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
-</owl:Class>
+    <owl:Class rdf:about="http://edamontology.org/data_0006">
+        <owl:disjointWith rdf:resource="http://edamontology.org/format_1915"/>
+        <owl:disjointWith rdf:resource="http://edamontology.org/operation_0004"/>
+        <owl:disjointWith rdf:resource="http://edamontology.org/topic_0003"/>
+        <owl:disjointWith rdf:resource="http://www.w3.org/2002/07/owl#DeprecatedClass"/>
+        <created_in>beta12orEarlier</created_in>
+        <notRecommendedForAnnotation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</notRecommendedForAnnotation>
+        <oboInOwl:hasDefinition>Information, represented in an information artefact (data record) that is &apos;understandable&apos; by dedicated computational tools that can use the data as input or produce it as output.</oboInOwl:hasDefinition>
+        <oboInOwl:hasExactSynonym>Data record</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasNarrowSynonym>Data set</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>Datum</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#data"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+        <rdfs:label>Data</rdfs:label>
+        <rdfs:seeAlso>&quot;http://purl.obolibrary.org/obo/IAO_0000027&quot;</rdfs:seeAlso>
+        <rdfs:seeAlso>&quot;http://purl.obolibrary.org/obo/IAO_0000030&quot;</rdfs:seeAlso>
+        <rdfs:seeAlso>http://purl.org/biotop/biotop.owl#DigitalEntity</rdfs:seeAlso>
+        <rdfs:seeAlso>http://semanticscience.org/resource/SIO_000069</rdfs:seeAlso>
+        <rdfs:seeAlso>http://semanticscience.org/resource/SIO_000088</rdfs:seeAlso>
+        <rdfs:seeAlso>http://wsio.org/data_002</rdfs:seeAlso>
+        <rdfs:seeAlso>http://www.ifomis.org/bfo/1.1/snap#Continuant</rdfs:seeAlso>
+        <rdfs:seeAlso>http://www.onto-med.de/ontologies/gfo.owl#Perpetuant</rdfs:seeAlso>
+    </owl:Class>
 
-
+       
     <!-- http://edamontology.org/operation_0308 -->
 
     <owl:Class rdf:about="http://edamontology.org/operation_0308">
@@ -38,6 +49,12 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://edamontology.org/has_input"/>
                 <owl:someValuesFrom rdf:resource="http://edamontology.org/data_2977"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_input"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/data_0006"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>

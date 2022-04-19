@@ -48,6 +48,50 @@
     <oboInOwl:hasNarrowSynonym>Regulatory genomics</oboInOwl:hasNarrowSynonym>
 </owl:Class>
 
+    <!-- http://edamontology.org/operation_0308 -->
 
+    <owl:Class rdf:about="http://edamontology.org/operation_0308">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_input"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/data_2977"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_input"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/data_0006"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_output"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/data_1240"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_topic"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/topic_0608"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <created_in>beta12orEarlier</created_in>
+        <oboInOwl:hasDefinition>Design or predict oligonucleotide primers for PCR and DNA amplification etc.</oboInOwl:hasDefinition>
+        <oboInOwl:hasExactSynonym>PCR primer prediction</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>Primer design</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (based on gene structure)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for conserved primers)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for gene transcription profiling)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for genotyping polymorphisms)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for large scale sequencing)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for methylation PCRs)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>Primer quality estimation</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#operations"/>
+        <rdfs:comment>Primer design involves predicting or selecting primers that are specific to a provided PCR template. Primers can be designed with certain properties such as size of product desired, primer size etc. The output might be a minimal or overlapping primer set.</rdfs:comment>
+        <rdfs:comment>This includes predicting primers based on gene structure, promoters, exon-exon junctions, predicting primers that are conserved across multiple genomes or species, primers for for gene transcription profiling, for genotyping polymorphisms, for example single nucleotide polymorphisms (SNPs), for large scale sequencing, or for methylation PCRs.</rdfs:comment>
+        <rdfs:label>PCR primer design</rdfs:label>
+        <rdfs:seeAlso rdf:resource="https://en.wikipedia.org/wiki/Primer_(molecular_biology)#PCR_primer_design"/>
+    </owl:Class>
 
 </rdf:RDF>

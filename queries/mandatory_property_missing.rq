@@ -7,13 +7,12 @@ PREFIX edam:<http://edamontology.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 SELECT DISTINCT ?entity ?property ?label ?property_subs_edam WHERE {
-    {
-    VALUES ?property { oboInOwl:hasDefinition
-                       rdfs:subClassOf
+
+    VALUES ?property {oboInOwl:hasDefinition
                        edam:created_in
                        #oboInOwl:inSubset
                        rdfs:label
-                        }
+                       rdfs:subClassOf }
     ?entity a owl:Class .
 
     FILTER NOT EXISTS {?entity owl:deprecated true .}
@@ -24,16 +23,14 @@ SELECT DISTINCT ?entity ?property ?label ?property_subs_edam WHERE {
     FILTER ( ?entity != <http://edamontology.org/operation_0004>)
     FILTER ( ?entity != <http://edamontology.org/format_1915>)
 
-    FILTER NOT EXISTS {?entity ?property ?value .}
-    }
-    UNION
-    {
-    VALUES ?property { oboInOwl:inSubset
-                        }
-    FILTER NOT EXISTS {?entity ?property <http://purl.obolibrary.org/obo/edam#edam> .}
-    }
-    
-    #should specify thet there shoul be 2 subset, one edam and one different with a value "not in"?
+    FILTER NOT EXISTS {?entity ?property ?value .
+                       MINUS { ?value rdf:type owl:Restriction .} #to prevent concept with rdfs:subClassOf property being only restriction (e.g. has_topic)
+                       }
+    # UNION
+    # {
+    # VALUES ?property { oboInOwl:inSubset
+    #                     }
+    # FILTER NOT EXISTS {?entity ?property <http://purl.obolibrary.org/obo/edam#edam> .}
+    # }
 }
 ORDER BY ?entity
-

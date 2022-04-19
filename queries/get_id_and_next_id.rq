@@ -18,7 +18,6 @@ SELECT ?entity ?property ?value ?label ?id WHERE {
 
     ?entity rdfs:label ?label .    
     BIND(strafter(str(?entity), "_") AS ?id) .
-
 } 
 
 

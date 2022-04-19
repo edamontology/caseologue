@@ -17,11 +17,11 @@ SELECT DISTINCT ?entity ?property ?label WHERE {
                         }
         FILTER NOT EXISTS {?entity ?property ?value .}
     }
-    UNION
-    {VALUES ?property { oboInOwl:inSubset            
-                        }
-        FILTER NOT EXISTS {?entity  ?property <http://purl.obolibrary.org/obo/edam#obsolete> .}
-    }
+    # UNION
+    # {VALUES ?property { oboInOwl:inSubset            
+    #                     }
+    #     FILTER NOT EXISTS {?entity  ?property <http://purl.obolibrary.org/obo/edam#obsolete> .}
+    # }
     UNION
     {VALUES ?property { rdfs:subClassOf             
                         }
