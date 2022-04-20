@@ -14,11 +14,13 @@ jobs:
 
     - name: Install requirements
       run: |
-        pip install -r requirements.txt
+        pip install -r edamci/requirements.txt
+        cd edamci/
         wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
 
     - name: run 
       run: |
+        cd edamci/
         EDAM_PATH=./EDAM_dev.owl python3 edamci.py -e -E
      
     # - name: Print output
@@ -31,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: output_edamci
-        path: output_edamci.tsv
+        path: edamci/output_edamci.tsv
