@@ -1,7 +1,6 @@
-name: ROBOT
+name: EDAMCI
 
-on:
-  [push, pull_request, workflow_dispatch]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   
@@ -13,32 +12,24 @@ jobs:
       
     - uses: actions/checkout@v2
 
-    - name: Set up 
+    - name: Install requirements
       run: |
-        git clone https://github.com/edamontology/edamverify.git
-
-    - name: run reason
+        pip install -r edamci/requirements.txt
+        cd edamci/
+        wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
+    - name: run 
       run: |
-        export PATH=/home/runner/work/edamontology/edamontology/edamverify/robot:$PATH
-        robot reason --reasoner ELK   --input EDAM_dev.owl -v 
+        cd edamci/
+        EDAM_PATH=./EDAM_dev.owl python3 edamci.py -e -E
+     
+    # - name: Print output
+    #   if: always()
+    #   run: |
+    #     cat output_edamci.tsv 
 
-    - name: run report 
-      if: always()
-      run: |
-        cd edamverify/robot/
-        export PATH=:/home/runner/work/edamontology/edamontology/edamverify/robot:$PATH
-        robot report --input ../../EDAM_dev.owl --output report_profile.tsv --profile report_queries.txt
-        more edamverify/robot/report_profile.tsv
-
-    - name: Print report output
-      if: always()
-      run: |
-        more edamverify/robot/report_profile.tsv
-
-
-    - name: Archive Robot report tests
+    - name: Archive tests output
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: robot_report_profile
-        path: edamverify/robot/report_profile.tsv
+        name: output_edamci
+        path: edamci/output_edamci.tsv
