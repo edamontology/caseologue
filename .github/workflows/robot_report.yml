@@ -23,13 +23,13 @@ jobs:
       run: |
         cd robot/
         export PATH=:/home/runner/work/edamontology/edamontology/edam-validation/robot:$PATH
-        java -jar robot.jar report --input ../../EDAM_dev.owl --output report_profile.tsv --profile report_queries.txt
-        more edamverify/robot/report_profile.tsv
+        java -jar robot.jar report --input EDAM_dev.owl --output report_profile.tsv --profile report_queries.txt
+        more report_profile.tsv
 
     - name: Print report output
       if: always()
       run: |
-        more edamverify/robot/report_profile.tsv
+        more /robot/report_profile.tsv
 
 
     - name: Archive Robot report tests
@@ -37,4 +37,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: robot_report_profile
-        path: edamverify/robot/report_profile.tsv
+        path: /robot/report_profile.tsv

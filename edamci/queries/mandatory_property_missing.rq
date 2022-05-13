@@ -26,6 +26,7 @@ SELECT DISTINCT ?entity ?property ?label ?property_subs_edam WHERE {
     FILTER NOT EXISTS {?entity ?property ?value .
                        MINUS { ?value rdf:type owl:Restriction .} #to prevent concept with rdfs:subClassOf property being only restriction (e.g. has_topic)
                        }
+    FILTER (!isBlank(?entity))
     # UNION
     # {
     # VALUES ?property { oboInOwl:inSubset
