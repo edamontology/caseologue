@@ -1,5 +1,5 @@
 # edamci
-CI python tool for the Edam Ontology. Test for continuous integration (inmplemented in GitHub Actions, triggered pu Pull Requests) and curation.
+edamci is a CI python tool for the EDAM Ontology, grouping a set of tests (mostly using SPARQL queries) to validate the ontology. 
 
 run edamci (replace the edampath):
 ```
@@ -12,7 +12,9 @@ Options:\
   -c, --curation   runs all curation tests
 
 
-> Documentation using docstrinf for each tests: xxxxxxxxxxx\
+> Documentation using docstrinf for each tests: TO COMPLETE
 
-Install requirements:\
+Install requirements:
+```
 pip install -r requirements.txt
+```
