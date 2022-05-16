@@ -628,8 +628,7 @@ if __name__ == '__main__':
     print(f"error = {run_error}, essential = {run_essential}, curation = {run_curation}")
 
     runner = unittest.TextTestRunner()
-    sys.exit(runner.run(suite()))
-    
+    runner.run(suite())
 
 
     
