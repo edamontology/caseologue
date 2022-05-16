@@ -29,7 +29,7 @@ jobs:
     - name: Print report output
       if: always()
       run: |
-        more /robot/report_profile.tsv
+        more ./robot/report_profile.tsv
 
 
     - name: Archive Robot report tests
@@ -37,4 +37,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: robot_report_profile
-        path: /robot/report_profile.tsv
+        path: ./robot/report_profile.tsv
