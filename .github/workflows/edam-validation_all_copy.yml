@@ -1,11 +1,10 @@
-name: EDAM-VALIDATION ALL 
+name: EDAMCI
 
-on: [workflow_dispatch]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   
   job1_edamci:
-    
     build:
 
       runs-on: ubuntu-latest
@@ -14,18 +13,22 @@ jobs:
         
       - uses: actions/checkout@v2
 
-      - name: Install requirements edamci 
+      - name: Install requirements
         run: |
           pip install -r edamci/requirements.txt
           cd edamci/
           wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
-      
-      - name: run edamci
+      - name: run 
         run: |
           cd edamci/
           EDAM_PATH=./EDAM_dev.owl python3 edamci.py -e -E
+      
+      # - name: Print output
+      #   if: always()
+      #   run: |
+      #     cat output_edamci.tsv 
 
-      - name: Archive edamci tests output
+      - name: Archive tests output
         if: always()
         uses: actions/upload-artifact@v2
         with:
