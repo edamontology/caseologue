@@ -11,26 +11,21 @@ jobs:
 
       steps:
         
-      - uses: actions/checkout@v2
+        - uses: actions/checkout@v2
 
-      - name: Install requirements
-        run: |
-          pip install -r edamci/requirements.txt
-          cd edamci/
-          wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
-      - name: run 
-        run: |
-          cd edamci/
-          EDAM_PATH=./EDAM_dev.owl python3 edamci.py -e -E
-      
-      # - name: Print output
-      #   if: always()
-      #   run: |
-      #     cat output_edamci.tsv 
+        - name: Install requirements
+          run: |
+            pip install -r edamci/requirements.txt
+            cd edamci/
+            wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
+        - name: run 
+          run: |
+            cd edamci/
+            EDAM_PATH=./EDAM_dev.owl python3 edamci.py -e -E
 
-      - name: Archive tests output
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: output_edamci
-          path: edamci/output_edamci.tsv
+        - name: Archive tests output
+          if: always()
+          uses: actions/upload-artifact@v2
+          with:
+            name: output_edamci
+            path: edamci/output_edamci.tsv
