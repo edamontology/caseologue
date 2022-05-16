@@ -4,7 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   
-    build:
+  job1_edamci:
 
       runs-on: ubuntu-latest
 
