@@ -5,4 +5,9 @@ on: [workflow_dispatch]
 jobs:
   
   job1_edamci:
-    uses: .github/workflows/run_edamci.yml
+    
+      runs-on: ubuntu-latest
+
+      steps:
+
+        - uses: .github/workflows/run_edamci.yml
