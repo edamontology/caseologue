@@ -10,4 +10,4 @@ jobs:
 
       steps:
 
-        - uses: .github/workflows/run_edamci.yml
+        - uses: /home/runner/work/edamontology/edamontology/edam-validation/.github/workflows/run_edamci.yml
