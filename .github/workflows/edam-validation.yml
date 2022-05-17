@@ -4,6 +4,11 @@ on: [workflow_dispatch]
 
 jobs:
   
-  job1_edamci:
-    
+  edamci:
     uses: edamontology/edam-validation/.github/workflows/run_edamci.yml@main
+
+  report:
+    uses: edamontology/edam-validation/.github/workflows/robot_report.yml@main
+
+  reason:
+    uses: edamontology/edam-validation/.github/workflows/robot_reason.yml@main
