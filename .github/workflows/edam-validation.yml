@@ -1,0 +1,41 @@
+name: EDAM-VALIDATION ALL 
+
+on: [workflow_dispatch]
+
+jobs:
+  
+  job1_edamci:
+    
+      runs-on: ubuntu-latest
+
+      steps:
+        
+        - uses: actions/checkout@v2
+
+        
+        - name: run edamci
+          run: run_edamci.yml
+
+
+
+  job2_robot_reasonner:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - uses: actions/checkout@v2
+
+      - name: run reason
+        run: robot_reason.yml
+
+  job3_robot_report:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - uses: actions/checkout@v2
+
+      - name: run report 
+        run: robot_report.yml
