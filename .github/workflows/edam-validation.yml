@@ -6,4 +6,4 @@ jobs:
   
   job1_edamci:
     
-    uses: edamontology/edam-validation/.github/workflows/run_edamci.yml
+    uses: edamontology/edam-validation/.github/workflows/run_edamci.yml@main
