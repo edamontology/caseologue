@@ -80,7 +80,9 @@ def suite ():
     if run_error == True :
         suite.addTest(EdamQueryTest('test_object_relation_obsolete'))
     if run_curation == True :
-        suite.addTest(EdamQueryTest('test_  '))
+        suite.addTest(EdamQueryTest('test_format_missing_property'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_empty_property'))       
     return suite
 
 
@@ -639,6 +641,30 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
  
+
+    ################# EMPTY PROPERTY ###########################
+    
+    def test_empty_property(self):
+
+        """
+        Checks that no property is empty.  
+        """
+            
+        query = "queries/empty_property.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['CURATION','empty_property',r['entity'],(f"'{r['label']}'"),(f"{r['property']} is empty")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+
+        self.assertEqual(nb_err, 0)
+
 
     ################# TEST NAME ###########################
     
