@@ -77,6 +77,8 @@ def suite ():
         suite.addTest(EdamQueryTest('test_next_id_modif'))
     if run_error == True :
         suite.addTest(EdamQueryTest('test_subset_id'))
+    if run_error == True :
+        suite.addTest(EdamQueryTest('test_object_relation_obsolete'))
     return suite
 
 
@@ -587,6 +589,30 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
+
+    ################# OBJECT RELATION OBSOLETE ###########################
+    
+    def test_object_relation_obsolete(self):
+
+        """
+        Checks that a relation between concepts is not pointing towards obsolete concepts (is_format_of, has_input, has_output, is_identifier_of, has_topic ...)
+        """
+            
+        query = "queries/object_relation_obsolete.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['ERROR','object_relation_obsolete',r['entity'],(f"'{r['label']}'"),(f"is related ({r['property']}) with {r['target']}, which is a deprecated concept")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+
+        self.assertEqual(nb_err, 0)
+ 
 
     ################# TEST NAME ###########################
     
