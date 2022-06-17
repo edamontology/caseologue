@@ -81,7 +81,7 @@ def suite ():
         suite.addTest(EdamQueryTest('test_object_relation_obsolete'))
     if run_curation == True :
         suite.addTest(EdamQueryTest('test_format_missing_property'))
-    if run_curation == True :
+    if run_error == True :
         suite.addTest(EdamQueryTest('test_empty_property'))       
     return suite
 
@@ -659,7 +659,7 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','empty_property',r['entity'],(f"'{r['label']}'"),(f"{r['property']} is empty")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            new_error = pd.DataFrame([['ERROR','empty_property',r['entity'],(f"'{r['label']}'"),(f"{r['property']} is empty")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
 
