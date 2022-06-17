@@ -79,6 +79,8 @@ def suite ():
         suite.addTest(EdamQueryTest('test_subset_id'))
     if run_error == True :
         suite.addTest(EdamQueryTest('test_object_relation_obsolete'))
+    if run_curation == True :
+        suite.addTest(EdamQueryTest('test_  '))
     return suite
 
 
@@ -608,6 +610,30 @@ class EdamQueryTest(unittest.TestCase):
 
         for r in results:
             new_error = pd.DataFrame([['ERROR','object_relation_obsolete',r['entity'],(f"'{r['label']}'"),(f"is related ({r['property']}) with {r['target']}, which is a deprecated concept")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+
+        self.assertEqual(nb_err, 0)
+
+ 
+    ################# FORMAT PROPERTY MISSING ###########################
+    
+    def test_format_property_missing(self):
+
+        """
+        Checks the no mandatory property for format are missing.
+        """
+            
+        query = "queries/format_property_missing.rq"
+        with open(query,'r') as f:
+            query_term = f.read()
+
+        results = self.edam_graph.query(query_term)
+        nb_err = len(results)
+        f.close()
+
+        for r in results:
+            new_error = pd.DataFrame([['CURATION','format_property_missing',r['entity'],(f"'{r['label']}'"),(f"is missing mandatory format property: {r['property']}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
 
