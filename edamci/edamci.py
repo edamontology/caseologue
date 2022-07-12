@@ -80,7 +80,7 @@ def suite ():
     if run_error == True :
         suite.addTest(EdamQueryTest('test_object_relation_obsolete'))
     if run_curation == True :
-        suite.addTest(EdamQueryTest('test_format_missing_property'))
+        suite.addTest(EdamQueryTest('test_format_property_missing'))
     if run_error == True :
         suite.addTest(EdamQueryTest('test_empty_property'))       
     return suite
