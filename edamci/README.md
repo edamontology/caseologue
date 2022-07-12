@@ -3,7 +3,7 @@ edamci is a CI python tool for the EDAM Ontology, grouping a set of tests (mostl
 
 run edamci (replace the edampath):
 ```
-EDAM_PATH=../edamontology/EDAM_dev.owl python3 edamci.py 
+EDAM_PATH=../../edamontology/EDAM_dev.owl python3 edamci.py 
 ```
 
 Options:\
