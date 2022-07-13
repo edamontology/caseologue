@@ -1,0 +1,5 @@
+Level	Rule Name	Subject	Property	Value
+ERROR	duplicate_definition	http://edamontology.org/topic_3173	oboInOwl:hasDefinition	The study of the epigenetic modifications of a whole cell, tissue, organism etc.
+ERROR	duplicate_definition	http://edamontology.org/topic_3974	oboInOwl:hasDefinition	The study of the epigenetic modifications of a whole cell, tissue, organism etc.
+WARN	duplicate_exact_synonym	http://edamontology.org/data_0881	oboInOwl:hasExactSynonym	Secondary structure alignment (RNA)
+WARN	duplicate_exact_synonym	http://edamontology.org/operation_0502	oboInOwl:hasExactSynonym	Secondary structure alignment (RNA)

@@ -1,0 +1,16 @@
+<aside class="menu">
+    <ul class="menu-list">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+    </ul>
+    <p class="menu-label">Contributors</p>
+    <ul class="menu-list">
+        <li><a href="{{ url_for('quick_curation') }}">Quick curation</a></li>
+        <li><a href="{{ url_for('expert_curation') }}">In my field</a></li>
+    </ul>
+    <p class="menu-label">Developers</p>
+    <ul class="menu-list">
+        <li><a href="{{ url_for('edam_stats') }}">Statistics</a></li>
+        <li><a href="{{ url_for('edam_validation') }}">Online validation</a></li>
+        <li><a href="{{ url_for('edam_last_report') }}">Last validation report</a></li>
+    </ul>
+</aside>
