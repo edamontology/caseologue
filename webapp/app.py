@@ -101,7 +101,7 @@ def edam_stats():
     
 @app.route('/edam_validation')
 def edam_validation():
-    return render_template('index.html')
+    return render_template('edam_validation.html')
 
 @app.route('/edam_last_report')
 def edam_last_report():
