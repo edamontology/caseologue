@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block nav %}
+{% include 'nav.html' %}
+{% endblock %}
+
+{% block body %}
+
+    <h1>Control of Running Functions</h1>
+    <h2>Music Player Control</h2>
+
+    <form method="POST" action="/control">
+        <input type="submit" name="submit_button" value="Stop Music">
+        <input type="submit" name="submit_button" value="Start Music">
+        <input type="submit" name="submit_button" value="Next Playlist">
+        <input type="submit" name="submit_button" value="Stop Wedding Sequence">
+        <input type="submit" name="submit_button" value="Start Wedding Sequence">
+    </form>
+    <br><br>
+    <h2>General</h2>
+
+    <form method="POST" action="/control">
+        <input type="submit" name="submit_button" value="Enable Extended Hours">
+        <input type="submit" name="submit_button" value="Disable Extended Hours">
+    </form>
+    <br><br>
+    <h2>Control of Bells Functions</h2>
+
+    <form method="POST" action="/control">
+        <input type="submit" name="submit_button" value="Stop Change Rings">
+        <input type="submit" name="submit_button" value="Start Change_Rings">
+    </form>
+
+{% endblock %}

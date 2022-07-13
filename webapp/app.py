@@ -103,6 +103,41 @@ def edam_stats():
 def edam_validation():
     return render_template('edam_validation.html')
 
+## fonction upload et control = test of Sahar for click button, to access these function use in web seach bar : http://172.28.32.135:5000/control and http://172.28.32.135:5000/upload
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        f = request.files['file']
+        print("filename"+f.filename+"**** File type:"+type(f))
+        if type(f) =="owl":
+            print("Hello")
+    return render_template('upload.html')
+
+@app.route('/control', methods=['GET', 'POST'])
+def control():
+    if request.method == 'POST':
+        if request.form['submit_button'] == "Stop Music":
+            print("Stop Music")
+        elif request.form['submit_button'] == "Start Music":
+            print("Start Music")
+        elif request.form['submit_button'] == "Next Playlist":
+            print("Next Playlist")
+        elif request.form['submit_button'] == "Stop Wedding Sequence":
+            print("Stop Wedding Sequence")
+        elif request.form['submit_button'] == "Start Wedding Sequence":
+            print("Start Wedding Sequence")
+        elif request.form['submit_button'] == "Enable Extended Hours":
+            print("Enable Extended Hours")
+        elif request.form['submit_button'] == "Disable Extended Hours":
+            print("Disable Extended Hours")
+        elif request.form['submit_button'] == "Stop Change Rings":
+            print("Stop Change Rings")
+        else:
+            request.form['submit_button'] == "Start Change Rings"
+            print("Start Change Rings")
+
+    return render_template('control.html')
+
 @app.route('/edam_last_report')
 def edam_last_report():
     number=0
