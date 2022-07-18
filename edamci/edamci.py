@@ -43,46 +43,30 @@ def parsing () :
 
 def suite ():
     suite = unittest.TestSuite()
+
     if run_curation == True :
         suite.addTest(EdamQueryTest('test_deprecated_replacement_obsolete'))
+        suite.addTest(EdamQueryTest('test_formating'))
+        suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
+        suite.addTest(EdamQueryTest('test_identifier_property_missing'))
+        suite.addTest(EdamQueryTest('test_relation_too_broad'))
+        suite.addTest(EdamQueryTest('test_duplicate_in_concept'))
+        suite.addTest(EdamQueryTest('test_literal_links'))
+#        suite.addTest(EdamQueryTest('test_duplicate_all'))
+        suite.addTest(EdamQueryTest('test_format_property_missing'))
     if run_essential == True :
         suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
-    if run_essential == True :
         suite.addTest(EdamQueryTest('test_bad_uri'))
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_mandatory_property_missing'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_formating'))
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_deprecated_replacement'))
-    if run_essential == True :
         suite.addTest(EdamQueryTest('test_bad_uri_reference'))
     if run_error == True :
+        suite.addTest(EdamQueryTest('test_mandatory_property_missing'))
+        suite.addTest(EdamQueryTest('test_deprecated_replacement'))
         suite.addTest(EdamQueryTest('test_missing_deprecated_property'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_identifier_property_missing'))
-    if run_error == True :
         suite.addTest(EdamQueryTest('test_id_unique'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_relation_too_broad'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_duplicate_in_concept'))
-    # if run_curation == True :
-    #     suite.addTest(EdamQueryTest('test_duplicate_all'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_literal_links'))
-    if run_error == True :
         suite.addTest(EdamQueryTest('test_next_id_modif'))
-    if run_error == True :
         suite.addTest(EdamQueryTest('test_subset_id'))
-    if run_error == True :
         suite.addTest(EdamQueryTest('test_object_relation_obsolete'))
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_format_property_missing'))
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_empty_property'))       
+        suite.addTest(EdamQueryTest('test_empty_property'))               
     return suite
 
 
