@@ -1,4 +1,4 @@
-name: EDAMCI
+name: EDAM-CUSTOM
 
 on: [push, pull_request, workflow_dispatch, workflow_call]
 
@@ -14,22 +14,22 @@ jobs:
 
     - name: Install requirements
       run: |
-        pip install -r edamci/requirements.txt
-        cd edamci/
+        pip install -r edam-custom/requirements.txt
+        cd edam-custom/
         wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
     - name: run 
       run: |
-        cd edamci/
-        EDAM_PATH=./EDAM_dev.owl python3 edamci.py -e -E
+        cd edam-custom/
+        EDAM_PATH=./EDAM_dev.owl python3 edam-custom.py -e -E
      
     # - name: Print output
     #   if: always()
     #   run: |
-    #     cat output_edamci.tsv 
+    #     cat output_edam-custom.tsv 
 
     - name: Archive tests output
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: output_edamci
-        path: edamci/output_edamci.tsv
+        name: output_edam-custom
+        path: edam-custom/output_edam-custom.tsv

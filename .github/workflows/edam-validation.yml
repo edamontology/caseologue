@@ -4,7 +4,7 @@ on: [workflow_dispatch]
 
 jobs:
   
-  edamci:
+  edam-custom:
     uses: edamontology/edam-validation/.github/workflows/edamci.yml@main
 
   report:
