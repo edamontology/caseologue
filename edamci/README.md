@@ -12,7 +12,7 @@ Options:\
   -c, --curation   runs all curation tests
 
 
-> Documentation using docstrinf for each tests: TO COMPLETE
+> Documentation using docstring for each tests: TO COMPLETE
 
 Install requirements:
 ```
