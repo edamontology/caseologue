@@ -5,7 +5,7 @@ on: [workflow_dispatch]
 jobs:
   
   edam-custom:
-    uses: edamontology/edam-validation/.github/workflows/edamci.yml@main
+    uses: edamontology/edam-validation/.github/workflows/edam-custom.yml@main
 
   report:
     uses: edamontology/edam-validation/.github/workflows/robot_report.yml@main
