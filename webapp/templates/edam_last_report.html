@@ -7,7 +7,7 @@
 {% block body %}
 
 <h1 class="title">Last validation report</h1>
-<p>Last found errors in the EDAM ontology via the EDAM validation workflow (edamci and ROBOT)</p>
+<p>Last found errors in the EDAM ontology via the EDAM validation workflow (edam_custom and ROBOT)</p>
 <br></br>
 
 <table class="table">
@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-        {% for r in output_edamci_list %}
+        {% for r in output_edam_custom_list %}
             {% if r["Level"] == "ESSENTIAL" %}
                 <tr class="has-background-warning">
             {% elif r["Level"] == "ERROR" %}

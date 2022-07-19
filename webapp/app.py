@@ -107,13 +107,13 @@ def edam_validation():
 def edam_last_report():
     number=0
     # edam ci report
-    with open("test_data/output_edamci.tsv") as file:
-        output_edamci = csv.DictReader(file, delimiter="\t")
-        edamci_output_list = []
-        for row in output_edamci:
+    with open("test_data/output_edam-custom.tsv") as file:
+        output_edam_custom = csv.DictReader(file, delimiter="\t")
+        edam_custom_output_list = []
+        for row in output_edam_custom:
             row["Number"]=number
             number+=1
-            edamci_output_list.append(row)
+            edam_custom_output_list.append(row)
         # robot report
     with open("test_data/report_profile.tsv") as file:
         robot_output = csv.DictReader(file, delimiter="\t")
@@ -124,7 +124,7 @@ def edam_last_report():
             number+=1
             robot_output_list.append(row)    
 
-    return render_template('edam_last_report.html', output_edamci_list=edamci_output_list, robot_output_list=robot_output_list)
+    return render_template('edam_last_report.html', output_edam_custom_list=edam_custom_output_list, robot_output_list=robot_output_list)
 
 @app.route('/quick_curation')
 def quick_curation():
