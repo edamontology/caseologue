@@ -607,7 +607,7 @@ class EdamQueryTest(unittest.TestCase):
     def test_format_property_missing(self):
 
         """
-        Checks the no mandatory property for format are missing.
+        Checks the no mandatory property for format are missing (documentation).
         """
             
         query = "queries/format_property_missing.rq"
