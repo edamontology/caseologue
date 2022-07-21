@@ -391,7 +391,7 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','identifier_property_missing',r['entity'],(f"'{r['label']}'"),"Missing regex property"]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            new_error = pd.DataFrame([['CURATION','identifier_property_missing',r['entity'],(f"'{r['label']}'"),"is missing regex property"]], columns=['Level','Test Name','Entity','Label','Debug Message'])
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
 
