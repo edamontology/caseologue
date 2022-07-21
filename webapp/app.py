@@ -129,20 +129,26 @@ def edam_last_report():
 @app.route('/quick_curation')
 def quick_curation():
 
-    tests_quick_curation = ["check_wikipedia_link","identifier_property_missing","relation_too_broad","format_property_missing","deprecated_replacement_obsolete"]
-    with open("test_data/output_edam-custom.tsv") as file:
-        output_edam_custom = csv.DictReader(file, delimiter="\t")
-        edam_custom_output_list = []
-        for row in output_edam_custom:
-            if row['Test Name'] in tests_quick_curation:
-                edam_custom_output_list.append(row)
-
-    if len(edam_custom_output_list) > 5:
-        edam_custom_output_list = random.sample(edam_custom_output_list, 5)
+    tests_quick_curation = ["check_wikipedia_link","identifier_property_missing","relation_too_broad","format_property_missing","deprecated_replacement_obsolete","mandatory_property_missing","deprecated_replacement","duplicate_in_concept","duplicate_all","duplicate_scoped_synonym","duplicate_definition","duplicate_label_synonym","duplicate_exact_synonym"]
+    # with open("test_data/output_edam-custom.tsv") as file:
+    #     output_edam_custom = csv.DictReader(file, delimiter="\t")
+    error_list = []
+    #     for row in output_edam_custom:
+    #         if row['Test Name'] in tests_quick_curation:
+    #             error_list.append(row)
+    with open("test_data/report_profile.tsv") as file:
+        robot_output = csv.DictReader(file, delimiter="\t")
+        for row in robot_output:
+            row["Label"]=idx_uri[row["Subject"]]
+            row["Debug Message"]=row['Rule Name']+" on value \""+row['Value']+"\""
+            if row['Rule Name'] in tests_quick_curation:
+                error_list.append(row) 
+    if len(error_list) > 5:
+        error_list = random.sample(error_list, 5)
 
     return render_template('quick_curation.html',
-                           count_errors=len(edam_custom_output_list),
-                           edam_custom_output_list = edam_custom_output_list)
+                           count_errors=len(error_list),
+                           error_list = error_list)
 
 
 if __name__ == "__main__":

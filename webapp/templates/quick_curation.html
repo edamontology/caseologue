@@ -11,10 +11,10 @@
 
 <section class="section">
     <h2 class="subtitle"> <span class="tag is-light">{{ count_errors }} </span> EDAM concept need curation on one of theire property. </h2>
-    {% for error in edam_custom_output_list %}
+    {% for error in error_list %}
     <div class="buttons">
         <a href="{{error['Entity']}}" class="button is-danger is-rounded">{{error['Label']}}</a>
-        <th>{{error["Debug Message"]}}</th>
+        <th>&nbsp;&nbsp;{{error["Debug Message"]}}</th>
     </div>
     {% endfor %}
 </section>
