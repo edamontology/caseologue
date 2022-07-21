@@ -90,9 +90,9 @@ def edam_stats():
 
     return render_template('stats.html', 
         topics = res['nb_topics'], 
-        operations = res['nb_topics'], 
-        data = res['nb_topics'], 
-        format = res['nb_topics'], 
+        operations = res['nb_operations'], 
+        data = res['nb_data'], 
+        format = res['nb_formats'], 
         new_topics = res['nb_topics'] - res_last['nb_topics'], 
         new_operations = res['nb_operations'] - res_last['nb_operations'], 
         new_data = res['nb_data'] - res_last['nb_data'], 
