@@ -129,46 +129,26 @@ def edam_last_report():
 @app.route('/quick_curation')
 def quick_curation():
 
-    # NO wikipedia
-    q_no_wikipedia = """
-    SELECT (count(?term) as ?nb_no_wikipedia) WHERE {
-        ?c rdfs:subClassOf+ edam:topic_0003 ; 
-                    rdfs:label ?term .
-        
-        FILTER NOT EXISTS {
-            ?c rdfs:seeAlso ?seealso .
-            FILTER (regex(str(?seealso), "wikipedia.org", "i"))  
-        } .
-    }
-    """
-    results = g.query(q_no_wikipedia, initNs=ns)
-    count_no_wikipedia = 0
-    for r in results:
-        count_no_wikipedia = str(r["nb_no_wikipedia"])
-
-    #########
-    q_no_publication_entries = """
-        SELECT ?c ?term WHERE {
-            ?c rdfs:subClassOf+ edam:topic_0003 ; 
-                rdfs:label ?term .
-
-            FILTER NOT EXISTS {
-                ?c rdfs:seeAlso ?seealso .
-                FILTER (regex(str(?seealso), "wikipedia.org", "i"))  
-            } .
-        }
-        """
-    results = g.query(q_no_publication_entries, initNs=ns)
-    no_wikipedia = []
-    for r in results:
-        no_wikipedia.append({"term": r["term"], "class": r["c"]})
-
-    if len(no_wikipedia) > 5:
-        no_wikipedia = random.sample(no_wikipedia, 5)
+    tests_quick_curation = ["check_wikipedia_link","identifier_property_missing","relation_too_broad","format_property_missing","deprecated_replacement_obsolete","mandatory_property_missing","deprecated_replacement","duplicate_in_concept","duplicate_all","duplicate_scoped_synonym","duplicate_definition","duplicate_label_synonym","duplicate_exact_synonym"]
+    # with open("test_data/output_edam-custom.tsv") as file:
+    #     output_edam_custom = csv.DictReader(file, delimiter="\t")
+    error_list = []
+    #     for row in output_edam_custom:
+    #         if row['Test Name'] in tests_quick_curation:
+    #             error_list.append(row)
+    with open("test_data/report_profile.tsv") as file:
+        robot_output = csv.DictReader(file, delimiter="\t")
+        for row in robot_output:
+            row["Label"]=idx_uri[row["Subject"]]
+            row["Debug Message"]=row['Rule Name']+" on value \""+row['Value']+"\""
+            if row['Rule Name'] in tests_quick_curation:
+                error_list.append(row) 
+    if len(error_list) > 5:
+        error_list = random.sample(error_list, 5)
 
     return render_template('quick_curation.html',
-                           count_no_wikipedia = count_no_wikipedia,
-                           missing_wikipedia = no_wikipedia)
+                           count_errors=len(error_list),
+                           error_list = error_list)
 
 
 if __name__ == "__main__":
