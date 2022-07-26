@@ -5,6 +5,8 @@ import nbformat
 
 from rdflib import ConjunctiveGraph, Namespace
 
+import requests
+
 app = Flask(__name__)
 
 ns = {"dc": "http://dcterms/",
@@ -85,6 +87,18 @@ def get_edam_numbers(g):
 @app.route('/edam_stats')
 def edam_stats():
 
+    data = {
+    'ontology1url': 'https://edamontology.org/EDAM.owl',
+    'ontology2url': 'https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl',
+    'modifiedClasses': 'on',
+    'newClasses': 'on',
+    'deletedClasses': 'on',
+    }  
+
+    response = requests.post('http://www.ebi.ac.uk/efo/bubastis/BubastisDiffResults', data=data)
+    print(response.content)
+
+
     res = get_edam_numbers(g)
     res_last = get_edam_numbers(g_last_stable)
 
@@ -130,12 +144,12 @@ def edam_last_report():
 def quick_curation():
 
     tests_quick_curation = ["check_wikipedia_link","identifier_property_missing","relation_too_broad","format_property_missing","deprecated_replacement_obsolete","mandatory_property_missing","deprecated_replacement","duplicate_in_concept","duplicate_all","duplicate_scoped_synonym","duplicate_definition","duplicate_label_synonym","duplicate_exact_synonym"]
-    # with open("test_data/output_edam-custom.tsv") as file:
-    #     output_edam_custom = csv.DictReader(file, delimiter="\t")
-    error_list = []
-    #     for row in output_edam_custom:
-    #         if row['Test Name'] in tests_quick_curation:
-    #             error_list.append(row)
+    with open("test_data/output_edam-custom.tsv") as file:
+        output_edam_custom = csv.DictReader(file, delimiter="\t")
+        error_list = []
+        for row in output_edam_custom:
+            if row['Test Name'] in tests_quick_curation:
+                error_list.append(row)
     with open("test_data/report_profile.tsv") as file:
         robot_output = csv.DictReader(file, delimiter="\t")
         for row in robot_output:
