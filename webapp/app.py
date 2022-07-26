@@ -91,11 +91,24 @@ def edam_stats():
 
     basedir = path.abspath(path.dirname(__file__)) 
     load_dotenv(path.join(basedir, ".env")) 
-    environ.get("GITHUB_API_TOKEN") 
-    headers = {'Authorization': 'token', }
+    GITHUB_API_TOKEN = environ.get("GITHUB_API_TOKEN") 
+    headers = {'Authorization': 'token   {}'.format(GITHUB_API_TOKEN) }
 
     response = requests.get('https://api.github.com/repos/edamontology/edamontology', headers=headers)
-    print(response.json().keys())
+    home_page_api = response.json()
+    print(home_page_api.keys())
+
+    response = requests.get('https://api.github.com/repos/edamontology/edamontology/contributors', headers=headers)
+    contributors_api = response.json()
+    nb_contributors = len(contributors_api)
+    print(nb_contributors)
+    print(contributors_api)
+
+    response = requests.get('https://api.github.com/repos/edamontology/edamontology/teams', headers=headers)
+    team_api = response.json()
+    nb_team = len(team_api)
+    print(nb_team)
+    print(team_api)
 
     res = get_edam_numbers(g)
     res_last = get_edam_numbers(g_last_stable)
@@ -109,6 +122,7 @@ def edam_stats():
         new_operations = res['nb_operations'] - res_last['nb_operations'], 
         new_data = res['nb_data'] - res_last['nb_data'], 
         new_formats = res['nb_formats'] - res_last['nb_formats'], 
+        nb_contributors=nb_contributors
         )
     
 @app.route('/edam_validation')
