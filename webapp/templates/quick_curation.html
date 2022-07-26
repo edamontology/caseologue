@@ -10,7 +10,7 @@
 <p>In this demo, we randomly pick 5 classes from the EDAM ontology that need to be curated.</p>
 
 <section class="section">
-    <h2 class="subtitle"> <span class="tag is-light">{{ count_errors }} </span> EDAM concept need curation on one of theire property. </h2>
+    <h2 class="subtitle"> <span class="tag is-light">{{ count_errors }} </span> EDAM concept need curation on one of their property. </h2>
     {% for error in error_list %}
     <div class="buttons">
         <a href="{{error['Entity']}}" class="button is-danger is-rounded">{{error['Label']}}</a>
