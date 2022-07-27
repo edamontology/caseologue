@@ -5,6 +5,8 @@ import nbformat
 
 from rdflib import ConjunctiveGraph, Namespace
 
+import requests
+
 app = Flask(__name__)
 
 ns = {"dc": "http://dcterms/",
@@ -84,6 +86,17 @@ def get_edam_numbers(g):
 
 @app.route('/edam_stats')
 def edam_stats():
+
+    data = {
+        'ontology1url': 'https://edamontology.org/EDAM.owl',
+        'ontology2url': 'https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl',
+        'modifiedClasses': 'on',
+        'newClasses': 'on',
+        'deletedClasses': 'on',
+    }
+
+    response = requests.post('http://www.ebi.ac.uk/efo/bubastis/BubastisDiffResults', data=data)
+    print(response.url)
 
     res = get_edam_numbers(g)
     res_last = get_edam_numbers(g_last_stable)
