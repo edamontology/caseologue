@@ -5,13 +5,9 @@ import nbformat
 
 from rdflib import ConjunctiveGraph, Namespace
 
-<<<<<<< HEAD
-import requests
-=======
 import requests    
 from dotenv import load_dotenv 
 from os import environ, path
->>>>>>> stats_from_github
 
 app = Flask(__name__)
 
