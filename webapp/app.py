@@ -96,19 +96,37 @@ def edam_stats():
 
     response = requests.get('https://api.github.com/repos/edamontology/edamontology', headers=headers)
     home_page_api = response.json()
-    print(home_page_api.keys())
+    print(home_page_api)
 
     response = requests.get('https://api.github.com/repos/edamontology/edamontology/contributors', headers=headers)
     contributors_api = response.json()
     nb_contributors = len(contributors_api)
     print(nb_contributors)
     print(contributors_api)
+    list_contributors=[]
+    for c in contributors_api:
+        list_contributors.append(c['login'])
+    print(list_contributors)
+    print(contributors_api[0].keys())
 
-    response = requests.get('https://api.github.com/repos/edamontology/edamontology/teams', headers=headers)
-    team_api = response.json()
-    nb_team = len(team_api)
-    print(nb_team)
-    print(team_api)
+    for c in contributors_api:
+            
+        response = requests.get(c['url'], headers=headers)
+        c_api = response.json()
+        print(c_api['location'])
+    
+    issue_contributors=[]
+
+    for i in range(1,10): ##NOT OPTIMAL!
+        response = requests.get('https://api.github.com/repos/edamontology/edamontology/issues?state=all&per_page=100&page={}'.format(i), headers=headers)
+        issue_api = response.json()
+        #print(len(issue_api))
+        for i in issue_api:
+            #print(i['number'],i['state'])
+            if i['user']['login'] not in issue_contributors:
+                issue_contributors.append(i['user']['login'])
+    print(issue_contributors,len(issue_contributors))
+
 
     res = get_edam_numbers(g)
     res_last = get_edam_numbers(g_last_stable)
@@ -118,11 +136,16 @@ def edam_stats():
         operations = res['nb_operations'], 
         data = res['nb_data'], 
         format = res['nb_formats'], 
+        total=res['nb_formats']+res['nb_operations']+res['nb_topics']+res['nb_data'],
         new_topics = res['nb_topics'] - res_last['nb_topics'], 
         new_operations = res['nb_operations'] - res_last['nb_operations'], 
         new_data = res['nb_data'] - res_last['nb_data'], 
         new_formats = res['nb_formats'] - res_last['nb_formats'], 
-        nb_contributors=nb_contributors
+        new_total=res['nb_formats'] - res_last['nb_formats']+res['nb_data'] - res_last['nb_data']+res['nb_operations'] - res_last['nb_operations']+res['nb_topics'] - res_last['nb_topics'],
+        nb_contributors=nb_contributors,
+        list_contributors=list_contributors,
+        issue_contributors=issue_contributors,
+        nb_issue_contributors=len(issue_contributors)
         )
     
 @app.route('/edam_validation')

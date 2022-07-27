@@ -37,6 +37,12 @@
                 <p class="title">{{ format }}</p>
             </div>
         </div>
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Total</p>
+                <p class="title">{{ total }}</p>
+            </div>
+        </div>
     </nav>
 </section>
 
@@ -68,11 +74,46 @@
                 <p class="title">{{ new_formats }}</p>
             </div>
         </div>
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Total new</p>
+                <p class="title">{{ new_total }}</p>
+            </div>
+        </div>
     </nav>
 </section>
 
-<section>
-    <p>Number of contributors: {{nb_contributors}}</p>
+<section class="section">
+    <h2 class="subtitle">Contributors (code)</h2>
+        <div>
+            <p>Number of contributors: {{nb_contributors}}</p>
+        </div>
+        <div>
+            <p>Contributors login:</p>
+        </div>
+        <div style = "position:relative; left:160px;">
+            <ul style="list-style-type: disc">
+            {%for c in list_contributors %}
+                <li>{{c}}</li>    
+            {%endfor%}
+            </ul>
+        </div>
+</section>
+<section class="section">
+    <h2 class="subtitle">Contributors (Issues)</h2>
+        <div>
+            <p>Number of contributors: {{nb_issue_contributors}}</p>
+        </div>
+        <div>
+            <p>Contributors login:</p>
+        </div>
+        <div style = "position:relative; left:160px;">
+            <ul style="list-style-type: disc">
+            {%for c in issue_contributors %}
+                <li>{{c}}</li>    
+            {%endfor%}
+            </ul>
+    </div>
 </section>
 
 {% endblock %}
