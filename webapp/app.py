@@ -85,6 +85,147 @@ def get_edam_numbers(g):
             'nb_data': nb_data, 
             'nb_formats': nb_formats}
 
+def main_topic_children(g):
+    
+    query_biology= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3070> .
+    }
+    """
+
+    results = g.query(query_biology)
+    children_biology = len(results)
+    
+    query_biomedical_sciences= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3344> .
+    }
+    """
+
+    results = g.query(query_biomedical_sciences)
+    children_biomedical_sciences = len(results)
+
+    query_chemistry= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3314> .
+    }
+    """
+
+    results = g.query(query_chemistry)
+    children_chemistry = len(results)
+
+    query_computational_biology= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3307> .
+    }
+    """
+
+    results = g.query(query_computational_biology)
+    children_computational_biology = len(results)
+
+    query_computer_science= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3316> .
+    }
+    """
+
+    results = g.query(query_computer_science)
+    children_computer_science = len(results)
+
+    query_experimental_design_and_studies= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3678> .
+    }
+    """
+
+    results = g.query(query_experimental_design_and_studies)
+    children_experimental_design_and_studies = len(results)
+
+    query_informatics= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_0605> .
+    }
+    """
+
+    results = g.query(query_informatics)
+    children_informatics = len(results)
+
+    query_laboratory_techniques= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3361> .
+    }
+    """
+
+    results = g.query(query_laboratory_techniques)
+    children_laboratory_techniques = len(results)
+
+    query_literature_and_language= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3068> .
+    }
+    """
+
+    results = g.query(query_literature_and_language)
+    children_literature_and_language = len(results)
+
+
+    query_mathematics= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3315> .
+    }
+    """
+
+    results = g.query(query_mathematics)
+    children_mathematics = len(results)
+    
+    
+    query_medecine= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3303> .
+    }
+    """
+
+    results = g.query(query_medecine)
+    children_medecine = len(results)
+
+    
+    query_omics= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3391> .
+    }
+    """
+
+    results = g.query(query_omics)
+    children_omics = len(results)
+
+
+    query_physics= """
+    SELECT DISTINCT ?x WHERE {
+        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3318> .
+    }
+    """
+
+    results = g.query(query_physics)
+    children_physics = len(results)
+
+
+    return[ ["edam_topic", "number_chrildren"],
+            ['Biology', children_biology],
+            ['Biomedical sciences', children_biomedical_sciences],
+            ['Chemistry',children_chemistry],
+            ['Computational biology',children_computational_biology],
+            ['Computer science',children_computer_science],
+            ['Experimental Design and studies',children_experimental_design_and_studies],
+            ['Informatics',children_informatics],
+            ['Laboratory techniques',children_laboratory_techniques],
+            ['Literature and language',children_literature_and_language],
+            ['Mathematics',children_mathematics],
+            ['Medecine',children_medecine],
+            ['Omics',children_omics],
+            ['Physics',children_physics]
+            ]
+
+
 
 @app.route('/edam_stats')
 def edam_stats():
@@ -131,6 +272,9 @@ def edam_stats():
     res = get_edam_numbers(g)
     res_last = get_edam_numbers(g_last_stable)
 
+    res_top = main_topic_children(g)
+
+
     return render_template('stats.html', 
         topics = res['nb_topics'], 
         operations = res['nb_operations'], 
@@ -145,7 +289,8 @@ def edam_stats():
         nb_contributors=nb_contributors,
         list_contributors=list_contributors,
         issue_contributors=issue_contributors,
-        nb_issue_contributors=len(issue_contributors)
+        nb_issue_contributors=len(issue_contributors),
+        res_top=res_top
         )
     
 @app.route('/edam_validation')
