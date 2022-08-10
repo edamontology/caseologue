@@ -11,13 +11,8 @@ from os import environ, path
 
 app = Flask(__name__)
 
-ns = {"dc": "http://dcterms/",
-      "edam": "http://edamontology.org/",
-      "owl": "http://www.w3.org/2002/07/owl#"
-      }
-
 g = ConjunctiveGraph()
-g.load('https://raw.githubusercontent.com/edamontology/edamontology/master/EDAM_dev.owl', format='xml')
+g.load('https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl', format='xml')
 g.bind('edam', Namespace('http://edamontology.org/'))
 print(str(len(g)) + ' triples in the EDAM triple store')
 
@@ -86,145 +81,32 @@ def get_edam_numbers(g):
             'nb_formats': nb_formats}
 
 def main_topic_children(g):
+
+    query_children_topic= """
+    SELECT DISTINCT ?uri ?label WHERE {
+        ?uri rdfs:subClassOf <http://edamontology.org/topic_0003> .
+        ?uri rdfs:label ?label.
+    }
     
-    query_biology= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3070> .
-    }
     """
 
-    results = g.query(query_biology)
-    children_biology = len(results)
+    results = g.query(query_children_topic)
+    for r in results:
+        print(r)
     
-    query_biomedical_sciences= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3344> .
-    }
-    """
-
-    results = g.query(query_biomedical_sciences)
-    children_biomedical_sciences = len(results)
-
-    query_chemistry= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3314> .
-    }
-    """
-
-    results = g.query(query_chemistry)
-    children_chemistry = len(results)
-
-    query_computational_biology= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3307> .
-    }
-    """
-
-    results = g.query(query_computational_biology)
-    children_computational_biology = len(results)
-
-    query_computer_science= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3316> .
-    }
-    """
-
-    results = g.query(query_computer_science)
-    children_computer_science = len(results)
-
-    query_experimental_design_and_studies= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3678> .
-    }
-    """
-
-    results = g.query(query_experimental_design_and_studies)
-    children_experimental_design_and_studies = len(results)
-
-    query_informatics= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_0605> .
-    }
-    """
-
-    results = g.query(query_informatics)
-    children_informatics = len(results)
-
-    query_laboratory_techniques= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3361> .
-    }
-    """
-
-    results = g.query(query_laboratory_techniques)
-    children_laboratory_techniques = len(results)
-
-    query_literature_and_language= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3068> .
-    }
-    """
-
-    results = g.query(query_literature_and_language)
-    children_literature_and_language = len(results)
-
-
-    query_mathematics= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3315> .
-    }
-    """
-
-    results = g.query(query_mathematics)
-    children_mathematics = len(results)
+    children_topic_query = {}
+    for r in results:
+        children_topic_query[str(r['label'])]=f"SELECT DISTINCT ?uri WHERE {{?uri rdfs:subClassOf+ <{str(r['uri'])}>.}}"
     
+    print(children_topic_query)
+    results_table= [["edam_topic", "number_chrildren"]]
     
-    query_medecine= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3303> .
-    }
-    """
-
-    results = g.query(query_medecine)
-    children_medecine = len(results)
-
+    for label,query in children_topic_query.items():
+        results = g.query(query)
+        results_table.append([label,len(results)])
+    print(results_table)
     
-    query_omics= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3391> .
-    }
-    """
-
-    results = g.query(query_omics)
-    children_omics = len(results)
-
-
-    query_physics= """
-    SELECT DISTINCT ?x WHERE {
-        ?x rdfs:subClassOf+ <http://edamontology.org/topic_3318> .
-    }
-    """
-
-    results = g.query(query_physics)
-    children_physics = len(results)
-
-
-    return[ ["edam_topic", "number_chrildren"],
-            ['Biology', children_biology],
-            ['Biomedical sciences', children_biomedical_sciences],
-            ['Chemistry',children_chemistry],
-            ['Computational biology',children_computational_biology],
-            ['Computer science',children_computer_science],
-            ['Experimental Design and studies',children_experimental_design_and_studies],
-            ['Informatics',children_informatics],
-            ['Laboratory techniques',children_laboratory_techniques],
-            ['Literature and language',children_literature_and_language],
-            ['Mathematics',children_mathematics],
-            ['Medecine',children_medecine],
-            ['Omics',children_omics],
-            ['Physics',children_physics]
-            ]
-
+    return(results_table)
 
 
 @app.route('/edam_stats')
@@ -237,24 +119,24 @@ def edam_stats():
 
     response = requests.get('https://api.github.com/repos/edamontology/edamontology', headers=headers)
     home_page_api = response.json()
-    print(home_page_api)
+    #print(home_page_api)
 
     response = requests.get('https://api.github.com/repos/edamontology/edamontology/contributors', headers=headers)
     contributors_api = response.json()
     nb_contributors = len(contributors_api)
-    print(nb_contributors)
-    print(contributors_api)
+    #print(nb_contributors)
+    #print(contributors_api)
     list_contributors=[]
     for c in contributors_api:
         list_contributors.append(c['login'])
-    print(list_contributors)
-    print(contributors_api[0].keys())
+    #print(list_contributors)
+    #print(contributors_api[0].keys())
 
     for c in contributors_api:
             
         response = requests.get(c['url'], headers=headers)
         c_api = response.json()
-        print(c_api['location'])
+        #print(c_api['location'])
     
     issue_contributors=[]
 
@@ -266,8 +148,12 @@ def edam_stats():
             #print(i['number'],i['state'])
             if i['user']['login'] not in issue_contributors:
                 issue_contributors.append(i['user']['login'])
-    print(issue_contributors,len(issue_contributors))
+    #print(issue_contributors,len(issue_contributors))
 
+
+    response = requests.get('https://api.github.com/repos/LucieLamothe/edamontology/actions/artifacts', headers=headers)
+    artifacts = response.json()
+    print(artifacts)
 
     res = get_edam_numbers(g)
     res_last = get_edam_numbers(g_last_stable)
