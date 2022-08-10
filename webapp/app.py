@@ -11,36 +11,60 @@ from os import environ, path
 
 app = Flask(__name__)
 
-g = ConjunctiveGraph()
-g.load('https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl', format='xml')
-g.bind('edam', Namespace('http://edamontology.org/'))
-print(str(len(g)) + ' triples in the EDAM triple store')
+def load_edam():
 
-g_last_stable = ConjunctiveGraph()
-g_last_stable.load('http://edamontology.org/EDAM.owl', format='xml')
+    g = ConjunctiveGraph()
+    g.load('https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl', format='xml')
+    g.bind('edam', Namespace('http://edamontology.org/'))
+    print(str(len(g)) + ' triples in the EDAM triple store')
 
-## Build an index to retrieve term labels 
-idx_label = {}
-idx_uri = {}
-idx_query = """
-SELECT ?x ?label WHERE {
-    ?x rdf:type owl:Class ; 
-       rdfs:label ?label .
-}
-"""
-results = g.query(idx_query)
-for r in results :
-    #print(f"{r['label']} is identified in EDAM with concept {r['x']}") 
-    idx_uri[str(r['x'])] = str(r['label'])
-    idx_label[str(r['label'])] = str(r['x'])
+    g_last_stable = ConjunctiveGraph()
+    g_last_stable.load('http://edamontology.org/EDAM.owl', format='xml')
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+    ## Build an index to retrieve term labels 
+    idx_label = {}
+    idx_uri = {}
+    idx_query = """
+    SELECT ?x ?label WHERE {
+        ?x rdf:type owl:Class ; 
+        rdfs:label ?label .
+    }
+    """
+    results = g.query(idx_query)
+    for r in results :
+        #print(f"{r['label']} is identified in EDAM with concept {r['x']}") 
+        idx_uri[str(r['x'])] = str(r['label'])
+        idx_label[str(r['label'])] = str(r['x'])
+    
+    return (g,g_last_stable, idx_label,idx_uri)
 
-@app.route('/expert_curation')
-def expert_curation():
-    return render_template('index.html')
+def main_topic_children(g):
+
+    query_children_topic= """
+    SELECT DISTINCT ?uri ?label WHERE {
+        ?uri rdfs:subClassOf <http://edamontology.org/topic_0003> .
+        ?uri rdfs:label ?label.
+    }
+    
+    """
+
+    results = g.query(query_children_topic)
+    for r in results:
+        print(r)
+    
+    children_topic_query = {}
+    for r in results:
+        children_topic_query[str(r['label'])]=f"SELECT DISTINCT ?uri WHERE {{?uri rdfs:subClassOf+ <{str(r['uri'])}>.}}"
+    
+    print(children_topic_query)
+    results_table= [["edam_topic", "number_chrildren"]]
+    
+    for label,query in children_topic_query.items():
+        results = g.query(query)
+        results_table.append([label,len(results)])
+    print(results_table)
+    
+    return(results_table) #in curent 1.26 unstable version Biosciences have 70% of topic children, maybe filtre that if a concept have more than 50%, show its children instead. 
 
 def get_edam_numbers(g):
     query_op = """
@@ -80,38 +104,7 @@ def get_edam_numbers(g):
             'nb_data': nb_data, 
             'nb_formats': nb_formats}
 
-def main_topic_children(g):
-
-    query_children_topic= """
-    SELECT DISTINCT ?uri ?label WHERE {
-        ?uri rdfs:subClassOf <http://edamontology.org/topic_0003> .
-        ?uri rdfs:label ?label.
-    }
-    
-    """
-
-    results = g.query(query_children_topic)
-    for r in results:
-        print(r)
-    
-    children_topic_query = {}
-    for r in results:
-        children_topic_query[str(r['label'])]=f"SELECT DISTINCT ?uri WHERE {{?uri rdfs:subClassOf+ <{str(r['uri'])}>.}}"
-    
-    print(children_topic_query)
-    results_table= [["edam_topic", "number_chrildren"]]
-    
-    for label,query in children_topic_query.items():
-        results = g.query(query)
-        results_table.append([label,len(results)])
-    print(results_table)
-    
-    return(results_table)
-
-
-@app.route('/edam_stats')
-def edam_stats():
-
+def compute_repo_metadata ():
     basedir = path.abspath(path.dirname(__file__)) 
     load_dotenv(path.join(basedir, ".env")) 
     GITHUB_API_TOKEN = environ.get("GITHUB_API_TOKEN") 
@@ -148,6 +141,7 @@ def edam_stats():
             #print(i['number'],i['state'])
             if i['user']['login'] not in issue_contributors:
                 issue_contributors.append(i['user']['login'])
+    nb_issue_contributors=len(issue_contributors)
     #print(issue_contributors,len(issue_contributors))
 
 
@@ -155,11 +149,34 @@ def edam_stats():
     artifacts = response.json()
     print(artifacts)
 
-    res = get_edam_numbers(g)
-    res_last = get_edam_numbers(g_last_stable)
+    return(nb_contributors,list_contributors,issue_contributors,nb_issue_contributors)
 
-    res_top = main_topic_children(g)
+g,g_last_stable,idx_label,idx_uri=load_edam()
 
+main_topic_children_table=main_topic_children(g)
+
+edam_dev_numbers=get_edam_numbers(g)
+edam_stable_numbers=get_edam_numbers(g_last_stable)
+
+nb_contributors,list_contributors,issue_contributors,nb_issue_contributors=compute_repo_metadata()
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/expert_curation')
+def expert_curation():
+    return render_template('index.html')
+
+
+@app.route('/edam_stats')
+def edam_stats():
+
+    res = edam_dev_numbers
+    res_last = edam_stable_numbers
+
+    res_top=main_topic_children_table
 
     return render_template('stats.html', 
         topics = res['nb_topics'], 
@@ -175,7 +192,7 @@ def edam_stats():
         nb_contributors=nb_contributors,
         list_contributors=list_contributors,
         issue_contributors=issue_contributors,
-        nb_issue_contributors=len(issue_contributors),
+        nb_issue_contributors=nb_issue_contributors,
         res_top=res_top
         )
     
