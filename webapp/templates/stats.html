@@ -139,7 +139,7 @@
   google.charts.load("current", {packages:["corechart"]});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
-    var data = google.visualization.arrayToDataTable({{res_top|tojson}});
+    var data = google.visualization.arrayToDataTable({{main_topic_children_table|tojson}});
 
     var options = {
       title: 'Main EDAM topic children',

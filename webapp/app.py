@@ -173,27 +173,22 @@ def expert_curation():
 @app.route('/edam_stats')
 def edam_stats():
 
-    res = edam_dev_numbers
-    res_last = edam_stable_numbers
-
-    res_top=main_topic_children_table
-
     return render_template('stats.html', 
-        topics = res['nb_topics'], 
-        operations = res['nb_operations'], 
-        data = res['nb_data'], 
-        format = res['nb_formats'], 
-        total=res['nb_formats']+res['nb_operations']+res['nb_topics']+res['nb_data'],
-        new_topics = res['nb_topics'] - res_last['nb_topics'], 
-        new_operations = res['nb_operations'] - res_last['nb_operations'], 
-        new_data = res['nb_data'] - res_last['nb_data'], 
-        new_formats = res['nb_formats'] - res_last['nb_formats'], 
-        new_total=res['nb_formats'] - res_last['nb_formats']+res['nb_data'] - res_last['nb_data']+res['nb_operations'] - res_last['nb_operations']+res['nb_topics'] - res_last['nb_topics'],
+        topics = edam_dev_numbers['nb_topics'], 
+        operations = edam_dev_numbers['nb_operations'], 
+        data = edam_dev_numbers['nb_data'], 
+        format = edam_dev_numbers['nb_formats'], 
+        total=edam_dev_numbers['nb_formats']+edam_dev_numbers['nb_operations']+edam_dev_numbers['nb_topics']+edam_dev_numbers['nb_data'],
+        new_topics = edam_dev_numbers['nb_topics'] - edam_stable_numbers['nb_topics'], 
+        new_operations = edam_dev_numbers['nb_operations'] - edam_stable_numbers['nb_operations'], 
+        new_data = edam_dev_numbers['nb_data'] - edam_stable_numbers['nb_data'], 
+        new_formats = edam_dev_numbers['nb_formats'] - edam_stable_numbers['nb_formats'], 
+        new_total=edam_dev_numbers['nb_formats'] - edam_stable_numbers['nb_formats']+edam_dev_numbers['nb_data'] - edam_stable_numbers['nb_data']+edam_dev_numbers['nb_operations'] - edam_stable_numbers['nb_operations']+edam_dev_numbers['nb_topics'] - edam_stable_numbers['nb_topics'],
         nb_contributors=nb_contributors,
         list_contributors=list_contributors,
         issue_contributors=issue_contributors,
         nb_issue_contributors=nb_issue_contributors,
-        res_top=res_top
+        main_topic_children_table=main_topic_children_table
         )
     
 @app.route('/edam_validation')
