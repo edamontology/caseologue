@@ -54,7 +54,8 @@ def main_topic_children(g):
     children_topic_query = {}
     for r in results:
         children_topic_query[str(r['label'])]=f"SELECT DISTINCT ?uri WHERE {{?uri rdfs:subClassOf+ <{str(r['uri'])}>.}}"
-        results_table= [["edam_topic", "number_chrildren"]]
+    
+    results_table= [["edam_topic", "number_chrildren"]]
     
     for label,query in children_topic_query.items():
         results = g.query(query)
