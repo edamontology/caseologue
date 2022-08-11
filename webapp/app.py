@@ -49,20 +49,16 @@ def main_topic_children(g):
     """
 
     results = g.query(query_children_topic)
-    for r in results:
-        print(r)
+
     
     children_topic_query = {}
     for r in results:
         children_topic_query[str(r['label'])]=f"SELECT DISTINCT ?uri WHERE {{?uri rdfs:subClassOf+ <{str(r['uri'])}>.}}"
-    
-    print(children_topic_query)
-    results_table= [["edam_topic", "number_chrildren"]]
+        results_table= [["edam_topic", "number_chrildren"]]
     
     for label,query in children_topic_query.items():
         results = g.query(query)
         results_table.append([label,len(results)])
-    print(results_table)
     
     return(results_table) #in curent 1.26 unstable version Biosciences have 70% of topic children, maybe filtre that if a concept have more than 50%, show its children instead. 
 
@@ -110,9 +106,9 @@ def compute_repo_metadata ():
     GITHUB_API_TOKEN = environ.get("GITHUB_API_TOKEN") 
     headers = {'Authorization': 'token   {}'.format(GITHUB_API_TOKEN) }
 
-    response = requests.get('https://api.github.com/repos/edamontology/edamontology', headers=headers)
+    response = requests.get('https://api.github.com/repos/edamontology/edamontology',  headers={"Content-Type":"text"})
     home_page_api = response.json()
-    #print(home_page_api)
+    print(home_page_api)
 
     response = requests.get('https://api.github.com/repos/edamontology/edamontology/contributors', headers=headers)
     contributors_api = response.json()
@@ -133,32 +129,40 @@ def compute_repo_metadata ():
     
     issue_contributors=[]
 
-    for i in range(1,10): ##NOT OPTIMAL!
-        response = requests.get('https://api.github.com/repos/edamontology/edamontology/issues?state=all&per_page=100&page={}'.format(i), headers=headers)
+    page_empty = False
+    p = 1
+
+    while not page_empty:
+        response = requests.get(f'https://api.github.com/repos/edamontology/edamontology/issues?state=all&per_page=100&page={p}', headers=headers)
         issue_api = response.json()
-        #print(len(issue_api))
+        if len(issue_api) == 0: 
+            page_empty = True
         for i in issue_api:
             #print(i['number'],i['state'])
             if i['user']['login'] not in issue_contributors:
                 issue_contributors.append(i['user']['login'])
+        p+=1
     nb_issue_contributors=len(issue_contributors)
     #print(issue_contributors,len(issue_contributors))
 
 
     response = requests.get('https://api.github.com/repos/LucieLamothe/edamontology/actions/artifacts', headers=headers)
     artifacts = response.json()
-    print(artifacts)
+    # print(artifacts)
 
     return(nb_contributors,list_contributors,issue_contributors,nb_issue_contributors)
 
+print("Loading data")
 g,g_last_stable,idx_label,idx_uri=load_edam()
-
+print("1/5")
 main_topic_children_table=main_topic_children(g)
-
+print("2/5")
 edam_dev_numbers=get_edam_numbers(g)
+print("3/5")
 edam_stable_numbers=get_edam_numbers(g_last_stable)
-
+print("4/5")
 nb_contributors,list_contributors,issue_contributors,nb_issue_contributors=compute_repo_metadata()
+print("5/5 - Done!")
 
 
 @app.route('/')
