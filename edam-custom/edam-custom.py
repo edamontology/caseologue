@@ -2,6 +2,7 @@ import inspect
 import unittest
 from rdflib import OWL, ConjunctiveGraph, Namespace
 import os
+import subprocess
 import pandas as pd
 import argparse
 import sys
@@ -54,6 +55,8 @@ def suite ():
         suite.addTest(EdamQueryTest('test_literal_links'))
 #        suite.addTest(EdamQueryTest('test_duplicate_all'))
         suite.addTest(EdamQueryTest('test_format_property_missing'))
+        suite.addTest(EdamQueryTest('test_spelling_check'))            
+
     if run_essential == True :
         suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
         suite.addTest(EdamQueryTest('test_bad_uri'))
@@ -66,7 +69,7 @@ def suite ():
         suite.addTest(EdamQueryTest('test_next_id_modif'))
         suite.addTest(EdamQueryTest('test_subset_id'))
         suite.addTest(EdamQueryTest('test_object_relation_obsolete'))
-        suite.addTest(EdamQueryTest('test_empty_property'))               
+        suite.addTest(EdamQueryTest('test_empty_property'))   
     return suite
 
 
@@ -647,6 +650,31 @@ class EdamQueryTest(unittest.TestCase):
             self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
         
 
+        self.assertEqual(nb_err, 0)
+
+
+    ################# SPELLING CHECK ###########################
+    
+    def test_spelling_check(self):
+
+        """
+        Uses unix codespell command and custom spelling dictionnary to check spelling errors in EDAM. 
+        """
+        edam_path = str(os.environ.get('EDAM_PATH'))
+        cmd = "codespell -I spelling_ignore.txt "+edam_path
+        
+        output = os.popen(cmd).read()
+        spelling_err = output.rsplit("\n")
+        spelling_err.remove('')
+
+        for e in spelling_err:
+            line = e.rsplit(':')[1]
+            err = e.rsplit(': ')[1].rsplit(' ==>')[0]
+            suggest = e.rsplit('==> ')[1]
+            new_error = pd.DataFrame([['CURATION','spelling_check','Unknown','Unknown',(f'in your EDAM file, line {line}, "{err}" is suspected to be a spelling error. Could it be "{suggest}" instead? (if exeption needed comment in PR ... )')]], columns=['Level','Test Name','Entity','Label','Debug Message'])
+            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+        
+        nb_err = len(spelling_err)
         self.assertEqual(nb_err, 0)
 
 
