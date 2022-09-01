@@ -109,7 +109,7 @@ def compute_repo_metadata ():
 
     response = requests.get('https://api.github.com/repos/edamontology/edamontology',  headers={"Content-Type":"text"})
     home_page_api = response.json()
-    print(home_page_api)
+    #print(home_page_api)
 
     response = requests.get('https://api.github.com/repos/edamontology/edamontology/contributors', headers=headers)
     contributors_api = response.json()
@@ -147,11 +147,23 @@ def compute_repo_metadata ():
     #print(issue_contributors,len(issue_contributors))
 
 
-    response = requests.get('https://api.github.com/repos/LucieLamothe/edamontology/actions/artifacts', headers=headers)
-    artifacts = response.json()
-    # print(artifacts)
+    response = requests.get('https://api.github.com/repos/LucieLamothe/edamontology/actions/runs', headers=headers)
+    runs = response.json()
+    date = "2021-01-01T01:00:00Z"
+    for r in runs['workflow_runs']:
+        if r['workflow_id'] == 30081778 : 
+            print()
+            if r['created_at'] > date:
+                date = r['created_at']
+                link = r['html_url']
+                # api_trigger = r['triggering_actor']['events_url']
+    
+    # response = requests.get(api_trigger, headers=headers)
+    # trigger_event = response.json()
 
-    return(nb_contributors,list_contributors,issue_contributors,nb_issue_contributors)
+    # last_workflow = {"date":date, "link" : link, "trigger_commit" : "" }
+
+    return(nb_contributors,list_contributors,issue_contributors,nb_issue_contributors,link)
 
 print("Loading data")
 g,g_last_stable,idx_label,idx_uri=load_edam()
@@ -162,7 +174,7 @@ edam_dev_numbers=get_edam_numbers(g)
 print("3/5")
 edam_stable_numbers=get_edam_numbers(g_last_stable)
 print("4/5")
-nb_contributors,list_contributors,issue_contributors,nb_issue_contributors=compute_repo_metadata()
+nb_contributors,list_contributors,issue_contributors,nb_issue_contributors,last_workflow=compute_repo_metadata()
 print("5/5 - Done!")
 
 
@@ -221,7 +233,7 @@ def edam_last_report():
             number+=1
             robot_output_list.append(row)    
 
-    return render_template('edam_last_report.html', output_edam_custom_list=edam_custom_output_list, robot_output_list=robot_output_list)
+    return render_template('edam_last_report.html', output_edam_custom_list=edam_custom_output_list, robot_output_list=robot_output_list, last_workflow = last_workflow)
 
 @app.route('/quick_curation')
 def quick_curation():
