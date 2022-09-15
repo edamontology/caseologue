@@ -1,4 +1,4 @@
-name: EDAM-CUSTOM
+name: caseologue
 
 on: [push, pull_request, workflow_dispatch, workflow_call]
 
@@ -14,22 +14,22 @@ jobs:
 
     - name: Install requirements
       run: |
-        pip install -r edam-custom/requirements.txt
-        cd edam-custom/
+        pip install -r caseologue/requirements.txt
+        cd caseologue/
         wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
     - name: run 
       run: |
-        cd edam-custom/
-        EDAM_PATH=./EDAM_dev.owl python3 edam-custom.py -e -E
+        cd caseologue/
+        EDAM_PATH=./EDAM_dev.owl python3 caseologue.py -e -E
      
     # - name: Print output
     #   if: always()
     #   run: |
-    #     cat output_edam-custom.tsv 
+    #     cat output_caseologue.tsv 
 
     - name: Archive tests output
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: output_edam-custom
-        path: edam-custom/output_edam-custom.tsv
+        name: output_caseologue
+        path: caseologue/output_caseologue.tsv
