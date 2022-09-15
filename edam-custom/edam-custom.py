@@ -709,7 +709,7 @@ class EdamQueryTest(unittest.TestCase):
             pd.set_option("display.max_rows",None,"display.max_colwidth", 5000,"display.width",5000)
             print(tabulate(cls.report[['Test Name','Entity','Label','Debug Message']], headers=['Test Name','Entity','Label','Debug Message']))
             # prettify(cls.report[['Entity','Label','Debug Message']])
-        cls.report.to_csv("./output_edam-custom.tsv", sep='\t')
+        cls.report.to_csv("./output_caseologue.tsv", sep='\t')
         return super().tearDownClass()
 
 if __name__ == '__main__':
