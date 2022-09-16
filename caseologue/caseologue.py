@@ -718,6 +718,10 @@ if __name__ == '__main__':
     print(f"error = {run_error}, essential = {run_essential}, curation = {run_curation}")
 
     runner = unittest.TextTestRunner()
-    sys.exit(runner.run(suite()))
+    # sys.exit(runner.run(suite()))
+    print(runner.run(suite()))
+    if len(runner.run(suite()).failures) != 0:
+        exit(1)
+    
 
     
