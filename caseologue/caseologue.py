@@ -719,8 +719,9 @@ if __name__ == '__main__':
 
     runner = unittest.TextTestRunner()
     # sys.exit(runner.run(suite()))
-    print(runner.run(suite()))
-    if len(runner.run(suite()).failures) != 0:
+    cmd = runner.run(suite())
+    print(cmd)
+    if len(cmd.failures) != 0:
         exit(1)
     
 
