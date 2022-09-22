@@ -1,3 +1,4 @@
 .env
 robot/report_profile.tsv
 caseologue/output_caseologue.tsv
+../caseologue/queries/__pycache__/edamxpath_id_unique.cpython-39.pyc
