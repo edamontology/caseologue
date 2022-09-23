@@ -6,3 +6,5 @@ edam-validation can also be used for curation purposes.
 
 
 Note: caseologue used to be named edamci and then edam-custom, there might be some leftover in the code or some branches
+
+random change to tet github action, to be deleted
