@@ -1,0 +1,828 @@
+	Level	Test Name	Entity	Label	Debug Message
+0	CURATION	deprecated_replacement_obsolete	http://edamontology.org/data_2539	'Alignment data'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/data_2083
+1	CURATION	deprecated_replacement_obsolete	http://edamontology.org/topic_0747	'Nucleic acid sites and features'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0640
+2	CURATION	deprecated_replacement_obsolete	http://edamontology.org/topic_0748	'Protein sites and features'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0639
+3	CURATION	deprecated_replacement_obsolete	http://edamontology.org/topic_0751	'Phosphorylation sites'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_0748
+4	CURATION	deprecated_replacement_obsolete	http://edamontology.org/topic_2280	'Nucleic acid structure comparison'	concept is replaced by (http://www.geneontology.org/formats/oboInOwl#consider) an obsolete concept: http://edamontology.org/topic_1770
+5	CURATION	end_dot_def_missing	http://edamontology.org/data_0942	'2D PAGE image'	A dot is missing at the end of the definition.
+6	CURATION	end_dot_def_missing	http://edamontology.org/data_1895	'Locus ID (AGI)'	A dot is missing at the end of the definition.
+7	CURATION	end_dot_def_missing	http://edamontology.org/deprecation_comment	'deprecation_comment'	A dot is missing at the end of the definition.
+8	CURATION	end_dot_def_missing	http://edamontology.org/format_3327	'BAI'	A dot is missing at the end of the definition.
+9	CURATION	end_dot_def_missing	http://edamontology.org/format_3328	'HMMER2'	A dot is missing at the end of the definition.
+10	CURATION	end_dot_def_missing	http://edamontology.org/format_3329	'HMMER3'	A dot is missing at the end of the definition.
+11	CURATION	end_dot_def_missing	http://edamontology.org/format_3331	'BLAST XML results format'	A dot is missing at the end of the definition.
+12	CURATION	end_dot_def_missing	http://edamontology.org/format_3462	'CRAM'	A dot is missing at the end of the definition.
+13	CURATION	end_dot_def_missing	http://edamontology.org/format_3466	'EPS'	A dot is missing at the end of the definition.
+14	CURATION	end_dot_def_missing	http://edamontology.org/format_3508	'PDF'	A dot is missing at the end of the definition.
+15	CURATION	end_dot_def_missing	http://edamontology.org/format_3582	'afg'	A dot is missing at the end of the definition.
+16	CURATION	end_dot_def_missing	http://edamontology.org/format_3583	'bedgraph'	A dot is missing at the end of the definition.
+17	CURATION	end_dot_def_missing	http://edamontology.org/format_3605	'rast'	A dot is missing at the end of the definition.
+18	CURATION	end_dot_def_missing	http://edamontology.org/format_3696	'PS'	A dot is missing at the end of the definition.
+19	CURATION	end_dot_def_missing	http://edamontology.org/format_3817	'latex'	A dot is missing at the end of the definition.
+20	CURATION	end_dot_def_missing	http://edamontology.org/format_3830	'ARB'	A dot is missing at the end of the definition.
+21	CURATION	end_dot_def_missing	http://edamontology.org/format_3886	'RST'	A dot is missing at the end of the definition.
+22	CURATION	end_dot_def_missing	http://edamontology.org/operation_2947	'Article analysis'	A dot is missing at the end of the definition.
+23	CURATION	end_dot_def_missing	http://edamontology.org/operation_3359	'Splitting'	A dot is missing at the end of the definition.
+24	CURATION	end_dot_def_missing	http://edamontology.org/operation_3642	'Dimethyl'	A dot is missing at the end of the definition.
+25	CURATION	end_dot_def_missing	http://edamontology.org/operation_3893	'Forcefield parameterisation'	A dot is missing at the end of the definition.
+26	CURATION	end_dot_def_missing	http://edamontology.org/refactor_comment	'refactor_comment'	A dot is missing at the end of the definition.
+27	CURATION	end_dot_def_missing	http://edamontology.org/topic_0655	'Coding RNA'	A dot is missing at the end of the definition.
+28	CURATION	end_dot_def_missing	http://edamontology.org/topic_0767	'Protein and peptide identification'	A dot is missing at the end of the definition.
+29	CURATION	end_dot_def_missing	http://edamontology.org/topic_0771	'Theoretical biology'	A dot is missing at the end of the definition.
+30	CURATION	end_dot_def_missing	http://edamontology.org/topic_3044	'Protein interaction networks'	A dot is missing at the end of the definition.
+31	CURATION	check_wikipedia_link	http://edamontology.org/topic_3068	'Literature and language'	Topic concept missing a wikipedia link
+32	CURATION	check_wikipedia_link	http://edamontology.org/topic_0219	'Data submission, annotation, and curation'	Topic concept missing a wikipedia link
+33	CURATION	check_wikipedia_link	http://edamontology.org/topic_3345	'Data identity and mapping'	Topic concept missing a wikipedia link
+34	CURATION	check_wikipedia_link	http://edamontology.org/topic_3923	'Genome resequencing'	Topic concept missing a wikipedia link
+35	CURATION	check_wikipedia_link	http://edamontology.org/topic_3524	'Simulation experiment'	Topic concept missing a wikipedia link
+36	CURATION	check_wikipedia_link	http://edamontology.org/topic_3511	'Nucleic acid sites, features and motifs'	Topic concept missing a wikipedia link
+37	CURATION	check_wikipedia_link	http://edamontology.org/topic_0123	'Protein properties'	Topic concept missing a wikipedia link
+38	CURATION	check_wikipedia_link	http://edamontology.org/topic_3510	'Protein sites, features and motifs'	Topic concept missing a wikipedia link
+39	CURATION	check_wikipedia_link	http://edamontology.org/topic_0157	'Sequence composition, complexity and repeats'	Topic concept missing a wikipedia link
+40	CURATION	check_wikipedia_link	http://edamontology.org/topic_0632	'Probes and primers'	Topic concept missing a wikipedia link
+41	CURATION	check_wikipedia_link	http://edamontology.org/topic_0160	'Sequence sites, features and motifs'	Topic concept missing a wikipedia link
+42	CURATION	check_wikipedia_link	http://edamontology.org/topic_3892	'Biomolecular simulation'	Topic concept missing a wikipedia link
+43	CURATION	check_wikipedia_link	http://edamontology.org/topic_3374	'Biotherapeutics'	Topic concept missing a wikipedia link
+44	CURATION	check_wikipedia_link	http://edamontology.org/topic_3393	'Quality affairs'	Topic concept missing a wikipedia link
+45	CURATION	identifier_property_missing	http://edamontology.org/data_1002	'CAS number'	is missing regex property
+46	CURATION	identifier_property_missing	http://edamontology.org/data_1003	'Chemical registry number (Beilstein)'	is missing regex property
+47	CURATION	identifier_property_missing	http://edamontology.org/data_1004	'Chemical registry number (Gmelin)'	is missing regex property
+48	CURATION	identifier_property_missing	http://edamontology.org/data_1027	'Gene ID (NCBI)'	is missing regex property
+49	CURATION	identifier_property_missing	http://edamontology.org/data_1031	'Gene ID (CGD)'	is missing regex property
+50	CURATION	identifier_property_missing	http://edamontology.org/data_1032	'Gene ID (DictyBase)'	is missing regex property
+51	CURATION	identifier_property_missing	http://edamontology.org/data_1033	'Ensembl gene ID'	is missing regex property
+52	CURATION	identifier_property_missing	http://edamontology.org/data_1036	'TIGR identifier'	is missing regex property
+53	CURATION	identifier_property_missing	http://edamontology.org/data_1039	'SCOP domain identifier'	is missing regex property
+54	CURATION	identifier_property_missing	http://edamontology.org/data_1040	'CATH domain ID'	is missing regex property
+55	CURATION	identifier_property_missing	http://edamontology.org/data_1041	'SCOP concise classification string (sccs)'	is missing regex property
+56	CURATION	identifier_property_missing	http://edamontology.org/data_1042	'SCOP sunid'	is missing regex property
+57	CURATION	identifier_property_missing	http://edamontology.org/data_1043	'CATH node ID'	is missing regex property
+58	CURATION	identifier_property_missing	http://edamontology.org/data_1066	'Sequence alignment ID'	is missing regex property
+59	CURATION	identifier_property_missing	http://edamontology.org/data_1100	'PIR identifier'	is missing regex property
+60	CURATION	identifier_property_missing	http://edamontology.org/data_1102	'Gramene primary identifier'	is missing regex property
+61	CURATION	identifier_property_missing	http://edamontology.org/data_1103	'EMBL/GenBank/DDBJ ID'	is missing regex property
+62	CURATION	identifier_property_missing	http://edamontology.org/data_1104	'Sequence cluster ID (UniGene)'	is missing regex property
+63	CURATION	identifier_property_missing	http://edamontology.org/data_1105	'dbEST accession'	is missing regex property
+64	CURATION	identifier_property_missing	http://edamontology.org/data_1106	'dbSNP ID'	is missing regex property
+65	CURATION	identifier_property_missing	http://edamontology.org/data_1113	'Sequence cluster ID (COG)'	is missing regex property
+66	CURATION	identifier_property_missing	http://edamontology.org/data_1118	'HMMER hidden Markov model ID'	is missing regex property
+67	CURATION	identifier_property_missing	http://edamontology.org/data_1119	'JASPAR profile ID'	is missing regex property
+68	CURATION	identifier_property_missing	http://edamontology.org/data_1123	'TreeBASE study accession number'	is missing regex property
+69	CURATION	identifier_property_missing	http://edamontology.org/data_1124	'TreeFam accession number'	is missing regex property
+70	CURATION	identifier_property_missing	http://edamontology.org/data_1128	'AAindex ID'	is missing regex property
+71	CURATION	identifier_property_missing	http://edamontology.org/data_1129	'BIND accession number'	is missing regex property
+72	CURATION	identifier_property_missing	http://edamontology.org/data_1134	'InterPro secondary accession'	is missing regex property
+73	CURATION	identifier_property_missing	http://edamontology.org/data_1135	'Gene3D ID'	is missing regex property
+74	CURATION	identifier_property_missing	http://edamontology.org/data_1140	'Superfamily hidden Markov model number'	is missing regex property
+75	CURATION	identifier_property_missing	http://edamontology.org/data_1141	'TIGRFam ID'	is missing regex property
+76	CURATION	identifier_property_missing	http://edamontology.org/data_1143	'TRANSFAC accession number'	is missing regex property
+77	CURATION	identifier_property_missing	http://edamontology.org/data_1146	'EMDB ID'	is missing regex property
+78	CURATION	identifier_property_missing	http://edamontology.org/data_1148	'GermOnline ID'	is missing regex property
+79	CURATION	identifier_property_missing	http://edamontology.org/data_1149	'EMAGE ID'	is missing regex property
+80	CURATION	identifier_property_missing	http://edamontology.org/data_1151	'HGVbase ID'	is missing regex property
+81	CURATION	identifier_property_missing	http://edamontology.org/data_1154	'KEGG object identifier'	is missing regex property
+82	CURATION	identifier_property_missing	http://edamontology.org/data_1157	'Pathway ID (BioCyc)'	is missing regex property
+83	CURATION	identifier_property_missing	http://edamontology.org/data_1158	'Pathway ID (INOH)'	is missing regex property
+84	CURATION	identifier_property_missing	http://edamontology.org/data_1159	'Pathway ID (PATIKA)'	is missing regex property
+85	CURATION	identifier_property_missing	http://edamontology.org/data_1160	'Pathway ID (CPDB)'	is missing regex property
+86	CURATION	identifier_property_missing	http://edamontology.org/data_1164	'MIRIAM URI'	is missing regex property
+87	CURATION	identifier_property_missing	http://edamontology.org/data_1167	'Taverna workflow ID'	is missing regex property
+88	CURATION	identifier_property_missing	http://edamontology.org/data_1175	'BioPax concept ID'	is missing regex property
+89	CURATION	identifier_property_missing	http://edamontology.org/data_1177	'MeSH concept ID'	is missing regex property
+90	CURATION	identifier_property_missing	http://edamontology.org/data_1178	'HGNC concept ID'	is missing regex property
+91	CURATION	identifier_property_missing	http://edamontology.org/data_1180	'Plant Ontology concept ID'	is missing regex property
+92	CURATION	identifier_property_missing	http://edamontology.org/data_1181	'UMLS concept ID'	is missing regex property
+93	CURATION	identifier_property_missing	http://edamontology.org/data_1183	'EMAP concept ID'	is missing regex property
+94	CURATION	identifier_property_missing	http://edamontology.org/data_1184	'ChEBI concept ID'	is missing regex property
+95	CURATION	identifier_property_missing	http://edamontology.org/data_1185	'MGED concept ID'	is missing regex property
+96	CURATION	identifier_property_missing	http://edamontology.org/data_1186	'myGrid concept ID'	is missing regex property
+97	CURATION	identifier_property_missing	http://edamontology.org/data_1189	'Medline UI'	is missing regex property
+98	CURATION	identifier_property_missing	http://edamontology.org/data_1794	'Gene ID (PlasmoDB)'	is missing regex property
+99	CURATION	identifier_property_missing	http://edamontology.org/data_1795	'Gene ID (EcoGene)'	is missing regex property
+100	CURATION	identifier_property_missing	http://edamontology.org/data_1796	'Gene ID (FlyBase)'	is missing regex property
+101	CURATION	identifier_property_missing	http://edamontology.org/data_1802	'Gene ID (Gramene)'	is missing regex property
+102	CURATION	identifier_property_missing	http://edamontology.org/data_1803	'Gene ID (Virginia microbial)'	is missing regex property
+103	CURATION	identifier_property_missing	http://edamontology.org/data_1804	'Gene ID (SGN)'	is missing regex property
+104	CURATION	identifier_property_missing	http://edamontology.org/data_1873	'iHOP organism ID'	is missing regex property
+105	CURATION	identifier_property_missing	http://edamontology.org/data_1885	'Gene ID (GeneFarm)'	is missing regex property
+106	CURATION	identifier_property_missing	http://edamontology.org/data_1886	'Blattner number'	is missing regex property
+107	CURATION	identifier_property_missing	http://edamontology.org/data_1891	'iHOP symbol'	is missing regex property
+108	CURATION	identifier_property_missing	http://edamontology.org/data_1896	'Locus ID (ASPGD)'	is missing regex property
+109	CURATION	identifier_property_missing	http://edamontology.org/data_1897	'Locus ID (MGG)'	is missing regex property
+110	CURATION	identifier_property_missing	http://edamontology.org/data_1898	'Locus ID (CGD)'	is missing regex property
+111	CURATION	identifier_property_missing	http://edamontology.org/data_1899	'Locus ID (CMR)'	is missing regex property
+112	CURATION	identifier_property_missing	http://edamontology.org/data_1900	'NCBI locus tag'	is missing regex property
+113	CURATION	identifier_property_missing	http://edamontology.org/data_1901	'Locus ID (SGD)'	is missing regex property
+114	CURATION	identifier_property_missing	http://edamontology.org/data_1902	'Locus ID (MMP)'	is missing regex property
+115	CURATION	identifier_property_missing	http://edamontology.org/data_1903	'Locus ID (DictyBase)'	is missing regex property
+116	CURATION	identifier_property_missing	http://edamontology.org/data_1904	'Locus ID (EntrezGene)'	is missing regex property
+117	CURATION	identifier_property_missing	http://edamontology.org/data_1905	'Locus ID (MaizeGDB)'	is missing regex property
+118	CURATION	identifier_property_missing	http://edamontology.org/data_1907	'Gene ID (KOME)'	is missing regex property
+119	CURATION	identifier_property_missing	http://edamontology.org/data_1908	'Locus ID (Tropgene)'	is missing regex property
+120	CURATION	identifier_property_missing	http://edamontology.org/data_2102	'KEGG organism code'	is missing regex property
+121	CURATION	identifier_property_missing	http://edamontology.org/data_2104	'BioCyc ID'	is missing regex property
+122	CURATION	identifier_property_missing	http://edamontology.org/data_2105	'Compound ID (BioCyc)'	is missing regex property
+123	CURATION	identifier_property_missing	http://edamontology.org/data_2106	'Reaction ID (BioCyc)'	is missing regex property
+124	CURATION	identifier_property_missing	http://edamontology.org/data_2107	'Enzyme ID (BioCyc)'	is missing regex property
+125	CURATION	identifier_property_missing	http://edamontology.org/data_2112	'FlyBase primary identifier'	is missing regex property
+126	CURATION	identifier_property_missing	http://edamontology.org/data_2174	'FlyBase secondary identifier'	is missing regex property
+127	CURATION	identifier_property_missing	http://edamontology.org/data_2209	'Mutation ID'	is missing regex property
+128	CURATION	identifier_property_missing	http://edamontology.org/data_2220	'Sequence cluster ID (SYSTERS)'	is missing regex property
+129	CURATION	identifier_property_missing	http://edamontology.org/data_2285	'Gene ID (MIPS)'	is missing regex property
+130	CURATION	identifier_property_missing	http://edamontology.org/data_2290	'EMBL accession'	is missing regex property
+131	CURATION	identifier_property_missing	http://edamontology.org/data_2292	'GenBank accession'	is missing regex property
+132	CURATION	identifier_property_missing	http://edamontology.org/data_2293	'Gramene secondary identifier'	is missing regex property
+133	CURATION	identifier_property_missing	http://edamontology.org/data_2297	'Gene ID (ECK)'	is missing regex property
+134	CURATION	identifier_property_missing	http://edamontology.org/data_2298	'Gene ID (HGNC)'	is missing regex property
+135	CURATION	identifier_property_missing	http://edamontology.org/data_2302	'STRING ID'	is missing regex property
+136	CURATION	identifier_property_missing	http://edamontology.org/data_2314	'GI number'	is missing regex property
+137	CURATION	identifier_property_missing	http://edamontology.org/data_2315	'NCBI version'	is missing regex property
+138	CURATION	identifier_property_missing	http://edamontology.org/data_2325	'REBASE enzyme number'	is missing regex property
+139	CURATION	identifier_property_missing	http://edamontology.org/data_2327	'GI number (protein)'	is missing regex property
+140	CURATION	identifier_property_missing	http://edamontology.org/data_2345	'Pathway ID (ConsensusPathDB)'	is missing regex property
+141	CURATION	identifier_property_missing	http://edamontology.org/data_2346	'Sequence cluster ID (UniRef)'	is missing regex property
+142	CURATION	identifier_property_missing	http://edamontology.org/data_2347	'Sequence cluster ID (UniRef100)'	is missing regex property
+143	CURATION	identifier_property_missing	http://edamontology.org/data_2348	'Sequence cluster ID (UniRef90)'	is missing regex property
+144	CURATION	identifier_property_missing	http://edamontology.org/data_2349	'Sequence cluster ID (UniRef50)'	is missing regex property
+145	CURATION	identifier_property_missing	http://edamontology.org/data_2356	'RFAM accession'	is missing regex property
+146	CURATION	identifier_property_missing	http://edamontology.org/data_2367	'ASTD ID'	is missing regex property
+147	CURATION	identifier_property_missing	http://edamontology.org/data_2368	'ASTD ID (exon)'	is missing regex property
+148	CURATION	identifier_property_missing	http://edamontology.org/data_2369	'ASTD ID (intron)'	is missing regex property
+149	CURATION	identifier_property_missing	http://edamontology.org/data_2370	'ASTD ID (polya)'	is missing regex property
+150	CURATION	identifier_property_missing	http://edamontology.org/data_2371	'ASTD ID (tss)'	is missing regex property
+151	CURATION	identifier_property_missing	http://edamontology.org/data_2374	'Spot serial number'	is missing regex property
+152	CURATION	identifier_property_missing	http://edamontology.org/data_2375	'Spot ID (HSC-2DPAGE)'	is missing regex property
+153	CURATION	identifier_property_missing	http://edamontology.org/data_2380	'CABRI accession'	is missing regex property
+154	CURATION	identifier_property_missing	http://edamontology.org/data_2383	'EGA accession'	is missing regex property
+155	CURATION	identifier_property_missing	http://edamontology.org/data_2385	'RefSeq accession (protein)'	is missing regex property
+156	CURATION	identifier_property_missing	http://edamontology.org/data_2386	'EPD ID'	is missing regex property
+157	CURATION	identifier_property_missing	http://edamontology.org/data_2387	'TAIR accession'	is missing regex property
+158	CURATION	identifier_property_missing	http://edamontology.org/data_2388	'TAIR accession (At gene)'	is missing regex property
+159	CURATION	identifier_property_missing	http://edamontology.org/data_2389	'UniSTS accession'	is missing regex property
+160	CURATION	identifier_property_missing	http://edamontology.org/data_2390	'UNITE accession'	is missing regex property
+161	CURATION	identifier_property_missing	http://edamontology.org/data_2391	'UTR accession'	is missing regex property
+162	CURATION	identifier_property_missing	http://edamontology.org/data_2393	'mFLJ/mKIAA number'	is missing regex property
+163	CURATION	identifier_property_missing	http://edamontology.org/data_2398	'Ensembl protein ID'	is missing regex property
+164	CURATION	identifier_property_missing	http://edamontology.org/data_2578	'ArachnoServer ID'	is missing regex property
+165	CURATION	identifier_property_missing	http://edamontology.org/data_2580	'BindingDB Monomer ID'	is missing regex property
+166	CURATION	identifier_property_missing	http://edamontology.org/data_2588	'BlotBase blot ID'	is missing regex property
+167	CURATION	identifier_property_missing	http://edamontology.org/data_2591	'Brite hierarchy ID'	is missing regex property
+168	CURATION	identifier_property_missing	http://edamontology.org/data_2593	'BRENDA organism ID'	is missing regex property
+169	CURATION	identifier_property_missing	http://edamontology.org/data_2639	'PubChem ID'	is missing regex property
+170	CURATION	identifier_property_missing	http://edamontology.org/data_2700	'CATH identifier'	is missing regex property
+171	CURATION	identifier_property_missing	http://edamontology.org/data_2701	'CATH node ID (family)'	is missing regex property
+172	CURATION	identifier_property_missing	http://edamontology.org/data_2702	'Enzyme ID (CAZy)'	is missing regex property
+173	CURATION	identifier_property_missing	http://edamontology.org/data_2704	'Clone ID (IMAGE)'	is missing regex property
+174	CURATION	identifier_property_missing	http://edamontology.org/data_2709	'CleanEx entry name'	is missing regex property
+175	CURATION	identifier_property_missing	http://edamontology.org/data_2713	'Protein ID (CORUM)'	is missing regex property
+176	CURATION	identifier_property_missing	http://edamontology.org/data_2714	'CDD PSSM-ID'	is missing regex property
+177	CURATION	identifier_property_missing	http://edamontology.org/data_2715	'Protein ID (CuticleDB)'	is missing regex property
+178	CURATION	identifier_property_missing	http://edamontology.org/data_2716	'DBD ID'	is missing regex property
+179	CURATION	identifier_property_missing	http://edamontology.org/data_2719	'dbProbe ID'	is missing regex property
+180	CURATION	identifier_property_missing	http://edamontology.org/data_2721	'DiProDB ID'	is missing regex property
+181	CURATION	identifier_property_missing	http://edamontology.org/data_2723	'Protein ID (DisProt)'	is missing regex property
+182	CURATION	identifier_property_missing	http://edamontology.org/data_2725	'Ensembl transcript ID'	is missing regex property
+183	CURATION	identifier_property_missing	http://edamontology.org/data_2729	'COGEME EST ID'	is missing regex property
+184	CURATION	identifier_property_missing	http://edamontology.org/data_2730	'COGEME unisequence ID'	is missing regex property
+185	CURATION	identifier_property_missing	http://edamontology.org/data_2731	'Protein family ID (GeneFarm)'	is missing regex property
+186	CURATION	identifier_property_missing	http://edamontology.org/data_2736	'Sequence feature ID (SwissRegulon)'	is missing regex property
+187	CURATION	identifier_property_missing	http://edamontology.org/data_2737	'FIG ID'	is missing regex property
+188	CURATION	identifier_property_missing	http://edamontology.org/data_2738	'Gene ID (Xenbase)'	is missing regex property
+189	CURATION	identifier_property_missing	http://edamontology.org/data_2739	'Gene ID (Genolist)'	is missing regex property
+190	CURATION	identifier_property_missing	http://edamontology.org/data_2741	'ABS ID'	is missing regex property
+191	CURATION	identifier_property_missing	http://edamontology.org/data_2742	'AraC-XylS ID'	is missing regex property
+192	CURATION	identifier_property_missing	http://edamontology.org/data_2744	'Locus ID (PseudoCAP)'	is missing regex property
+193	CURATION	identifier_property_missing	http://edamontology.org/data_2745	'Locus ID (UTR)'	is missing regex property
+194	CURATION	identifier_property_missing	http://edamontology.org/data_2746	'MonosaccharideDB ID'	is missing regex property
+195	CURATION	identifier_property_missing	http://edamontology.org/data_2756	'TCID'	is missing regex property
+196	CURATION	identifier_property_missing	http://edamontology.org/data_2759	'Gene ID (VectorBase)'	is missing regex property
+197	CURATION	identifier_property_missing	http://edamontology.org/data_2766	'HAMAP ID'	is missing regex property
+198	CURATION	identifier_property_missing	http://edamontology.org/data_2770	'HIT ID'	is missing regex property
+199	CURATION	identifier_property_missing	http://edamontology.org/data_2771	'HIX ID'	is missing regex property
+200	CURATION	identifier_property_missing	http://edamontology.org/data_2772	'HPA antibody id'	is missing regex property
+201	CURATION	identifier_property_missing	http://edamontology.org/data_2773	'IMGT/HLA ID'	is missing regex property
+202	CURATION	identifier_property_missing	http://edamontology.org/data_2774	'Gene ID (JCVI)'	is missing regex property
+203	CURATION	identifier_property_missing	http://edamontology.org/data_2776	'ConsensusPathDB entity ID'	is missing regex property
+204	CURATION	identifier_property_missing	http://edamontology.org/data_2778	'CCAP strain number'	is missing regex property
+205	CURATION	identifier_property_missing	http://edamontology.org/data_2780	'Stock number (TAIR)'	is missing regex property
+206	CURATION	identifier_property_missing	http://edamontology.org/data_2781	'REDIdb ID'	is missing regex property
+207	CURATION	identifier_property_missing	http://edamontology.org/data_2783	'Protein family ID (PANTHER)'	is missing regex property
+208	CURATION	identifier_property_missing	http://edamontology.org/data_2784	'RNAVirusDB ID'	is missing regex property
+209	CURATION	identifier_property_missing	http://edamontology.org/data_2786	'NCBI Genome Project ID'	is missing regex property
+210	CURATION	identifier_property_missing	http://edamontology.org/data_2787	'NCBI genome accession'	is missing regex property
+211	CURATION	identifier_property_missing	http://edamontology.org/data_2789	'Protein ID (TopDB)'	is missing regex property
+212	CURATION	identifier_property_missing	http://edamontology.org/data_2792	'Protein ID (PeroxiBase)'	is missing regex property
+213	CURATION	identifier_property_missing	http://edamontology.org/data_2793	'SISYPHUS ID'	is missing regex property
+214	CURATION	identifier_property_missing	http://edamontology.org/data_2794	'ORF ID'	is missing regex property
+215	CURATION	identifier_property_missing	http://edamontology.org/data_2797	'Protein ID (LGICdb)'	is missing regex property
+216	CURATION	identifier_property_missing	http://edamontology.org/data_2798	'MaizeDB ID'	is missing regex property
+217	CURATION	identifier_property_missing	http://edamontology.org/data_2799	'Gene ID (MfunGD)'	is missing regex property
+218	CURATION	identifier_property_missing	http://edamontology.org/data_2800	'Orpha number'	is missing regex property
+219	CURATION	identifier_property_missing	http://edamontology.org/data_2802	'Protein ID (EcID)'	is missing regex property
+220	CURATION	identifier_property_missing	http://edamontology.org/data_2803	'Clone ID (RefSeq)'	is missing regex property
+221	CURATION	identifier_property_missing	http://edamontology.org/data_2804	'Protein ID (ConoServer)'	is missing regex property
+222	CURATION	identifier_property_missing	http://edamontology.org/data_2805	'GeneSNP ID'	is missing regex property
+223	CURATION	identifier_property_missing	http://edamontology.org/data_2835	'Gene ID (VBASE2)'	is missing regex property
+224	CURATION	identifier_property_missing	http://edamontology.org/data_2836	'DPVweb ID'	is missing regex property
+225	CURATION	identifier_property_missing	http://edamontology.org/data_2915	'Gramene identifier'	is missing regex property
+226	CURATION	identifier_property_missing	http://edamontology.org/data_2916	'DDBJ accession'	is missing regex property
+227	CURATION	identifier_property_missing	http://edamontology.org/data_3029	'Protein ID (EMBL/GenBank/DDBJ)'	is missing regex property
+228	CURATION	identifier_property_missing	http://edamontology.org/data_3103	'ATC code'	is missing regex property
+229	CURATION	identifier_property_missing	http://edamontology.org/data_3264	'COSMIC ID'	is missing regex property
+230	CURATION	identifier_property_missing	http://edamontology.org/data_3265	'HGMD ID'	is missing regex property
+231	CURATION	identifier_property_missing	http://edamontology.org/data_3270	'Ensembl gene tree ID'	is missing regex property
+232	CURATION	identifier_property_missing	http://edamontology.org/data_3274	'MGI accession'	is missing regex property
+233	CURATION	identifier_property_missing	http://edamontology.org/data_3757	'Unimod ID'	is missing regex property
+234	CURATION	identifier_property_missing	http://edamontology.org/data_3769	'BRENDA ontology concept ID'	is missing regex property
+235	CURATION	identifier_property_missing	http://edamontology.org/data_3856	'RNA central ID'	is missing regex property
+236	CURATION	duplicate_in_concept	http://edamontology.org/format_3592	'BMP'	http://www.w3.org/2000/01/rdf-schema#label and http://www.geneontology.org/formats/oboInOwl#hasExactSynonym have the same content: 'BMP'
+237	CURATION	duplicate_in_concept	http://edamontology.org/format_1631	'EXP'	http://www.geneontology.org/formats/oboInOwl#hasExactSynonym and http://www.w3.org/2000/01/rdf-schema#label have the same content: 'EXP'
+238	CURATION	duplicate_in_concept	http://edamontology.org/format_1631	'EXP'	http://www.w3.org/2000/01/rdf-schema#label and http://www.geneontology.org/formats/oboInOwl#hasExactSynonym have the same content: 'EXP'
+239	CURATION	duplicate_in_concept	http://edamontology.org/format_4018	'gVCF'	http://www.geneontology.org/formats/oboInOwl#hasExactSynonym and http://www.w3.org/2000/01/rdf-schema#label have the same content: 'GVCF'
+240	CURATION	duplicate_in_concept	http://edamontology.org/topic_0767	'Protein and peptide identification'	http://www.geneontology.org/formats/oboInOwl#hasDefinition and http://www.w3.org/2000/01/rdf-schema#label have the same content: 'Protein and peptide identification'
+241	CURATION	duplicate_in_concept	http://edamontology.org/topic_0767	'Protein and peptide identification'	http://www.w3.org/2000/01/rdf-schema#label and http://www.geneontology.org/formats/oboInOwl#hasDefinition have the same content: 'Protein and peptide identification'
+242	CURATION	duplicate_in_concept	http://edamontology.org/topic_3044	'Protein interaction networks'	http://www.geneontology.org/formats/oboInOwl#hasDefinition and http://www.w3.org/2000/01/rdf-schema#label have the same content: 'Protein interaction networks'
+243	CURATION	duplicate_in_concept	http://edamontology.org/topic_3044	'Protein interaction networks'	http://www.w3.org/2000/01/rdf-schema#label and http://www.geneontology.org/formats/oboInOwl#hasDefinition have the same content: 'Protein interaction networks'
+244	CURATION	duplicate_in_concept	http://edamontology.org/format_3591	'TIFF'	http://www.w3.org/2000/01/rdf-schema#label and http://www.geneontology.org/formats/oboInOwl#hasExactSynonym have the same content: 'TIFF'
+245	CURATION	duplicate_in_concept	http://edamontology.org/topic_0771	'Theoretical biology'	http://www.geneontology.org/formats/oboInOwl#hasDefinition and http://www.w3.org/2000/01/rdf-schema#label have the same content: 'Theoretical biology'
+246	CURATION	duplicate_in_concept	http://edamontology.org/topic_0771	'Theoretical biology'	http://www.w3.org/2000/01/rdf-schema#label and http://www.geneontology.org/formats/oboInOwl#hasDefinition have the same content: 'Theoretical biology'
+247	CURATION	duplicate_in_concept	http://edamontology.org/format_3789	'XQuery'	http://www.w3.org/2000/01/rdf-schema#label and http://www.geneontology.org/formats/oboInOwl#hasExactSynonym have the same content: 'XQuery'
+248	CURATION	duplicate_in_concept	http://edamontology.org/format_3592	'BMP'	http://www.geneontology.org/formats/oboInOwl#hasExactSynonym and http://www.w3.org/2000/01/rdf-schema#label have the same content: 'bmp'
+249	CURATION	duplicate_in_concept	http://edamontology.org/format_4018	'gVCF'	http://www.w3.org/2000/01/rdf-schema#label and http://www.geneontology.org/formats/oboInOwl#hasExactSynonym have the same content: 'gVCF'
+250	CURATION	duplicate_in_concept	http://edamontology.org/format_3591	'TIFF'	http://www.geneontology.org/formats/oboInOwl#hasExactSynonym and http://www.w3.org/2000/01/rdf-schema#label have the same content: 'tiff'
+251	CURATION	duplicate_in_concept	http://edamontology.org/format_3789	'XQuery'	http://www.geneontology.org/formats/oboInOwl#hasExactSynonym and http://www.w3.org/2000/01/rdf-schema#label have the same content: 'xquery'
+252	CURATION	literal_links	http://edamontology.org/citation	'Citation'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+253	CURATION	literal_links	http://edamontology.org/created_in	'Created in'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+254	CURATION	literal_links	http://edamontology.org/data_0849	'Sequence record'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D058977'
+255	CURATION	literal_links	http://edamontology.org/data_0863	'Sequence alignment'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D016415'
+256	CURATION	literal_links	http://edamontology.org/data_0863	'Sequence alignment'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_010066'
+257	CURATION	literal_links	http://edamontology.org/data_0871	'Phylogenetic character data'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://www.evolutionaryontology.org/cdao.owl#Character'
+258	CURATION	literal_links	http://edamontology.org/data_0872	'Phylogenetic tree'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D010802'
+259	CURATION	literal_links	http://edamontology.org/data_0872	'Phylogenetic tree'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://www.evolutionaryontology.org/cdao.owl#Tree'
+260	CURATION	literal_links	http://edamontology.org/data_0883	'Structure'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D015394'
+261	CURATION	literal_links	http://edamontology.org/data_1255	'Sequence features'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D058977'
+262	CURATION	literal_links	http://edamontology.org/data_1354	'Sequence profile'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_010531'
+263	CURATION	literal_links	http://edamontology.org/data_1381	'Pair sequence alignment'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_010068'
+264	CURATION	literal_links	http://edamontology.org/data_2044	'Sequence'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D008969'
+265	CURATION	literal_links	http://edamontology.org/data_2044	'Sequence'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.org/biotop/biotop.owl#BioMolecularSequenceInformation'
+266	CURATION	literal_links	http://edamontology.org/data_2048	'Report'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_000148'
+267	CURATION	literal_links	http://edamontology.org/data_2091	'Accession'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_000675'
+268	CURATION	literal_links	http://edamontology.org/data_2091	'Accession'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_000731'
+269	CURATION	literal_links	http://edamontology.org/data_2098	'Job identifier'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://wsio.org/data_009'
+270	CURATION	literal_links	http://edamontology.org/data_2099	'Name'	"http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: '""http://www.w3.org/2000/01/rdf-schema#label'"
+271	CURATION	literal_links	http://edamontology.org/data_2099	'Name'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_000116'
+272	CURATION	literal_links	http://edamontology.org/data_2099	'Name'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://usefulinc.com/ns/doap#name'
+273	CURATION	literal_links	http://edamontology.org/data_2100	'Type'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.org/dc/elements/1.1/type'
+274	CURATION	literal_links	http://edamontology.org/data_2968	'Image'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_000079'
+275	CURATION	literal_links	http://edamontology.org/data_2968	'Image'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_000081'
+276	CURATION	literal_links	http://edamontology.org/data_2976	'Protein sequence'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.org/biotop/biotop.owl#AminoAcidSequenceInformation'
+277	CURATION	literal_links	http://edamontology.org/data_2977	'Nucleic acid sequence'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.org/biotop/biotop.owl#NucleotideSequenceInformation'
+278	CURATION	literal_links	http://edamontology.org/data_3424	'Raw image'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://semanticscience.org/resource/SIO_000081'
+279	CURATION	literal_links	http://edamontology.org/deprecation_comment	'deprecation_comment'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+280	CURATION	literal_links	http://edamontology.org/documentation	'Documentation'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+281	CURATION	literal_links	http://edamontology.org/example	'Example'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+282	CURATION	literal_links	http://edamontology.org/file_extension	'File extension'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+283	CURATION	literal_links	http://edamontology.org/format_1207	'nucleotide'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://onto.eva.mpg.de/ontologies/gfo-bio.owl#Nucleotide_sequence'
+284	CURATION	literal_links	http://edamontology.org/format_1208	'protein'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://onto.eva.mpg.de/ontologies/gfo-bio.owl#Amino_acid_sequence'
+285	CURATION	literal_links	http://edamontology.org/format_1212	'dna'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://onto.eva.mpg.de/ontologies/gfo-bio.owl#DNA_sequence'
+286	CURATION	literal_links	http://edamontology.org/format_1213	'rna'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://onto.eva.mpg.de/ontologies/gfo-bio.owl#RNA_sequence'
+287	CURATION	literal_links	http://edamontology.org/format_1997	'PHYLIP format'	http://edamontology.org/documentation value is not declared as a literal: 'http://www.bioperl.org/wiki/PHYLIP_multiple_alignment_format'
+288	CURATION	literal_links	http://edamontology.org/format_1998	'PHYLIP sequential'	http://edamontology.org/documentation value is not declared as a literal: 'http://www.bioperl.org/wiki/PHYLIP_multiple_alignment_format'
+289	CURATION	literal_links	http://edamontology.org/format_2183	'EMBLXML'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://fairsharing.org/bsg-s001452/'
+290	CURATION	literal_links	http://edamontology.org/format_2184	'cdsxml'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://fairsharing.org/bsg-s001452/'
+291	CURATION	literal_links	http://edamontology.org/format_2200	'FASTA-like (text)'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://filext.com/file-extension/FASTA'
+292	CURATION	literal_links	http://edamontology.org/format_2330	'Textual format'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://filext.com/file-extension/TXT'
+293	CURATION	literal_links	http://edamontology.org/format_2330	'Textual format'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://www.iana.org/assignments/media-types/media-types.xhtml#text'
+294	CURATION	literal_links	http://edamontology.org/format_2330	'Textual format'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://www.iana.org/assignments/media-types/text/plain'
+295	CURATION	literal_links	http://edamontology.org/format_2331	'HTML'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://filext.com/file-extension/HTML'
+296	CURATION	literal_links	http://edamontology.org/format_2352	'BioXSD (XML)'	http://edamontology.org/ontology_used value is not declared as a literal: 'Any ontology allowed, none mandatory. Preferrably with URIs but URIs are not mandatory. Non-ontology terms are also allowed as the last resort in case of a lack of suitable ontology.'
+297	CURATION	literal_links	http://edamontology.org/format_2571	'Raw sequence format'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://www.onto-med.de/ontologies/gfo.owl#Symbol_sequence'
+298	CURATION	literal_links	http://edamontology.org/format_3261	'RDF/XML'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://www.ebi.ac.uk/SWO/data/SWO_3000006'
+299	CURATION	literal_links	http://edamontology.org/format_3462	'CRAM'	http://edamontology.org/documentation value is not declared as a literal: 'http://www.ebi.ac.uk/ena/software/cram-usage#format_specification http://samtools.github.io/hts-specs/CRAMv2.1.pdf'
+300	CURATION	literal_links	http://edamontology.org/format_3484	'ebwt'	http://edamontology.org/documentation value is not declared as a literal: 'https://github.com/BenLangmead/bowtie/blob/master/MANUAL'
+301	CURATION	literal_links	http://edamontology.org/format_3485	'RSF'	http://edamontology.org/documentation value is not declared as a literal: 'http://www.molbiol.ox.ac.uk/tutorials/Seqlab_GCG.pdf'
+302	CURATION	literal_links	http://edamontology.org/format_3487	'BSML'	http://edamontology.org/documentation value is not declared as a literal: 'http://rothlab.ucdavis.edu/genhelp/chapter_2_using_sequences.html#_Creating_and_Editing_Single_Sequenc'
+303	CURATION	literal_links	http://edamontology.org/format_3491	'ebwtl'	http://edamontology.org/documentation value is not declared as a literal: 'https://github.com/BenLangmead/bowtie/blob/master/MANUAL'
+304	CURATION	literal_links	http://edamontology.org/format_3607	'qual'	http://edamontology.org/documentation value is not declared as a literal: 'http://en.wikipedia.org/wiki/Phred_quality_score'
+305	CURATION	literal_links	http://edamontology.org/format_3609	'qualillumina'	http://edamontology.org/documentation value is not declared as a literal: 'http://en.wikipedia.org/wiki/Phred_quality_score'
+306	CURATION	literal_links	http://edamontology.org/format_3610	'qualsolid'	http://edamontology.org/documentation value is not declared as a literal: 'http://en.wikipedia.org/wiki/Phred_quality_score'
+307	CURATION	literal_links	http://edamontology.org/format_3611	'qual454'	http://edamontology.org/documentation value is not declared as a literal: 'http://en.wikipedia.org/wiki/Phred_quality_score'
+308	CURATION	literal_links	http://edamontology.org/format_3654	'mzXML'	http://edamontology.org/documentation value is not declared as a literal: 'https://dx.doi.org/10.1038%2Fnbt1031'
+309	CURATION	literal_links	http://edamontology.org/format_3655	'pepXML'	http://edamontology.org/documentation value is not declared as a literal: 'http://sashimi.sourceforge.net/schema_revision/pepXML/pepXML_v118.xsd'
+310	CURATION	literal_links	http://edamontology.org/format_3747	'protXML'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://doi.org/10.1038/msb4100024'
+311	CURATION	literal_links	http://edamontology.org/format_3747	'protXML'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://sashimi.sourceforge.net/schema_revision/protXML/protXML_v3.xsd'
+312	CURATION	literal_links	http://edamontology.org/format_3764	'idXML'	http://edamontology.org/documentation value is not declared as a literal: 'http://ftp.mi.fu-berlin.de/pub/OpenMS/release1.9-documentation/html/classOpenMS_1_1IdXMLFile.html'
+313	CURATION	literal_links	http://edamontology.org/format_3764	'idXML'	http://edamontology.org/documentation value is not declared as a literal: 'http://open-ms.sourceforge.net/schemas/'
+314	CURATION	literal_links	http://edamontology.org/format_3832	'consensusXML'	http://edamontology.org/documentation value is not declared as a literal: 'http://ftp.mi.fu-berlin.de/pub/OpenMS/release1.9-documentation/html/classOpenMS_1_1ConsensusXMLFile.html'
+315	CURATION	literal_links	http://edamontology.org/format_3833	'featureXML'	http://edamontology.org/documentation value is not declared as a literal: 'http://ftp.mi.fu-berlin.de/pub/OpenMS/release1.9-documentation/html/classOpenMS_1_1FeatureXMLFile.html'
+316	CURATION	literal_links	http://edamontology.org/format_3834	'mzData'	http://edamontology.org/documentation value is not declared as a literal: 'http://www.psidev.info/mzdata-1_0_5-docs'
+317	CURATION	literal_links	http://edamontology.org/format_3835	'TIDE TXT'	http://edamontology.org/documentation value is not declared as a literal: 'http://cruxtoolkit.sourceforge.net/tide-search.html'
+318	CURATION	literal_links	http://edamontology.org/format_3836	'BLAST XML v2 results format'	http://edamontology.org/documentation value is not declared as a literal: 'ftp://ftp.ncbi.nlm.nih.gov/blast/documents/NEWXML/ProposedBLASTXMLChanges.pdf'
+319	CURATION	literal_links	http://edamontology.org/format_3836	'BLAST XML v2 results format'	http://edamontology.org/documentation value is not declared as a literal: 'ftp://ftp.ncbi.nlm.nih.gov/blast/documents/NEWXML/xml2.pdf'
+320	CURATION	literal_links	http://edamontology.org/format_3836	'BLAST XML v2 results format'	http://edamontology.org/documentation value is not declared as a literal: 'http://www.ncbi.nlm.nih.gov/data_specs/schema/NCBI_BlastOutput2.mod.xsd'
+321	CURATION	literal_links	http://edamontology.org/format_3982	'CHAIN'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://genome.ucsc.edu/goldenPath/help/chain.html'
+322	CURATION	literal_links	http://edamontology.org/format_3983	'NET'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://genome.ucsc.edu/goldenPath/help/net.html'
+323	CURATION	literal_links	http://edamontology.org/format_3985	'gxformat2'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://github.com/galaxyproject/gxformat2'
+324	CURATION	literal_links	http://edamontology.org/format_3992	'CIGAR format'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://wiki.bits.vib.be/index.php/CIGAR/'
+325	CURATION	literal_links	http://edamontology.org/format_4000	'R markdown'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://rmarkdown.rstudio.com/articles_intro.html'
+326	CURATION	literal_links	http://edamontology.org/format_4002	'pickle'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://docs.python.org/2/library/pickle.html'
+327	CURATION	literal_links	http://edamontology.org/format_4004	'SimTools repertoire file format'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://pdfs.semanticscholar.org/5f25/f1cc6cdf2225fe22dc6fd4fc0296d486a85c.pdf'
+328	CURATION	literal_links	http://edamontology.org/format_4006	'Zstandard format'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'https://github.com/facebook/zstd/blob/master/doc/zstd_compression_format.md'
+329	CURATION	literal_links	http://edamontology.org/has_format	'has format'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+330	CURATION	literal_links	http://edamontology.org/has_format	'has format'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+331	CURATION	literal_links	http://edamontology.org/has_function	'has function'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+332	CURATION	literal_links	http://edamontology.org/has_function	'has function'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+333	CURATION	literal_links	http://edamontology.org/has_identifier	'has identifier'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+334	CURATION	literal_links	http://edamontology.org/has_identifier	'has identifier'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+335	CURATION	literal_links	http://edamontology.org/has_input	'has input'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+336	CURATION	literal_links	http://edamontology.org/has_input	'has input'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+337	CURATION	literal_links	http://edamontology.org/has_output	'has output'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+338	CURATION	literal_links	http://edamontology.org/has_output	'has output'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+339	CURATION	literal_links	http://edamontology.org/has_topic	'has topic'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+340	CURATION	literal_links	http://edamontology.org/has_topic	'has topic'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+341	CURATION	literal_links	http://edamontology.org/information_standard	'Information standard'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+342	CURATION	literal_links	http://edamontology.org/is_deprecation_candidate	'deprecation_candidate'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+343	CURATION	literal_links	http://edamontology.org/is_format_of	'is format of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+344	CURATION	literal_links	http://edamontology.org/is_format_of	'is format of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+345	CURATION	literal_links	http://edamontology.org/is_function_of	'is function of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+346	CURATION	literal_links	http://edamontology.org/is_function_of	'is function of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+347	CURATION	literal_links	http://edamontology.org/is_identifier_of	'is identifier of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+348	CURATION	literal_links	http://edamontology.org/is_identifier_of	'is identifier of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+349	CURATION	literal_links	http://edamontology.org/is_input_of	'is input of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+350	CURATION	literal_links	http://edamontology.org/is_input_of	'is input of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+351	CURATION	literal_links	http://edamontology.org/is_output_of	'is output of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+352	CURATION	literal_links	http://edamontology.org/is_output_of	'is output of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+353	CURATION	literal_links	http://edamontology.org/is_refactor_candidate	'refactor_candidate'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+354	CURATION	literal_links	http://edamontology.org/is_topic_of	'is topic of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'edam'
+355	CURATION	literal_links	http://edamontology.org/is_topic_of	'is topic of'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'relations'
+356	CURATION	literal_links	http://edamontology.org/isdebtag	'isdebtag'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+357	CURATION	literal_links	http://edamontology.org/media_type	'Media type'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+358	CURATION	literal_links	http://edamontology.org/notRecommendedForAnnotation	'notRecommendedForAnnotation'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+359	CURATION	literal_links	http://edamontology.org/obsolete_since	'Obsolete since'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+360	CURATION	literal_links	http://edamontology.org/oldParent	'Old parent'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+361	CURATION	literal_links	http://edamontology.org/oldRelated	'Old related'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+362	CURATION	literal_links	http://edamontology.org/ontology_used	'Ontology used'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+363	CURATION	literal_links	http://edamontology.org/operation_0558	'Phylogenetic tree annotation'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://www.evolutionaryontology.org/cdao.owl#CDAOAnnotation'
+364	CURATION	literal_links	http://edamontology.org/organisation	'Organisation'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+365	CURATION	literal_links	http://edamontology.org/refactor_comment	'refactor_comment'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+366	CURATION	literal_links	http://edamontology.org/regex	'Regular expression'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+367	CURATION	literal_links	http://edamontology.org/related_term	'Related term'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+368	CURATION	literal_links	http://edamontology.org/repository	'Repository'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+369	CURATION	literal_links	http://edamontology.org/thematic_editor	'thematic_editor'	http://www.geneontology.org/formats/oboInOwl#inSubset value is not declared as a literal: 'concept_properties'
+370	CURATION	literal_links	http://edamontology.org/topic_0077	'Nucleic acids'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D017422'
+371	CURATION	literal_links	http://edamontology.org/topic_0077	'Nucleic acids'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D017423'
+372	CURATION	literal_links	http://edamontology.org/topic_0078	'Proteins'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D020539'
+373	CURATION	literal_links	http://edamontology.org/topic_0080	'Sequence analysis'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D017421'
+374	CURATION	literal_links	http://edamontology.org/topic_0081	'Structure analysis'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D015394'
+375	CURATION	literal_links	http://edamontology.org/topic_0084	'Phylogeny'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D010802'
+376	CURATION	literal_links	http://edamontology.org/topic_0089	'Ontology and terminology'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D002965'
+377	CURATION	literal_links	http://edamontology.org/topic_0091	'Bioinformatics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D016247'
+378	CURATION	literal_links	http://edamontology.org/topic_0121	'Proteomics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D040901'
+379	CURATION	literal_links	http://edamontology.org/topic_0199	'Genetic variation'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D014644'
+380	CURATION	literal_links	http://edamontology.org/topic_0200	'Microarrays'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D046228'
+381	CURATION	literal_links	http://edamontology.org/topic_0203	'Gene expression'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D015870'
+382	CURATION	literal_links	http://edamontology.org/topic_0610	'Ecology'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D004777'
+383	CURATION	literal_links	http://edamontology.org/topic_0622	'Genomics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D023281'
+384	CURATION	literal_links	http://edamontology.org/topic_0632	'Probes and primers'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D015335'
+385	CURATION	literal_links	http://edamontology.org/topic_0804	'Immunology'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D007120'
+386	CURATION	literal_links	http://edamontology.org/topic_0804	'Immunology'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D007125'
+387	CURATION	literal_links	http://edamontology.org/topic_2259	'Systems biology'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D049490'
+388	CURATION	literal_links	http://edamontology.org/topic_2269	'Statistics and probability'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D056808'
+389	CURATION	literal_links	http://edamontology.org/topic_2829	'Ontologies, nomenclature and classification'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D002965'
+390	CURATION	literal_links	http://edamontology.org/topic_3050	'Biodiversity'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D044822'
+391	CURATION	literal_links	http://edamontology.org/topic_3053	'Genetics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D005823'
+392	CURATION	literal_links	http://edamontology.org/topic_3068	'Literature and language'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D011642'
+393	CURATION	literal_links	http://edamontology.org/topic_3071	'Data management'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D000079803'
+394	CURATION	literal_links	http://edamontology.org/topic_3072	'Sequence feature detection'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D058977'
+395	CURATION	literal_links	http://edamontology.org/topic_3168	'Sequencing'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D059014'
+396	CURATION	literal_links	http://edamontology.org/topic_3172	'Metabolomics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D055432'
+397	CURATION	literal_links	http://edamontology.org/topic_3173	'Epigenomics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D057890'
+398	CURATION	literal_links	http://edamontology.org/topic_3174	'Metagenomics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D056186'
+399	CURATION	literal_links	http://edamontology.org/topic_3176	'DNA packaging'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D042003'
+400	CURATION	literal_links	http://edamontology.org/topic_3293	'Phylogenetics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D010802'
+401	CURATION	literal_links	http://edamontology.org/topic_3295	'Epigenetics'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D019175'
+402	CURATION	literal_links	http://edamontology.org/topic_3412	'Hepatic and biliary medicine'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'Hepatobiliary medicine'
+403	CURATION	literal_links	http://edamontology.org/topic_3571	'Data governance'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D030541'
+404	CURATION	literal_links	http://edamontology.org/topic_3974	'Epistasis'	http://www.w3.org/2000/01/rdf-schema#seeAlso value is not declared as a literal: 'http://purl.bioontology.org/ontology/MSH/D057890'
+405	CURATION	format_property_missing	http://edamontology.org/format_1197	'InChI'	is missing mandatory format property: http://edamontology.org/documentation
+406	CURATION	format_property_missing	http://edamontology.org/format_1198	'mf'	is missing mandatory format property: http://edamontology.org/documentation
+407	CURATION	format_property_missing	http://edamontology.org/format_1199	'InChIKey'	is missing mandatory format property: http://edamontology.org/documentation
+408	CURATION	format_property_missing	http://edamontology.org/format_1200	'smarts'	is missing mandatory format property: http://edamontology.org/documentation
+409	CURATION	format_property_missing	http://edamontology.org/format_1206	'unambiguous pure'	is missing mandatory format property: http://edamontology.org/documentation
+410	CURATION	format_property_missing	http://edamontology.org/format_1207	'nucleotide'	is missing mandatory format property: http://edamontology.org/documentation
+411	CURATION	format_property_missing	http://edamontology.org/format_1208	'protein'	is missing mandatory format property: http://edamontology.org/documentation
+412	CURATION	format_property_missing	http://edamontology.org/format_1209	'consensus'	is missing mandatory format property: http://edamontology.org/documentation
+413	CURATION	format_property_missing	http://edamontology.org/format_1210	'pure nucleotide'	is missing mandatory format property: http://edamontology.org/documentation
+414	CURATION	format_property_missing	http://edamontology.org/format_1211	'unambiguous pure nucleotide'	is missing mandatory format property: http://edamontology.org/documentation
+415	CURATION	format_property_missing	http://edamontology.org/format_1212	'dna'	is missing mandatory format property: http://edamontology.org/documentation
+416	CURATION	format_property_missing	http://edamontology.org/format_1213	'rna'	is missing mandatory format property: http://edamontology.org/documentation
+417	CURATION	format_property_missing	http://edamontology.org/format_1214	'unambiguous pure dna'	is missing mandatory format property: http://edamontology.org/documentation
+418	CURATION	format_property_missing	http://edamontology.org/format_1215	'pure dna'	is missing mandatory format property: http://edamontology.org/documentation
+419	CURATION	format_property_missing	http://edamontology.org/format_1216	'unambiguous pure rna sequence'	is missing mandatory format property: http://edamontology.org/documentation
+420	CURATION	format_property_missing	http://edamontology.org/format_1217	'pure rna'	is missing mandatory format property: http://edamontology.org/documentation
+421	CURATION	format_property_missing	http://edamontology.org/format_1218	'unambiguous pure protein'	is missing mandatory format property: http://edamontology.org/documentation
+422	CURATION	format_property_missing	http://edamontology.org/format_1219	'pure protein'	is missing mandatory format property: http://edamontology.org/documentation
+423	CURATION	format_property_missing	http://edamontology.org/format_1248	'EMBL feature location'	is missing mandatory format property: http://edamontology.org/documentation
+424	CURATION	format_property_missing	http://edamontology.org/format_1295	'quicktandem'	is missing mandatory format property: http://edamontology.org/documentation
+425	CURATION	format_property_missing	http://edamontology.org/format_1296	'Sanger inverted repeats'	is missing mandatory format property: http://edamontology.org/documentation
+426	CURATION	format_property_missing	http://edamontology.org/format_1297	'EMBOSS repeat'	is missing mandatory format property: http://edamontology.org/documentation
+427	CURATION	format_property_missing	http://edamontology.org/format_1316	'est2genome format'	is missing mandatory format property: http://edamontology.org/documentation
+428	CURATION	format_property_missing	http://edamontology.org/format_1318	'restrict format'	is missing mandatory format property: http://edamontology.org/documentation
+429	CURATION	format_property_missing	http://edamontology.org/format_1319	'restover format'	is missing mandatory format property: http://edamontology.org/documentation
+430	CURATION	format_property_missing	http://edamontology.org/format_1320	'REBASE restriction sites'	is missing mandatory format property: http://edamontology.org/documentation
+431	CURATION	format_property_missing	http://edamontology.org/format_1332	'FASTA search results format'	is missing mandatory format property: http://edamontology.org/documentation
+432	CURATION	format_property_missing	http://edamontology.org/format_1333	'BLAST results'	is missing mandatory format property: http://edamontology.org/documentation
+433	CURATION	format_property_missing	http://edamontology.org/format_1334	'mspcrunch'	is missing mandatory format property: http://edamontology.org/documentation
+434	CURATION	format_property_missing	http://edamontology.org/format_1335	'Smith-Waterman format'	is missing mandatory format property: http://edamontology.org/documentation
+435	CURATION	format_property_missing	http://edamontology.org/format_1336	'dhf'	is missing mandatory format property: http://edamontology.org/documentation
+436	CURATION	format_property_missing	http://edamontology.org/format_1337	'lhf'	is missing mandatory format property: http://edamontology.org/documentation
+437	CURATION	format_property_missing	http://edamontology.org/format_1341	'InterPro hits format'	is missing mandatory format property: http://edamontology.org/documentation
+438	CURATION	format_property_missing	http://edamontology.org/format_1342	'InterPro protein view report format'	is missing mandatory format property: http://edamontology.org/documentation
+439	CURATION	format_property_missing	http://edamontology.org/format_1343	'InterPro match table format'	is missing mandatory format property: http://edamontology.org/documentation
+440	CURATION	format_property_missing	http://edamontology.org/format_1349	'HMMER Dirichlet prior'	is missing mandatory format property: http://edamontology.org/documentation
+441	CURATION	format_property_missing	http://edamontology.org/format_1350	'MEME Dirichlet prior'	is missing mandatory format property: http://edamontology.org/documentation
+442	CURATION	format_property_missing	http://edamontology.org/format_1351	'HMMER emission and transition'	is missing mandatory format property: http://edamontology.org/documentation
+443	CURATION	format_property_missing	http://edamontology.org/format_1356	'prosite-pattern'	is missing mandatory format property: http://edamontology.org/documentation
+444	CURATION	format_property_missing	http://edamontology.org/format_1357	'EMBOSS sequence pattern'	is missing mandatory format property: http://edamontology.org/documentation
+445	CURATION	format_property_missing	http://edamontology.org/format_1360	'meme-motif'	is missing mandatory format property: http://edamontology.org/documentation
+446	CURATION	format_property_missing	http://edamontology.org/format_1366	'prosite-profile'	is missing mandatory format property: http://edamontology.org/documentation
+447	CURATION	format_property_missing	http://edamontology.org/format_1367	'JASPAR format'	is missing mandatory format property: http://edamontology.org/documentation
+448	CURATION	format_property_missing	http://edamontology.org/format_1369	'MEME background Markov model'	is missing mandatory format property: http://edamontology.org/documentation
+449	CURATION	format_property_missing	http://edamontology.org/format_1370	'HMMER format'	is missing mandatory format property: http://edamontology.org/documentation
+450	CURATION	format_property_missing	http://edamontology.org/format_1391	'HMMER-aln'	is missing mandatory format property: http://edamontology.org/documentation
+451	CURATION	format_property_missing	http://edamontology.org/format_1392	'DIALIGN format'	is missing mandatory format property: http://edamontology.org/documentation
+452	CURATION	format_property_missing	http://edamontology.org/format_1393	'daf'	is missing mandatory format property: http://edamontology.org/documentation
+453	CURATION	format_property_missing	http://edamontology.org/format_1419	'Sequence-MEME profile alignment'	is missing mandatory format property: http://edamontology.org/documentation
+454	CURATION	format_property_missing	http://edamontology.org/format_1421	'HMMER profile alignment (sequences versus HMMs)'	is missing mandatory format property: http://edamontology.org/documentation
+455	CURATION	format_property_missing	http://edamontology.org/format_1422	'HMMER profile alignment (HMM versus sequences)'	is missing mandatory format property: http://edamontology.org/documentation
+456	CURATION	format_property_missing	http://edamontology.org/format_1423	'Phylip distance matrix'	is missing mandatory format property: http://edamontology.org/documentation
+457	CURATION	format_property_missing	http://edamontology.org/format_1424	'ClustalW dendrogram'	is missing mandatory format property: http://edamontology.org/documentation
+458	CURATION	format_property_missing	http://edamontology.org/format_1425	'Phylip tree raw'	is missing mandatory format property: http://edamontology.org/documentation
+459	CURATION	format_property_missing	http://edamontology.org/format_1430	'Phylip continuous quantitative characters'	is missing mandatory format property: http://edamontology.org/documentation
+460	CURATION	format_property_missing	http://edamontology.org/format_1432	'Phylip character frequencies format'	is missing mandatory format property: http://edamontology.org/documentation
+461	CURATION	format_property_missing	http://edamontology.org/format_1433	'Phylip discrete states format'	is missing mandatory format property: http://edamontology.org/documentation
+462	CURATION	format_property_missing	http://edamontology.org/format_1434	'Phylip cliques format'	is missing mandatory format property: http://edamontology.org/documentation
+463	CURATION	format_property_missing	http://edamontology.org/format_1435	'Phylip tree format'	is missing mandatory format property: http://edamontology.org/documentation
+464	CURATION	format_property_missing	http://edamontology.org/format_1436	'TreeBASE format'	is missing mandatory format property: http://edamontology.org/documentation
+465	CURATION	format_property_missing	http://edamontology.org/format_1437	'TreeFam format'	is missing mandatory format property: http://edamontology.org/documentation
+466	CURATION	format_property_missing	http://edamontology.org/format_1445	'Phylip tree distance format'	is missing mandatory format property: http://edamontology.org/documentation
+467	CURATION	format_property_missing	http://edamontology.org/format_1454	'dssp'	is missing mandatory format property: http://edamontology.org/documentation
+468	CURATION	format_property_missing	http://edamontology.org/format_1455	'hssp'	is missing mandatory format property: http://edamontology.org/documentation
+469	CURATION	format_property_missing	http://edamontology.org/format_1457	'Dot-bracket format'	is missing mandatory format property: http://edamontology.org/documentation
+470	CURATION	format_property_missing	http://edamontology.org/format_1458	'Vienna local RNA secondary structure format'	is missing mandatory format property: http://edamontology.org/documentation
+471	CURATION	format_property_missing	http://edamontology.org/format_1475	'PDB database entry format'	is missing mandatory format property: http://edamontology.org/documentation
+472	CURATION	format_property_missing	http://edamontology.org/format_1476	'PDB'	is missing mandatory format property: http://edamontology.org/documentation
+473	CURATION	format_property_missing	http://edamontology.org/format_1477	'mmCIF'	is missing mandatory format property: http://edamontology.org/documentation
+474	CURATION	format_property_missing	http://edamontology.org/format_1478	'PDBML'	is missing mandatory format property: http://edamontology.org/documentation
+475	CURATION	format_property_missing	http://edamontology.org/format_1504	'aaindex'	is missing mandatory format property: http://edamontology.org/documentation
+476	CURATION	format_property_missing	http://edamontology.org/format_1551	'Pcons report format'	is missing mandatory format property: http://edamontology.org/documentation
+477	CURATION	format_property_missing	http://edamontology.org/format_1552	'ProQ report format'	is missing mandatory format property: http://edamontology.org/documentation
+478	CURATION	format_property_missing	http://edamontology.org/format_1582	'findkm'	is missing mandatory format property: http://edamontology.org/documentation
+479	CURATION	format_property_missing	http://edamontology.org/format_1627	'Primer3 primer'	is missing mandatory format property: http://edamontology.org/documentation
+480	CURATION	format_property_missing	http://edamontology.org/format_1628	'ABI'	is missing mandatory format property: http://edamontology.org/documentation
+481	CURATION	format_property_missing	http://edamontology.org/format_1629	'mira'	is missing mandatory format property: http://edamontology.org/documentation
+482	CURATION	format_property_missing	http://edamontology.org/format_1637	'dat'	is missing mandatory format property: http://edamontology.org/documentation
+483	CURATION	format_property_missing	http://edamontology.org/format_1638	'cel'	is missing mandatory format property: http://edamontology.org/documentation
+484	CURATION	format_property_missing	http://edamontology.org/format_1639	'affymetrix'	is missing mandatory format property: http://edamontology.org/documentation
+485	CURATION	format_property_missing	http://edamontology.org/format_1641	'affymetrix-exp'	is missing mandatory format property: http://edamontology.org/documentation
+486	CURATION	format_property_missing	http://edamontology.org/format_1665	'Taverna workflow format'	is missing mandatory format property: http://edamontology.org/documentation
+487	CURATION	format_property_missing	http://edamontology.org/format_1705	'HET group dictionary entry format'	is missing mandatory format property: http://edamontology.org/documentation
+488	CURATION	format_property_missing	http://edamontology.org/format_1734	'PubMed citation'	is missing mandatory format property: http://edamontology.org/documentation
+489	CURATION	format_property_missing	http://edamontology.org/format_1735	'Medline Display Format'	is missing mandatory format property: http://edamontology.org/documentation
+490	CURATION	format_property_missing	http://edamontology.org/format_1736	'CiteXplore-core'	is missing mandatory format property: http://edamontology.org/documentation
+491	CURATION	format_property_missing	http://edamontology.org/format_1737	'CiteXplore-all'	is missing mandatory format property: http://edamontology.org/documentation
+492	CURATION	format_property_missing	http://edamontology.org/format_1739	'pmc'	is missing mandatory format property: http://edamontology.org/documentation
+493	CURATION	format_property_missing	http://edamontology.org/format_1740	'iHOP format'	is missing mandatory format property: http://edamontology.org/documentation
+494	CURATION	format_property_missing	http://edamontology.org/format_1741	'OSCAR format'	is missing mandatory format property: http://edamontology.org/documentation
+495	CURATION	format_property_missing	http://edamontology.org/format_1861	'PlasMapper TextMap'	is missing mandatory format property: http://edamontology.org/documentation
+496	CURATION	format_property_missing	http://edamontology.org/format_1910	'newick'	is missing mandatory format property: http://edamontology.org/documentation
+497	CURATION	format_property_missing	http://edamontology.org/format_1911	'TreeCon format'	is missing mandatory format property: http://edamontology.org/documentation
+498	CURATION	format_property_missing	http://edamontology.org/format_1912	'Nexus format'	is missing mandatory format property: http://edamontology.org/documentation
+499	CURATION	format_property_missing	http://edamontology.org/format_1919	'Sequence record format'	is missing mandatory format property: http://edamontology.org/documentation
+500	CURATION	format_property_missing	http://edamontology.org/format_1920	'Sequence feature annotation format'	is missing mandatory format property: http://edamontology.org/documentation
+501	CURATION	format_property_missing	http://edamontology.org/format_1921	'Alignment format'	is missing mandatory format property: http://edamontology.org/documentation
+502	CURATION	format_property_missing	http://edamontology.org/format_1923	'acedb'	is missing mandatory format property: http://edamontology.org/documentation
+503	CURATION	format_property_missing	http://edamontology.org/format_1925	'codata'	is missing mandatory format property: http://edamontology.org/documentation
+504	CURATION	format_property_missing	http://edamontology.org/format_1926	'dbid'	is missing mandatory format property: http://edamontology.org/documentation
+505	CURATION	format_property_missing	http://edamontology.org/format_1927	'EMBL format'	is missing mandatory format property: http://edamontology.org/documentation
+506	CURATION	format_property_missing	http://edamontology.org/format_1928	'Staden experiment format'	is missing mandatory format property: http://edamontology.org/documentation
+507	CURATION	format_property_missing	http://edamontology.org/format_1929	'FASTA'	is missing mandatory format property: http://edamontology.org/documentation
+508	CURATION	format_property_missing	http://edamontology.org/format_1930	'FASTQ'	is missing mandatory format property: http://edamontology.org/documentation
+509	CURATION	format_property_missing	http://edamontology.org/format_1931	'FASTQ-illumina'	is missing mandatory format property: http://edamontology.org/documentation
+510	CURATION	format_property_missing	http://edamontology.org/format_1932	'FASTQ-sanger'	is missing mandatory format property: http://edamontology.org/documentation
+511	CURATION	format_property_missing	http://edamontology.org/format_1933	'FASTQ-solexa'	is missing mandatory format property: http://edamontology.org/documentation
+512	CURATION	format_property_missing	http://edamontology.org/format_1934	'fitch program'	is missing mandatory format property: http://edamontology.org/documentation
+513	CURATION	format_property_missing	http://edamontology.org/format_1935	'GCG'	is missing mandatory format property: http://edamontology.org/documentation
+514	CURATION	format_property_missing	http://edamontology.org/format_1936	'GenBank format'	is missing mandatory format property: http://edamontology.org/documentation
+515	CURATION	format_property_missing	http://edamontology.org/format_1937	'genpept'	is missing mandatory format property: http://edamontology.org/documentation
+516	CURATION	format_property_missing	http://edamontology.org/format_1938	'GFF2-seq'	is missing mandatory format property: http://edamontology.org/documentation
+517	CURATION	format_property_missing	http://edamontology.org/format_1939	'GFF3-seq'	is missing mandatory format property: http://edamontology.org/documentation
+518	CURATION	format_property_missing	http://edamontology.org/format_1940	'giFASTA format'	is missing mandatory format property: http://edamontology.org/documentation
+519	CURATION	format_property_missing	http://edamontology.org/format_1941	'hennig86'	is missing mandatory format property: http://edamontology.org/documentation
+520	CURATION	format_property_missing	http://edamontology.org/format_1942	'ig'	is missing mandatory format property: http://edamontology.org/documentation
+521	CURATION	format_property_missing	http://edamontology.org/format_1943	'igstrict'	is missing mandatory format property: http://edamontology.org/documentation
+522	CURATION	format_property_missing	http://edamontology.org/format_1944	'jackknifer'	is missing mandatory format property: http://edamontology.org/documentation
+523	CURATION	format_property_missing	http://edamontology.org/format_1945	'mase format'	is missing mandatory format property: http://edamontology.org/documentation
+524	CURATION	format_property_missing	http://edamontology.org/format_1946	'mega-seq'	is missing mandatory format property: http://edamontology.org/documentation
+525	CURATION	format_property_missing	http://edamontology.org/format_1947	'GCG MSF'	is missing mandatory format property: http://edamontology.org/documentation
+526	CURATION	format_property_missing	http://edamontology.org/format_1948	'nbrf/pir'	is missing mandatory format property: http://edamontology.org/documentation
+527	CURATION	format_property_missing	http://edamontology.org/format_1949	'nexus-seq'	is missing mandatory format property: http://edamontology.org/documentation
+528	CURATION	format_property_missing	http://edamontology.org/format_1950	'pdbatom'	is missing mandatory format property: http://edamontology.org/documentation
+529	CURATION	format_property_missing	http://edamontology.org/format_1951	'pdbatomnuc'	is missing mandatory format property: http://edamontology.org/documentation
+530	CURATION	format_property_missing	http://edamontology.org/format_1952	'pdbseqresnuc'	is missing mandatory format property: http://edamontology.org/documentation
+531	CURATION	format_property_missing	http://edamontology.org/format_1953	'pdbseqres'	is missing mandatory format property: http://edamontology.org/documentation
+532	CURATION	format_property_missing	http://edamontology.org/format_1954	'Pearson format'	is missing mandatory format property: http://edamontology.org/documentation
+533	CURATION	format_property_missing	http://edamontology.org/format_1957	'raw'	is missing mandatory format property: http://edamontology.org/documentation
+534	CURATION	format_property_missing	http://edamontology.org/format_1958	'refseqp'	is missing mandatory format property: http://edamontology.org/documentation
+535	CURATION	format_property_missing	http://edamontology.org/format_1962	'strider format'	is missing mandatory format property: http://edamontology.org/documentation
+536	CURATION	format_property_missing	http://edamontology.org/format_1963	'UniProtKB format'	is missing mandatory format property: http://edamontology.org/documentation
+537	CURATION	format_property_missing	http://edamontology.org/format_1964	'plain text format (unformatted)'	is missing mandatory format property: http://edamontology.org/documentation
+538	CURATION	format_property_missing	http://edamontology.org/format_1966	'ASN.1 sequence format'	is missing mandatory format property: http://edamontology.org/documentation
+539	CURATION	format_property_missing	http://edamontology.org/format_1967	'DAS format'	is missing mandatory format property: http://edamontology.org/documentation
+540	CURATION	format_property_missing	http://edamontology.org/format_1968	'dasdna'	is missing mandatory format property: http://edamontology.org/documentation
+541	CURATION	format_property_missing	http://edamontology.org/format_1969	'debug-seq'	is missing mandatory format property: http://edamontology.org/documentation
+542	CURATION	format_property_missing	http://edamontology.org/format_1970	'jackknifernon'	is missing mandatory format property: http://edamontology.org/documentation
+543	CURATION	format_property_missing	http://edamontology.org/format_1972	'NCBI format'	is missing mandatory format property: http://edamontology.org/documentation
+544	CURATION	format_property_missing	http://edamontology.org/format_1973	'nexusnon'	is missing mandatory format property: http://edamontology.org/documentation
+545	CURATION	format_property_missing	http://edamontology.org/format_1978	'DASGFF'	is missing mandatory format property: http://edamontology.org/documentation
+546	CURATION	format_property_missing	http://edamontology.org/format_1979	'debug-feat'	is missing mandatory format property: http://edamontology.org/documentation
+547	CURATION	format_property_missing	http://edamontology.org/format_1982	'ClustalW format'	is missing mandatory format property: http://edamontology.org/documentation
+548	CURATION	format_property_missing	http://edamontology.org/format_1983	'debug'	is missing mandatory format property: http://edamontology.org/documentation
+549	CURATION	format_property_missing	http://edamontology.org/format_1984	'FASTA-aln'	is missing mandatory format property: http://edamontology.org/documentation
+550	CURATION	format_property_missing	http://edamontology.org/format_1985	'markx0'	is missing mandatory format property: http://edamontology.org/documentation
+551	CURATION	format_property_missing	http://edamontology.org/format_1986	'markx1'	is missing mandatory format property: http://edamontology.org/documentation
+552	CURATION	format_property_missing	http://edamontology.org/format_1987	'markx10'	is missing mandatory format property: http://edamontology.org/documentation
+553	CURATION	format_property_missing	http://edamontology.org/format_1988	'markx2'	is missing mandatory format property: http://edamontology.org/documentation
+554	CURATION	format_property_missing	http://edamontology.org/format_1989	'markx3'	is missing mandatory format property: http://edamontology.org/documentation
+555	CURATION	format_property_missing	http://edamontology.org/format_1990	'match'	is missing mandatory format property: http://edamontology.org/documentation
+556	CURATION	format_property_missing	http://edamontology.org/format_1991	'mega'	is missing mandatory format property: http://edamontology.org/documentation
+557	CURATION	format_property_missing	http://edamontology.org/format_1992	'meganon'	is missing mandatory format property: http://edamontology.org/documentation
+558	CURATION	format_property_missing	http://edamontology.org/format_1996	'pair'	is missing mandatory format property: http://edamontology.org/documentation
+559	CURATION	format_property_missing	http://edamontology.org/format_1999	'scores format'	is missing mandatory format property: http://edamontology.org/documentation
+560	CURATION	format_property_missing	http://edamontology.org/format_2000	'selex'	is missing mandatory format property: http://edamontology.org/documentation
+561	CURATION	format_property_missing	http://edamontology.org/format_2001	'EMBOSS simple format'	is missing mandatory format property: http://edamontology.org/documentation
+562	CURATION	format_property_missing	http://edamontology.org/format_2002	'srs format'	is missing mandatory format property: http://edamontology.org/documentation
+563	CURATION	format_property_missing	http://edamontology.org/format_2003	'srspair'	is missing mandatory format property: http://edamontology.org/documentation
+564	CURATION	format_property_missing	http://edamontology.org/format_2004	'T-Coffee format'	is missing mandatory format property: http://edamontology.org/documentation
+565	CURATION	format_property_missing	http://edamontology.org/format_2005	'TreeCon-seq'	is missing mandatory format property: http://edamontology.org/documentation
+566	CURATION	format_property_missing	http://edamontology.org/format_2006	'Phylogenetic tree format'	is missing mandatory format property: http://edamontology.org/documentation
+567	CURATION	format_property_missing	http://edamontology.org/format_2013	'Biological pathway or network format'	is missing mandatory format property: http://edamontology.org/documentation
+568	CURATION	format_property_missing	http://edamontology.org/format_2014	'Sequence-profile alignment format'	is missing mandatory format property: http://edamontology.org/documentation
+569	CURATION	format_property_missing	http://edamontology.org/format_2017	'Amino acid index format'	is missing mandatory format property: http://edamontology.org/documentation
+570	CURATION	format_property_missing	http://edamontology.org/format_2020	'Article format'	is missing mandatory format property: http://edamontology.org/documentation
+571	CURATION	format_property_missing	http://edamontology.org/format_2021	'Text mining report format'	is missing mandatory format property: http://edamontology.org/documentation
+572	CURATION	format_property_missing	http://edamontology.org/format_2027	'Enzyme kinetics report format'	is missing mandatory format property: http://edamontology.org/documentation
+573	CURATION	format_property_missing	http://edamontology.org/format_2030	'Chemical data format'	is missing mandatory format property: http://edamontology.org/documentation
+574	CURATION	format_property_missing	http://edamontology.org/format_2031	'Gene annotation format'	is missing mandatory format property: http://edamontology.org/documentation
+575	CURATION	format_property_missing	http://edamontology.org/format_2032	'Workflow format'	is missing mandatory format property: http://edamontology.org/documentation
+576	CURATION	format_property_missing	http://edamontology.org/format_2033	'Tertiary structure format'	is missing mandatory format property: http://edamontology.org/documentation
+577	CURATION	format_property_missing	http://edamontology.org/format_2035	'Chemical formula format'	is missing mandatory format property: http://edamontology.org/documentation
+578	CURATION	format_property_missing	http://edamontology.org/format_2036	'Phylogenetic character data format'	is missing mandatory format property: http://edamontology.org/documentation
+579	CURATION	format_property_missing	http://edamontology.org/format_2037	'Phylogenetic continuous quantitative character format'	is missing mandatory format property: http://edamontology.org/documentation
+580	CURATION	format_property_missing	http://edamontology.org/format_2038	'Phylogenetic discrete states format'	is missing mandatory format property: http://edamontology.org/documentation
+581	CURATION	format_property_missing	http://edamontology.org/format_2039	'Phylogenetic tree report (cliques) format'	is missing mandatory format property: http://edamontology.org/documentation
+582	CURATION	format_property_missing	http://edamontology.org/format_2040	'Phylogenetic tree report (invariants) format'	is missing mandatory format property: http://edamontology.org/documentation
+583	CURATION	format_property_missing	http://edamontology.org/format_2049	'Phylogenetic tree report (tree distances) format'	is missing mandatory format property: http://edamontology.org/documentation
+584	CURATION	format_property_missing	http://edamontology.org/format_2052	'Protein family report format'	is missing mandatory format property: http://edamontology.org/documentation
+585	CURATION	format_property_missing	http://edamontology.org/format_2054	'Protein interaction format'	is missing mandatory format property: http://edamontology.org/documentation
+586	CURATION	format_property_missing	http://edamontology.org/format_2055	'Sequence assembly format'	is missing mandatory format property: http://edamontology.org/documentation
+587	CURATION	format_property_missing	http://edamontology.org/format_2056	'Microarray experiment data format'	is missing mandatory format property: http://edamontology.org/documentation
+588	CURATION	format_property_missing	http://edamontology.org/format_2057	'Sequence trace format'	is missing mandatory format property: http://edamontology.org/documentation
+589	CURATION	format_property_missing	http://edamontology.org/format_2058	'Gene expression report format'	is missing mandatory format property: http://edamontology.org/documentation
+590	CURATION	format_property_missing	http://edamontology.org/format_2060	'Map format'	is missing mandatory format property: http://edamontology.org/documentation
+591	CURATION	format_property_missing	http://edamontology.org/format_2061	'Nucleic acid features (primers) format'	is missing mandatory format property: http://edamontology.org/documentation
+592	CURATION	format_property_missing	http://edamontology.org/format_2062	'Protein report format'	is missing mandatory format property: http://edamontology.org/documentation
+593	CURATION	format_property_missing	http://edamontology.org/format_2064	'3D-1D scoring matrix format'	is missing mandatory format property: http://edamontology.org/documentation
+594	CURATION	format_property_missing	http://edamontology.org/format_2065	'Protein structure report (quality evaluation) format'	is missing mandatory format property: http://edamontology.org/documentation
+595	CURATION	format_property_missing	http://edamontology.org/format_2066	'Database hits (sequence) format'	is missing mandatory format property: http://edamontology.org/documentation
+596	CURATION	format_property_missing	http://edamontology.org/format_2067	'Sequence distance matrix format'	is missing mandatory format property: http://edamontology.org/documentation
+597	CURATION	format_property_missing	http://edamontology.org/format_2068	'Sequence motif format'	is missing mandatory format property: http://edamontology.org/documentation
+598	CURATION	format_property_missing	http://edamontology.org/format_2069	'Sequence profile format'	is missing mandatory format property: http://edamontology.org/documentation
+599	CURATION	format_property_missing	http://edamontology.org/format_2072	'Hidden Markov model format'	is missing mandatory format property: http://edamontology.org/documentation
+600	CURATION	format_property_missing	http://edamontology.org/format_2074	'Dirichlet distribution format'	is missing mandatory format property: http://edamontology.org/documentation
+601	CURATION	format_property_missing	http://edamontology.org/format_2075	'HMM emission and transition counts format'	is missing mandatory format property: http://edamontology.org/documentation
+602	CURATION	format_property_missing	http://edamontology.org/format_2076	'RNA secondary structure format'	is missing mandatory format property: http://edamontology.org/documentation
+603	CURATION	format_property_missing	http://edamontology.org/format_2077	'Protein secondary structure format'	is missing mandatory format property: http://edamontology.org/documentation
+604	CURATION	format_property_missing	http://edamontology.org/format_2078	'Sequence range format'	is missing mandatory format property: http://edamontology.org/documentation
+605	CURATION	format_property_missing	http://edamontology.org/format_2094	'pure'	is missing mandatory format property: http://edamontology.org/documentation
+606	CURATION	format_property_missing	http://edamontology.org/format_2095	'unpure'	is missing mandatory format property: http://edamontology.org/documentation
+607	CURATION	format_property_missing	http://edamontology.org/format_2096	'unambiguous sequence'	is missing mandatory format property: http://edamontology.org/documentation
+608	CURATION	format_property_missing	http://edamontology.org/format_2097	'ambiguous'	is missing mandatory format property: http://edamontology.org/documentation
+609	CURATION	format_property_missing	http://edamontology.org/format_2155	'Sequence features (repeats) format'	is missing mandatory format property: http://edamontology.org/documentation
+610	CURATION	format_property_missing	http://edamontology.org/format_2158	'Nucleic acid features (restriction sites) format'	is missing mandatory format property: http://edamontology.org/documentation
+611	CURATION	format_property_missing	http://edamontology.org/format_2170	'Sequence cluster format'	is missing mandatory format property: http://edamontology.org/documentation
+612	CURATION	format_property_missing	http://edamontology.org/format_2171	'Sequence cluster format (protein)'	is missing mandatory format property: http://edamontology.org/documentation
+613	CURATION	format_property_missing	http://edamontology.org/format_2172	'Sequence cluster format (nucleic acid)'	is missing mandatory format property: http://edamontology.org/documentation
+614	CURATION	format_property_missing	http://edamontology.org/format_2181	'EMBL-like (text)'	is missing mandatory format property: http://edamontology.org/documentation
+615	CURATION	format_property_missing	http://edamontology.org/format_2182	'FASTQ-like format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+616	CURATION	format_property_missing	http://edamontology.org/format_2186	'geneseq'	is missing mandatory format property: http://edamontology.org/documentation
+617	CURATION	format_property_missing	http://edamontology.org/format_2187	'UniProt-like (text)'	is missing mandatory format property: http://edamontology.org/documentation
+618	CURATION	format_property_missing	http://edamontology.org/format_2194	'medline'	is missing mandatory format property: http://edamontology.org/documentation
+619	CURATION	format_property_missing	http://edamontology.org/format_2195	'Ontology format'	is missing mandatory format property: http://edamontology.org/documentation
+620	CURATION	format_property_missing	http://edamontology.org/format_2196	'OBO format'	is missing mandatory format property: http://edamontology.org/documentation
+621	CURATION	format_property_missing	http://edamontology.org/format_2197	'OWL format'	is missing mandatory format property: http://edamontology.org/documentation
+622	CURATION	format_property_missing	http://edamontology.org/format_2200	'FASTA-like (text)'	is missing mandatory format property: http://edamontology.org/documentation
+623	CURATION	format_property_missing	http://edamontology.org/format_2204	'EMBL format (XML)'	is missing mandatory format property: http://edamontology.org/documentation
+624	CURATION	format_property_missing	http://edamontology.org/format_2205	'GenBank-like format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+625	CURATION	format_property_missing	http://edamontology.org/format_2206	'Sequence feature table format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+626	CURATION	format_property_missing	http://edamontology.org/format_2304	'STRING entry format (XML)'	is missing mandatory format property: http://edamontology.org/documentation
+627	CURATION	format_property_missing	http://edamontology.org/format_2305	'GFF'	is missing mandatory format property: http://edamontology.org/documentation
+628	CURATION	format_property_missing	http://edamontology.org/format_2310	'FASTA-HTML'	is missing mandatory format property: http://edamontology.org/documentation
+629	CURATION	format_property_missing	http://edamontology.org/format_2311	'EMBL-HTML'	is missing mandatory format property: http://edamontology.org/documentation
+630	CURATION	format_property_missing	http://edamontology.org/format_2330	'Textual format'	is missing mandatory format property: http://edamontology.org/documentation
+631	CURATION	format_property_missing	http://edamontology.org/format_2331	'HTML'	is missing mandatory format property: http://edamontology.org/documentation
+632	CURATION	format_property_missing	http://edamontology.org/format_2332	'XML'	is missing mandatory format property: http://edamontology.org/documentation
+633	CURATION	format_property_missing	http://edamontology.org/format_2333	'Binary format'	is missing mandatory format property: http://edamontology.org/documentation
+634	CURATION	format_property_missing	http://edamontology.org/format_2350	'Format (by type of data)'	is missing mandatory format property: http://edamontology.org/documentation
+635	CURATION	format_property_missing	http://edamontology.org/format_2376	'RDF format'	is missing mandatory format property: http://edamontology.org/documentation
+636	CURATION	format_property_missing	http://edamontology.org/format_2532	'GenBank-HTML'	is missing mandatory format property: http://edamontology.org/documentation
+637	CURATION	format_property_missing	http://edamontology.org/format_2543	'EMBL-like format'	is missing mandatory format property: http://edamontology.org/documentation
+638	CURATION	format_property_missing	http://edamontology.org/format_2545	'FASTQ-like format'	is missing mandatory format property: http://edamontology.org/documentation
+639	CURATION	format_property_missing	http://edamontology.org/format_2546	'FASTA-like'	is missing mandatory format property: http://edamontology.org/documentation
+640	CURATION	format_property_missing	http://edamontology.org/format_2547	'uniprotkb-like format'	is missing mandatory format property: http://edamontology.org/documentation
+641	CURATION	format_property_missing	http://edamontology.org/format_2548	'Sequence feature table format'	is missing mandatory format property: http://edamontology.org/documentation
+642	CURATION	format_property_missing	http://edamontology.org/format_2549	'OBO'	is missing mandatory format property: http://edamontology.org/documentation
+643	CURATION	format_property_missing	http://edamontology.org/format_2550	'OBO-XML'	is missing mandatory format property: http://edamontology.org/documentation
+644	CURATION	format_property_missing	http://edamontology.org/format_2551	'Sequence record format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+645	CURATION	format_property_missing	http://edamontology.org/format_2552	'Sequence record format (XML)'	is missing mandatory format property: http://edamontology.org/documentation
+646	CURATION	format_property_missing	http://edamontology.org/format_2553	'Sequence feature table format (XML)'	is missing mandatory format property: http://edamontology.org/documentation
+647	CURATION	format_property_missing	http://edamontology.org/format_2554	'Alignment format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+648	CURATION	format_property_missing	http://edamontology.org/format_2555	'Alignment format (XML)'	is missing mandatory format property: http://edamontology.org/documentation
+649	CURATION	format_property_missing	http://edamontology.org/format_2556	'Phylogenetic tree format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+650	CURATION	format_property_missing	http://edamontology.org/format_2557	'Phylogenetic tree format (XML)'	is missing mandatory format property: http://edamontology.org/documentation
+651	CURATION	format_property_missing	http://edamontology.org/format_2558	'EMBL-like (XML)'	is missing mandatory format property: http://edamontology.org/documentation
+652	CURATION	format_property_missing	http://edamontology.org/format_2559	'GenBank-like format'	is missing mandatory format property: http://edamontology.org/documentation
+653	CURATION	format_property_missing	http://edamontology.org/format_2561	'Sequence assembly format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+654	CURATION	format_property_missing	http://edamontology.org/format_2566	'completely unambiguous'	is missing mandatory format property: http://edamontology.org/documentation
+655	CURATION	format_property_missing	http://edamontology.org/format_2567	'completely unambiguous pure'	is missing mandatory format property: http://edamontology.org/documentation
+656	CURATION	format_property_missing	http://edamontology.org/format_2568	'completely unambiguous pure nucleotide'	is missing mandatory format property: http://edamontology.org/documentation
+657	CURATION	format_property_missing	http://edamontology.org/format_2569	'completely unambiguous pure dna'	is missing mandatory format property: http://edamontology.org/documentation
+658	CURATION	format_property_missing	http://edamontology.org/format_2570	'completely unambiguous pure rna sequence'	is missing mandatory format property: http://edamontology.org/documentation
+659	CURATION	format_property_missing	http://edamontology.org/format_2571	'Raw sequence format'	is missing mandatory format property: http://edamontology.org/documentation
+660	CURATION	format_property_missing	http://edamontology.org/format_2607	'completely unambiguous pure protein'	is missing mandatory format property: http://edamontology.org/documentation
+661	CURATION	format_property_missing	http://edamontology.org/format_2848	'Bibliographic reference format'	is missing mandatory format property: http://edamontology.org/documentation
+662	CURATION	format_property_missing	http://edamontology.org/format_2919	'Sequence annotation track format'	is missing mandatory format property: http://edamontology.org/documentation
+663	CURATION	format_property_missing	http://edamontology.org/format_2920	'Alignment format (pair only)'	is missing mandatory format property: http://edamontology.org/documentation
+664	CURATION	format_property_missing	http://edamontology.org/format_2921	'Sequence variation annotation format'	is missing mandatory format property: http://edamontology.org/documentation
+665	CURATION	format_property_missing	http://edamontology.org/format_2922	'markx0 variant'	is missing mandatory format property: http://edamontology.org/documentation
+666	CURATION	format_property_missing	http://edamontology.org/format_2923	'mega variant'	is missing mandatory format property: http://edamontology.org/documentation
+667	CURATION	format_property_missing	http://edamontology.org/format_2924	'Phylip format variant'	is missing mandatory format property: http://edamontology.org/documentation
+668	CURATION	format_property_missing	http://edamontology.org/format_3000	'AB1'	is missing mandatory format property: http://edamontology.org/documentation
+669	CURATION	format_property_missing	http://edamontology.org/format_3033	'Matrix format'	is missing mandatory format property: http://edamontology.org/documentation
+670	CURATION	format_property_missing	http://edamontology.org/format_3097	'Protein domain classification format'	is missing mandatory format property: http://edamontology.org/documentation
+671	CURATION	format_property_missing	http://edamontology.org/format_3098	'Raw SCOP domain classification format'	is missing mandatory format property: http://edamontology.org/documentation
+672	CURATION	format_property_missing	http://edamontology.org/format_3099	'Raw CATH domain classification format'	is missing mandatory format property: http://edamontology.org/documentation
+673	CURATION	format_property_missing	http://edamontology.org/format_3100	'CATH domain report format'	is missing mandatory format property: http://edamontology.org/documentation
+674	CURATION	format_property_missing	http://edamontology.org/format_3166	'Biological pathway or network report format'	is missing mandatory format property: http://edamontology.org/documentation
+675	CURATION	format_property_missing	http://edamontology.org/format_3167	'Experiment annotation format'	is missing mandatory format property: http://edamontology.org/documentation
+676	CURATION	format_property_missing	http://edamontology.org/format_3245	'Mass spectrometry data format'	is missing mandatory format property: http://edamontology.org/documentation
+677	CURATION	format_property_missing	http://edamontology.org/format_3252	'OWL Functional Syntax'	is missing mandatory format property: http://edamontology.org/documentation
+678	CURATION	format_property_missing	http://edamontology.org/format_3253	'Manchester OWL Syntax'	is missing mandatory format property: http://edamontology.org/documentation
+679	CURATION	format_property_missing	http://edamontology.org/format_3254	'KRSS2 Syntax'	is missing mandatory format property: http://edamontology.org/documentation
+680	CURATION	format_property_missing	http://edamontology.org/format_3255	'Turtle'	is missing mandatory format property: http://edamontology.org/documentation
+681	CURATION	format_property_missing	http://edamontology.org/format_3256	'N-Triples'	is missing mandatory format property: http://edamontology.org/documentation
+682	CURATION	format_property_missing	http://edamontology.org/format_3257	'Notation3'	is missing mandatory format property: http://edamontology.org/documentation
+683	CURATION	format_property_missing	http://edamontology.org/format_3261	'RDF/XML'	is missing mandatory format property: http://edamontology.org/documentation
+684	CURATION	format_property_missing	http://edamontology.org/format_3262	'OWL/XML'	is missing mandatory format property: http://edamontology.org/documentation
+685	CURATION	format_property_missing	http://edamontology.org/format_3287	'Individual genetic data format'	is missing mandatory format property: http://edamontology.org/documentation
+686	CURATION	format_property_missing	http://edamontology.org/format_3326	'Data index format'	is missing mandatory format property: http://edamontology.org/documentation
+687	CURATION	format_property_missing	http://edamontology.org/format_3331	'BLAST XML results format'	is missing mandatory format property: http://edamontology.org/documentation
+688	CURATION	format_property_missing	http://edamontology.org/format_3464	'JSON'	is missing mandatory format property: http://edamontology.org/documentation
+689	CURATION	format_property_missing	http://edamontology.org/format_3466	'EPS'	is missing mandatory format property: http://edamontology.org/documentation
+690	CURATION	format_property_missing	http://edamontology.org/format_3467	'GIF'	is missing mandatory format property: http://edamontology.org/documentation
+691	CURATION	format_property_missing	http://edamontology.org/format_3468	'xls'	is missing mandatory format property: http://edamontology.org/documentation
+692	CURATION	format_property_missing	http://edamontology.org/format_3475	'TSV'	is missing mandatory format property: http://edamontology.org/documentation
+693	CURATION	format_property_missing	http://edamontology.org/format_3477	'Cytoscape input file format'	is missing mandatory format property: http://edamontology.org/documentation
+694	CURATION	format_property_missing	http://edamontology.org/format_3486	'GCG format variant'	is missing mandatory format property: http://edamontology.org/documentation
+695	CURATION	format_property_missing	http://edamontology.org/format_3499	'Ensembl variation file format'	is missing mandatory format property: http://edamontology.org/documentation
+696	CURATION	format_property_missing	http://edamontology.org/format_3506	'docx'	is missing mandatory format property: http://edamontology.org/documentation
+697	CURATION	format_property_missing	http://edamontology.org/format_3507	'Document format'	is missing mandatory format property: http://edamontology.org/documentation
+698	CURATION	format_property_missing	http://edamontology.org/format_3508	'PDF'	is missing mandatory format property: http://edamontology.org/documentation
+699	CURATION	format_property_missing	http://edamontology.org/format_3547	'Image format'	is missing mandatory format property: http://edamontology.org/documentation
+700	CURATION	format_property_missing	http://edamontology.org/format_3554	'R file format'	is missing mandatory format property: http://edamontology.org/documentation
+701	CURATION	format_property_missing	http://edamontology.org/format_3555	'SPSS'	is missing mandatory format property: http://edamontology.org/documentation
+702	CURATION	format_property_missing	http://edamontology.org/format_3578	'IDAT'	is missing mandatory format property: http://edamontology.org/documentation
+703	CURATION	format_property_missing	http://edamontology.org/format_3580	'rcc'	is missing mandatory format property: http://edamontology.org/documentation
+704	CURATION	format_property_missing	http://edamontology.org/format_3606	'Sequence quality report format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+705	CURATION	format_property_missing	http://edamontology.org/format_3608	'qualsolexa'	is missing mandatory format property: http://edamontology.org/documentation
+706	CURATION	format_property_missing	http://edamontology.org/format_3617	'Graph format'	is missing mandatory format property: http://edamontology.org/documentation
+707	CURATION	format_property_missing	http://edamontology.org/format_3620	'xlsx'	is missing mandatory format property: http://edamontology.org/documentation
+708	CURATION	format_property_missing	http://edamontology.org/format_3624	'snpeffdb'	is missing mandatory format property: http://edamontology.org/documentation
+709	CURATION	format_property_missing	http://edamontology.org/format_3651	'MGF'	is missing mandatory format property: http://edamontology.org/documentation
+710	CURATION	format_property_missing	http://edamontology.org/format_3652	'dta'	is missing mandatory format property: http://edamontology.org/documentation
+711	CURATION	format_property_missing	http://edamontology.org/format_3653	'pkl'	is missing mandatory format property: http://edamontology.org/documentation
+712	CURATION	format_property_missing	http://edamontology.org/format_3696	'PS'	is missing mandatory format property: http://edamontology.org/documentation
+713	CURATION	format_property_missing	http://edamontology.org/format_3701	'Sequin format'	is missing mandatory format property: http://edamontology.org/documentation
+714	CURATION	format_property_missing	http://edamontology.org/format_3702	'MSF'	is missing mandatory format property: http://edamontology.org/documentation
+715	CURATION	format_property_missing	http://edamontology.org/format_3706	'Biodiversity data format'	is missing mandatory format property: http://edamontology.org/documentation
+716	CURATION	format_property_missing	http://edamontology.org/format_3709	'GCT/Res format'	is missing mandatory format property: http://edamontology.org/documentation
+717	CURATION	format_property_missing	http://edamontology.org/format_3710	'WIFF format'	is missing mandatory format property: http://edamontology.org/documentation
+718	CURATION	format_property_missing	http://edamontology.org/format_3712	'Thermo RAW'	is missing mandatory format property: http://edamontology.org/documentation
+719	CURATION	format_property_missing	http://edamontology.org/format_3748	'Linked data format'	is missing mandatory format property: http://edamontology.org/documentation
+720	CURATION	format_property_missing	http://edamontology.org/format_3751	'DSV'	is missing mandatory format property: http://edamontology.org/documentation
+721	CURATION	format_property_missing	http://edamontology.org/format_3752	'CSV'	is missing mandatory format property: http://edamontology.org/documentation
+722	CURATION	format_property_missing	http://edamontology.org/format_3758	'SEQUEST .out file'	is missing mandatory format property: http://edamontology.org/documentation
+723	CURATION	format_property_missing	http://edamontology.org/format_3765	'KNIME datatable format'	is missing mandatory format property: http://edamontology.org/documentation
+724	CURATION	format_property_missing	http://edamontology.org/format_3776	'BTrack'	is missing mandatory format property: http://edamontology.org/documentation
+725	CURATION	format_property_missing	http://edamontology.org/format_3780	'Annotated text format'	is missing mandatory format property: http://edamontology.org/documentation
+726	CURATION	format_property_missing	http://edamontology.org/format_3787	'Query language'	is missing mandatory format property: http://edamontology.org/documentation
+727	CURATION	format_property_missing	http://edamontology.org/format_3788	'SQL'	is missing mandatory format property: http://edamontology.org/documentation
+728	CURATION	format_property_missing	http://edamontology.org/format_3804	'xsd'	is missing mandatory format property: http://edamontology.org/documentation
+729	CURATION	format_property_missing	http://edamontology.org/format_3824	'NMR data format'	is missing mandatory format property: http://edamontology.org/documentation
+730	CURATION	format_property_missing	http://edamontology.org/format_3828	'Raw microarray data format'	is missing mandatory format property: http://edamontology.org/documentation
+731	CURATION	format_property_missing	http://edamontology.org/format_3830	'ARB'	is missing mandatory format property: http://edamontology.org/documentation
+732	CURATION	format_property_missing	http://edamontology.org/format_3841	'NLP format'	is missing mandatory format property: http://edamontology.org/documentation
+733	CURATION	format_property_missing	http://edamontology.org/format_3847	'KGML'	is missing mandatory format property: http://edamontology.org/documentation
+734	CURATION	format_property_missing	http://edamontology.org/format_3848	'PubMed XML'	is missing mandatory format property: http://edamontology.org/documentation
+735	CURATION	format_property_missing	http://edamontology.org/format_3858	'Waters RAW'	is missing mandatory format property: http://edamontology.org/documentation
+736	CURATION	format_property_missing	http://edamontology.org/format_3862	'NLP annotation format'	is missing mandatory format property: http://edamontology.org/documentation
+737	CURATION	format_property_missing	http://edamontology.org/format_3863	'NLP corpus format'	is missing mandatory format property: http://edamontology.org/documentation
+738	CURATION	format_property_missing	http://edamontology.org/format_3865	'RNA annotation format'	is missing mandatory format property: http://edamontology.org/documentation
+739	CURATION	format_property_missing	http://edamontology.org/format_3866	'Trajectory format'	is missing mandatory format property: http://edamontology.org/documentation
+740	CURATION	format_property_missing	http://edamontology.org/format_3867	'Trajectory format (binary)'	is missing mandatory format property: http://edamontology.org/documentation
+741	CURATION	format_property_missing	http://edamontology.org/format_3868	'Trajectory format (text)'	is missing mandatory format property: http://edamontology.org/documentation
+742	CURATION	format_property_missing	http://edamontology.org/format_3873	'HDF'	is missing mandatory format property: http://edamontology.org/documentation
+743	CURATION	format_property_missing	http://edamontology.org/format_3874	'PCAzip'	is missing mandatory format property: http://edamontology.org/documentation
+744	CURATION	format_property_missing	http://edamontology.org/format_3875	'XTC'	is missing mandatory format property: http://edamontology.org/documentation
+745	CURATION	format_property_missing	http://edamontology.org/format_3876	'TNG'	is missing mandatory format property: http://edamontology.org/documentation
+746	CURATION	format_property_missing	http://edamontology.org/format_3877	'XYZ'	is missing mandatory format property: http://edamontology.org/documentation
+747	CURATION	format_property_missing	http://edamontology.org/format_3879	'Topology format'	is missing mandatory format property: http://edamontology.org/documentation
+748	CURATION	format_property_missing	http://edamontology.org/format_3884	'FF parameter format'	is missing mandatory format property: http://edamontology.org/documentation
+749	CURATION	format_property_missing	http://edamontology.org/format_3885	'BinPos'	is missing mandatory format property: http://edamontology.org/documentation
+750	CURATION	format_property_missing	http://edamontology.org/format_3887	'CHARMM rtf'	is missing mandatory format property: http://edamontology.org/documentation
+751	CURATION	format_property_missing	http://edamontology.org/format_3906	'NMReDATA'	is missing mandatory format property: http://edamontology.org/documentation
+752	CURATION	format_property_missing	http://edamontology.org/format_3978	'CONTIG'	is missing mandatory format property: http://edamontology.org/documentation
+753	CURATION	format_property_missing	http://edamontology.org/format_3979	'WEGO'	is missing mandatory format property: http://edamontology.org/documentation
+754	CURATION	format_property_missing	http://edamontology.org/format_3980	'RPKM'	is missing mandatory format property: http://edamontology.org/documentation
+755	CURATION	format_property_missing	http://edamontology.org/format_3981	'TAR format'	is missing mandatory format property: http://edamontology.org/documentation
+756	CURATION	format_property_missing	http://edamontology.org/format_3982	'CHAIN'	is missing mandatory format property: http://edamontology.org/documentation
+757	CURATION	format_property_missing	http://edamontology.org/format_3983	'NET'	is missing mandatory format property: http://edamontology.org/documentation
+758	CURATION	format_property_missing	http://edamontology.org/format_3984	'QMAP'	is missing mandatory format property: http://edamontology.org/documentation
+759	CURATION	format_property_missing	http://edamontology.org/format_3985	'gxformat2'	is missing mandatory format property: http://edamontology.org/documentation
+760	CURATION	format_property_missing	http://edamontology.org/format_3986	'WMV'	is missing mandatory format property: http://edamontology.org/documentation
+761	CURATION	format_property_missing	http://edamontology.org/format_3987	'ZIP format'	is missing mandatory format property: http://edamontology.org/documentation
+762	CURATION	format_property_missing	http://edamontology.org/format_3988	'LSM'	is missing mandatory format property: http://edamontology.org/documentation
+763	CURATION	format_property_missing	http://edamontology.org/format_3989	'GZIP format'	is missing mandatory format property: http://edamontology.org/documentation
+764	CURATION	format_property_missing	http://edamontology.org/format_3990	'AVI'	is missing mandatory format property: http://edamontology.org/documentation
+765	CURATION	format_property_missing	http://edamontology.org/format_3991	'TrackDB'	is missing mandatory format property: http://edamontology.org/documentation
+766	CURATION	format_property_missing	http://edamontology.org/format_3992	'CIGAR format'	is missing mandatory format property: http://edamontology.org/documentation
+767	CURATION	format_property_missing	http://edamontology.org/format_3993	'Stereolithography format'	is missing mandatory format property: http://edamontology.org/documentation
+768	CURATION	format_property_missing	http://edamontology.org/format_3994	'U3D'	is missing mandatory format property: http://edamontology.org/documentation
+769	CURATION	format_property_missing	http://edamontology.org/format_3995	'Texture file format'	is missing mandatory format property: http://edamontology.org/documentation
+770	CURATION	format_property_missing	http://edamontology.org/format_3996	'Python script'	is missing mandatory format property: http://edamontology.org/documentation
+771	CURATION	format_property_missing	http://edamontology.org/format_3997	'MPEG-4'	is missing mandatory format property: http://edamontology.org/documentation
+772	CURATION	format_property_missing	http://edamontology.org/format_3998	'Perl script'	is missing mandatory format property: http://edamontology.org/documentation
+773	CURATION	format_property_missing	http://edamontology.org/format_3999	'R script'	is missing mandatory format property: http://edamontology.org/documentation
+774	CURATION	format_property_missing	http://edamontology.org/format_4000	'R markdown'	is missing mandatory format property: http://edamontology.org/documentation
+775	CURATION	format_property_missing	http://edamontology.org/format_4002	'pickle'	is missing mandatory format property: http://edamontology.org/documentation
+776	CURATION	format_property_missing	http://edamontology.org/format_4003	'NumPy format'	is missing mandatory format property: http://edamontology.org/documentation
+777	CURATION	format_property_missing	http://edamontology.org/format_4004	'SimTools repertoire file format'	is missing mandatory format property: http://edamontology.org/documentation
+778	CURATION	format_property_missing	http://edamontology.org/format_4005	'Configuration file format'	is missing mandatory format property: http://edamontology.org/documentation
+779	CURATION	format_property_missing	http://edamontology.org/format_4006	'Zstandard format'	is missing mandatory format property: http://edamontology.org/documentation
+780	CURATION	format_property_missing	http://edamontology.org/format_4007	'MATLAB script'	is missing mandatory format property: http://edamontology.org/documentation
+781	CURATION	format_property_missing	http://edamontology.org/format_4035	'PQR'	is missing mandatory format property: http://edamontology.org/documentation
+782	CURATION	format_property_missing	http://edamontology.org/format_4036	'PDBQT'	is missing mandatory format property: http://edamontology.org/documentation
+783	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 70, ""preferrably"" is suspected to be a spelling error. Could it be ""preferably"" instead? (if exeption needed comment in PR ... )"
+784	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 137, ""preferrably"" is suspected to be a spelling error. Could it be ""preferably"" instead? (if exeption needed comment in PR ... )"
+785	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 1539, ""aligment"" is suspected to be a spelling error. Could it be ""alignment"" instead? (if exeption needed comment in PR ... )"
+786	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 2379, ""occuring"" is suspected to be a spelling error. Could it be ""occurring"" instead? (if exeption needed comment in PR ... )"
+787	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 5736, ""alpha-numeric"" is suspected to be a spelling error. Could it be ""alphanumeric"" instead? (if exeption needed comment in PR ... )"
+788	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 10999, ""probablities"" is suspected to be a spelling error. Could it be ""probabilities"" instead? (if exeption needed comment in PR ... )"
+789	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 13901, ""co-ordinates"" is suspected to be a spelling error. Could it be ""coordinates"" instead? (if exeption needed comment in PR ... )"
+790	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 24937, ""Tipically"" is suspected to be a spelling error. Could it be ""Typically"" instead? (if exeption needed comment in PR ... )"
+791	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 25130, ""ressource"" is suspected to be a spelling error. Could it be ""resource"" instead? (if exeption needed comment in PR ... )"
+792	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 30842, ""Preferrably"" is suspected to be a spelling error. Could it be ""Preferably"" instead? (if exeption needed comment in PR ... )"
+793	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 32607, ""pacakge"" is suspected to be a spelling error. Could it be ""package"" instead? (if exeption needed comment in PR ... )"
+794	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 32691, ""programm"" is suspected to be a spelling error. Could it be ""program, programme"" instead? (if exeption needed comment in PR ... )"
+795	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 32691, ""Multipe"" is suspected to be a spelling error. Could it be ""Multiple"" instead? (if exeption needed comment in PR ... )"
+796	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 33110, ""incuded"" is suspected to be a spelling error. Could it be ""included"" instead? (if exeption needed comment in PR ... )"
+797	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 36199, ""Tipically"" is suspected to be a spelling error. Could it be ""Typically"" instead? (if exeption needed comment in PR ... )"
+798	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 36231, ""Parm"" is suspected to be a spelling error. Could it be ""Param, pram, parma"" instead? (if exeption needed comment in PR ... )"
+799	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 36252, ""namd"" is suspected to be a spelling error. Could it be ""named, name"" instead? (if exeption needed comment in PR ... )"
+800	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 36253, ""NAMD"" is suspected to be a spelling error. Could it be ""NAMED, NAME"" instead? (if exeption needed comment in PR ... )"
+801	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 36271, ""tipically"" is suspected to be a spelling error. Could it be ""typically"" instead? (if exeption needed comment in PR ... )"
+802	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 36292, ""Tipically"" is suspected to be a spelling error. Could it be ""Typically"" instead? (if exeption needed comment in PR ... )"
+803	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 37057, ""interchangable"" is suspected to be a spelling error. Could it be ""interchangeable"" instead? (if exeption needed comment in PR ... )"
+804	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 37232, ""algorith"" is suspected to be a spelling error. Could it be ""algorithm"" instead? (if exeption needed comment in PR ... )"
+805	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 39551, ""NOE"" is suspected to be a spelling error. Could it be ""NOT, NO, NODE, KNOW, NOW"" instead? (if exeption needed comment in PR ... )"
+806	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 43176, ""thay"" is suspected to be a spelling error. Could it be ""they, that"" instead? (if exeption needed comment in PR ... )"
+807	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 48457, ""varient"" is suspected to be a spelling error. Could it be ""variant"" instead? (if exeption needed comment in PR ... )"
+808	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 48791, ""sequnces"" is suspected to be a spelling error. Could it be ""sequences"" instead? (if exeption needed comment in PR ... )"
+809	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 49528, ""thay"" is suspected to be a spelling error. Could it be ""they, that"" instead? (if exeption needed comment in PR ... )"
+810	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 49922, ""choosen"" is suspected to be a spelling error. Could it be ""chosen"" instead? (if exeption needed comment in PR ... )"
+811	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 50119, ""occurence"" is suspected to be a spelling error. Could it be ""occurrence"" instead? (if exeption needed comment in PR ... )"
+812	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 50176, ""redudancy"" is suspected to be a spelling error. Could it be ""redundancy"" instead? (if exeption needed comment in PR ... )"
+813	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 50995, ""funtional"" is suspected to be a spelling error. Could it be ""functional"" instead? (if exeption needed comment in PR ... )"
+814	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 52080, ""targetted"" is suspected to be a spelling error. Could it be ""targeted"" instead? (if exeption needed comment in PR ... )"
+815	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 52773, ""incudes"" is suspected to be a spelling error. Could it be ""includes"" instead? (if exeption needed comment in PR ... )"
+816	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 53633, ""occuring"" is suspected to be a spelling error. Could it be ""occurring"" instead? (if exeption needed comment in PR ... )"
+817	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 55969, ""focussed"" is suspected to be a spelling error. Could it be ""focused"" instead? (if exeption needed comment in PR ... )"
+818	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 57779, ""transmissable"" is suspected to be a spelling error. Could it be ""transmissible"" instead? (if exeption needed comment in PR ... )"
+819	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 57781, ""Transmissable"" is suspected to be a spelling error. Could it be ""Transmissible"" instead? (if exeption needed comment in PR ... )"
+820	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 58336, ""assesment"" is suspected to be a spelling error. Could it be ""assessment"" instead? (if exeption needed comment in PR ... )"
+821	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 58602, ""incoporating"" is suspected to be a spelling error. Could it be ""incorporating"" instead? (if exeption needed comment in PR ... )"
+822	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 58676, ""mangement"" is suspected to be a spelling error. Could it be ""management"" instead? (if exeption needed comment in PR ... )"
+823	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 59006, ""Opthalmology"" is suspected to be a spelling error. Could it be ""Ophthalmology"" instead? (if exeption needed comment in PR ... )"
+824	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 59011, ""Opthalmology"" is suspected to be a spelling error. Could it be ""Ophthalmology"" instead? (if exeption needed comment in PR ... )"
+825	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 59042, ""mangement"" is suspected to be a spelling error. Could it be ""management"" instead? (if exeption needed comment in PR ... )"
+826	CURATION	spelling_check	Unknown	Unknown	"in your EDAM file, line 59223, ""ouput"" is suspected to be a spelling error. Could it be ""output"" instead? (if exeption needed comment in PR ... )"
