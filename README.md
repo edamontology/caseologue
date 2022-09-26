@@ -1,10 +1,5 @@
-# edam-validation
+# caseologue
 
-edam-validation is a set of tools used to ensure the consistency, coherence ans stability of the EDAM ontology. \
-Both rOBOt and caseologue are implemented in GitHub Actions in both this repository and the main edamontology repository. This continuous integration (CI) pipeline is triggered triggered by push and Pull Requests.\
-edam-validation can also be used for curation purposes.
+**caseologue** is a set of tools used to ensure the consistency, coherence and stability of the EDAM ontology and its extensions.
 
-
-Note: caseologue used to be named edamci and then edam-custom, there might be some leftover in the code or some branches
-
-random change to tet github action, to be deleted
+caseologue controls use the [ROBOT](http://robot.obolibrary.org/) tool, running both standard and custom queries, as well as a custom python package. All these controls are implemented and usable as GitHub Actions. Detailed documentation is available [here]().
