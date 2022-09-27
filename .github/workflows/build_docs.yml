@@ -14,6 +14,8 @@ jobs:
         documentation_path: ./docs
         target_branch: gh-pages
         target_path: '.'
+        repository_path: '.'
+        requirements_path: 'docs/requirements.txt'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
