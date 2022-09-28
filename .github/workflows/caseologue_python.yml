@@ -1,0 +1,41 @@
+name: caseologue
+
+on: 
+  workflow_call:
+    inputs:
+      edam_path: 
+        type: string
+        default: '$( wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl)EDAM_dev.owl'
+      caseologue_options:
+        type: string
+
+jobs:
+  
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - uses: actions/checkout@v2
+
+    - name: Install requirements
+      run: |
+        pip install -r caseologue/requirements.txt
+
+    - name: run 
+      run: |
+        cd caseologue/
+        EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
+     
+    # - name: Print output
+    #   if: always()
+    #   run: |
+    #     cat output_caseologue.tsv 
+
+    - name: Archive tests output
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: output_caseologue
+        path: caseologue/output_caseologue.tsv

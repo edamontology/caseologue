@@ -1,0 +1,26 @@
+name: ROBOT reasoner 
+
+on: 
+  workflow_call:
+    inputs:
+      edam_path: 
+        type: string
+        default: '$( wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl)EDAM_dev.owl'
+
+
+jobs:
+  
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - uses: actions/checkout@v2
+
+    - name: run reason
+      run: |
+        cd robot/ 
+        export PATH=/home/runner/work/edamontology/edamontology/edam-validation/robot:$PATH
+        java -jar robot.jar reason --reasoner ELK   --input ${{inputs.edam_path}} -v 
+

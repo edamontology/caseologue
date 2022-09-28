@@ -1,35 +1,14 @@
-name: caseologue
+name: EDAM-VALIDATION 
 
-on: [push, pull_request, workflow_dispatch, workflow_call]
+on: [workflow_dispatch]
 
 jobs:
   
-  build:
+  caseologue:
+    uses: edamontology/edam-validation/.github/workflows/caseologue.yml@main
 
-    runs-on: ubuntu-latest
+  report:
+    uses: edamontology/edam-validation/.github/workflows/robot_report.yml@main
 
-    steps:
-      
-    - uses: actions/checkout@v2
-
-    - name: Install requirements
-      run: |
-        pip install -r caseologue/requirements.txt
-        cd caseologue/
-        wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
-    - name: run 
-      run: |
-        cd caseologue/
-        EDAM_PATH=./EDAM_dev.owl python3 caseologue.py -e -E
-     
-    # - name: Print output
-    #   if: always()
-    #   run: |
-    #     cat output_caseologue.tsv 
-
-    - name: Archive tests output
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: output_caseologue
-        path: caseologue/output_caseologue.tsv
+  reason:
+    uses: edamontology/edam-validation/.github/workflows/robot_reason.yml@main
