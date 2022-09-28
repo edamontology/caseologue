@@ -5,10 +5,10 @@ on: [workflow_dispatch, push]
 jobs:
   
   caseologue:
-    uses: edamontology/edam-validation/.github/workflows/caseologue.yml@main
+    uses: edamontology/edam-validation/.github/workflows/caseologue_python.yml@main
 
   report:
-    uses: edamontology/edam-validation/.github/workflows/robot_report.yml@main
+    uses: edamontology/edam-validation/.github/workflows/caseologue_robot_report.yml@main
 
   reason:
-    uses: edamontology/edam-validation/.github/workflows/robot_reason.yml@main
+    uses: edamontology/edam-validation/.github/workflows/caseologue_robot_reason.yml@main
