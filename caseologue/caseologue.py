@@ -9,116 +9,139 @@ import sys
 from collections import Counter
 from rdflib.namespace import RDF, RDFS, _OWL
 from tabulate import tabulate
+
 # from rich_dataframe import prettify
 from queries.edamxpath_id_unique import check_unique_id
 
-def parsing () :
 
-    parser = argparse.ArgumentParser(description="Level of tests, by default all levels are ran")
-    parser.add_argument('-e','--error', action='store_true',  help='runs all error tests')
-    parser.add_argument('-E','--essential' , action='store_true', help='runs all essential tests')
-    parser.add_argument('-c','--curation',  action='store_true', help='runs all curation tests')
-    parser.add_argument('unittest_args', nargs='*')
+def parsing():
+
+    parser = argparse.ArgumentParser(
+        description="Level of tests, by default all levels are ran"
+    )
+    parser.add_argument(
+        "-e", "--error", action="store_true", help="runs all error tests"
+    )
+    parser.add_argument(
+        "-E", "--essential", action="store_true", help="runs all essential tests"
+    )
+    parser.add_argument(
+        "-c", "--curation", action="store_true", help="runs all curation tests"
+    )
+    parser.add_argument("unittest_args", nargs="*")
 
     args = parser.parse_args()
 
-    #print("args argparse",args.error,args.essential,args.curation)
+    # print("args argparse",args.error,args.essential,args.curation)
 
-    if (args.error!=False or args.essential!=False or args.curation!=False) :
+    if args.error != False or args.essential != False or args.curation != False:
         run_error = args.error
         run_essential = args.essential
         run_curation = args.curation
-        
 
-    else: 
+    else:
         run_error = True
         run_essential = True
         run_curation = True
 
-    #print("def parsing",run_error,run_essential,run_curation)
+    # print("def parsing",run_error,run_essential,run_curation)
 
-    sys.argv[1:] = args.unittest_args 
+    sys.argv[1:] = args.unittest_args
+
+    return (run_error, run_essential, run_curation)
 
 
-    return(run_error,run_essential,run_curation)
-
-def suite ():
+def suite():
     """
     Defines the level of error of each test.
     """
     suite = unittest.TestSuite()
 
-    if run_curation == True :
-        suite.addTest(EdamQueryTest('test_deprecated_replacement_obsolete'))
-        suite.addTest(EdamQueryTest('test_formating'))
-        suite.addTest(EdamQueryTest('test_check_wikipedia_link'))
-        suite.addTest(EdamQueryTest('test_identifier_property_missing'))
-        suite.addTest(EdamQueryTest('test_relation_too_broad'))
-        suite.addTest(EdamQueryTest('test_duplicate_in_concept'))
-        suite.addTest(EdamQueryTest('test_literal_links'))
-#        suite.addTest(EdamQueryTest('test_duplicate_all'))
-        suite.addTest(EdamQueryTest('test_format_property_missing'))
-        suite.addTest(EdamQueryTest('test_spelling_check'))   # can me moved to essential         
+    if run_curation == True:
+        suite.addTest(EdamQueryTest("test_deprecated_replacement_obsolete"))
+        suite.addTest(EdamQueryTest("test_formating"))
+        suite.addTest(EdamQueryTest("test_check_wikipedia_link"))
+        suite.addTest(EdamQueryTest("test_identifier_property_missing"))
+        suite.addTest(EdamQueryTest("test_relation_too_broad"))
+        suite.addTest(EdamQueryTest("test_duplicate_in_concept"))
+        suite.addTest(EdamQueryTest("test_literal_links"))
+        #        suite.addTest(EdamQueryTest('test_duplicate_all'))
+        suite.addTest(EdamQueryTest("test_format_property_missing"))
+        suite.addTest(EdamQueryTest("test_spelling_check"))  # can me moved to essential
 
-    if run_essential == True :
-        suite.addTest(EdamQueryTest('test_super_class_refers_to_self'))
-        suite.addTest(EdamQueryTest('test_bad_uri_reference'))
-        suite.addTest(EdamQueryTest('test_empty_property')) 
-        suite.addTest(EdamQueryTest('test_id_unique'))
+    if run_essential == True:
+        suite.addTest(EdamQueryTest("test_super_class_refers_to_self"))
+        suite.addTest(EdamQueryTest("test_bad_uri_reference"))
+        suite.addTest(EdamQueryTest("test_empty_property"))
+        suite.addTest(EdamQueryTest("test_id_unique"))
 
-    if run_error == True :
-        suite.addTest(EdamQueryTest('test_mandatory_property_missing'))
-        suite.addTest(EdamQueryTest('test_deprecated_replacement'))
-        suite.addTest(EdamQueryTest('test_missing_deprecated_property')) 
-        suite.addTest(EdamQueryTest('test_next_id_modif'))
-        suite.addTest(EdamQueryTest('test_subset_id'))
-        suite.addTest(EdamQueryTest('test_object_relation_obsolete'))
-        suite.addTest(EdamQueryTest('test_bad_uri')) 
-  
+    if run_error == True:
+        suite.addTest(EdamQueryTest("test_mandatory_property_missing"))
+        suite.addTest(EdamQueryTest("test_deprecated_replacement"))
+        suite.addTest(EdamQueryTest("test_missing_deprecated_property"))
+        suite.addTest(EdamQueryTest("test_next_id_modif"))
+        suite.addTest(EdamQueryTest("test_subset_id"))
+        suite.addTest(EdamQueryTest("test_object_relation_obsolete"))
+        suite.addTest(EdamQueryTest("test_bad_uri"))
+
     return suite
-
 
 
 # each test is added in function of the boolean input (error essential curation), to change level category, change tested variable (+ change level error when adding new_error in data frame)
 
 
 class EdamQueryTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
 
-    @classmethod  
-    def setUpClass(cls):  
- 
         """
-            :meta private: 
-            doctring set to private to avoid automatic default docstring in documentation
-        """ 
+        :meta private:
+        doctring set to private to avoid automatic default docstring in documentation
+        """
         cls.edam_graph = ConjunctiveGraph()
-        cls.edam_graph.parse(os.environ.get('EDAM_PATH'), format='xml')
-        cls.report = pd.DataFrame(columns = ['Level','Test Name','Entity','Label','Debug Message'])
-        #print(cls.report)
-    
+        cls.edam_graph.parse(os.environ.get("EDAM_PATH"), format="xml")
+        cls.report = pd.DataFrame(
+            columns=["Level", "Test Name", "Entity", "Label", "Debug Message"]
+        )
+        # print(cls.report)
+
     ################# DEPRECATED REPLACEMENT OBSOLETE ###########################
 
     def test_deprecated_replacement_obsolete(self):
 
         """
         Checks that the suggested replacement (replacedBy/consider) for a deprecated term is not obsolete.
-        
+
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/deprecated_replacement_obsolete.rq>`_
-        
+
         """
-        
+
         query = "queries/deprecated_replacement_obsolete.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
         results = self.edam_graph.query(query_term)
         nb_err = len(results)
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','deprecated_replacement_obsolete',r['entity'],(f"'{r['label']}'"),(f"concept is replaced by ({r['property']}) an obsolete concept: {r['replacement']}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "deprecated_replacement_obsolete",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"concept is replaced by ({r['property']}) an obsolete concept: {r['replacement']}"
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
-        
         self.assertEqual(nb_err, 0)
 
     ################# SUPERCLASS REFERS TO SELF ###########################
@@ -130,19 +153,31 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/super_class_refers_to_self.rq>`_
         """
-            
+
         query = "queries/super_class_refers_to_self.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
         nb_err = len(results)
-        f.close()        
-        
+        f.close()
+
         for r in results:
-            new_error = pd.DataFrame([['ESSENTIAL','super_class_refers_to_self',r['entity'],(f"'{r['label']}'"),'concept declared as superclass of itself']], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ESSENTIAL",
+                        "super_class_refers_to_self",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        "concept declared as superclass of itself",
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
@@ -158,7 +193,7 @@ class EdamQueryTest(unittest.TestCase):
         """
 
         query = "queries/bad_uri.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -166,9 +201,21 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['ESSENTIAL','bad_rui',r['entity'],(f"'{r['label']}'"),'has a bad URI (entity) (regex :^http://edamontology.org/(data|topic|operation|format)_[0-9]\{4\}$)']], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ESSENTIAL",
+                        "bad_rui",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        "has a bad URI (entity) (regex :^http://edamontology.org/(data|topic|operation|format)_[0-9]\{4\}$)",
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
@@ -181,9 +228,9 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/mandatory_property_missing.rq>`_
         """
-            
+
         query = "queries/mandatory_property_missing.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -191,9 +238,21 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['ERROR','mandatory_property_missing',r['entity'],(f"'{r['label']}'"),(f"is missing mandatory property: {r['property']} ")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ERROR",
+                        "mandatory_property_missing",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (f"is missing mandatory property: {r['property']} "),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
@@ -203,10 +262,10 @@ class EdamQueryTest(unittest.TestCase):
 
         """
         Checks the formating of the properties. Properties should not have a space neither at the start nor the end, no tab and no end of line.
-        Checks that label have no dot at the end and that definition do have a dot at the end. 
+        Checks that label have no dot at the end and that definition do have a dot at the end.
 
             > SPARQL query available here:
-                
+
                 * `Definition dot  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_dot_def_missing.rq.rq>`_
                 * `Lable dot  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_dot_label.rq>`_
                 * `End space  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_space_annotation.rq>`_
@@ -215,9 +274,9 @@ class EdamQueryTest(unittest.TestCase):
                 * `End of line  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/eol_in_annotation.rq>`_
 
         """
-            
+
         query = "queries/end_dot_def_missing.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -225,25 +284,49 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','end_dot_def_missing',r['entity'],(f"'{r['label']}'"),'A dot is missing at the end of the definition.']], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "end_dot_def_missing",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        "A dot is missing at the end of the definition.",
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         query = "queries/end_dot_label.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
-        nb_err += len(results)  # add to same counter for the test 
+        nb_err += len(results)  # add to same counter for the test
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','end_dot_label',r['entity'],(f"'{r['label']}'"),'There is an unwanted dot at the end of the label.']], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True)
-        
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "end_dot_label",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        "There is an unwanted dot at the end of the label.",
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
+
         query = "queries/end_space_annotation.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -251,12 +334,26 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','end_space_annotation',r['entity'],(f"'{r['label']}'"),(f"There is an unwanted space at the end of {r['property']} : {r['value']}.")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True)
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "end_space_annotation",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"There is an unwanted space at the end of {r['property']} : {r['value']}."
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         query = "queries/eol_in_annotation.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -264,12 +361,26 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','eol_in_annotation',r['entity'],(f"'{r['label']}'"),(f"There is an unwanted end-of-line in {r['property']} : {r['value']}.")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True)
-        
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "eol_in_annotation",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"There is an unwanted end-of-line in {r['property']} : {r['value']}."
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
+
         query = "queries/start_space_annotation.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -277,12 +388,26 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','start_space_annotation',r['entity'],(f"'{r['label']}'"),(f"There is an unwanted space at the start of {r['property']} : {r['value']}.")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True)
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "start_space_annotation",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"There is an unwanted space at the start of {r['property']} : {r['value']}."
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         query = "queries/tab_in_annotation.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -290,11 +415,25 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','tab_in_annotation',r['entity'],(f"'{r['label']}'"),(f"There is an unwanted tabulation in {r['property']} : {r['value']}.")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True)
-        
-        self.assertEqual(nb_err, 0)
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "tab_in_annotation",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"There is an unwanted tabulation in {r['property']} : {r['value']}."
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
+        self.assertEqual(nb_err, 0)
 
     ################# DEPRECATED REPLACEMENT ###########################
 
@@ -302,12 +441,12 @@ class EdamQueryTest(unittest.TestCase):
 
         """
         Checks that every deprecated concept has a replacement suggested (replaced_by or consider).
-        
+
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/deprecated_replacement.rq>`_
         """
-            
+
         query = "queries/deprecated_replacement.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -315,12 +454,23 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['ERROR','deprecated_replacement',r['entity'],(f"'{r['label']}'"),'is deprecated and is missing either a replacedBy property or a consider property']], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ERROR",
+                        "deprecated_replacement",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        "is deprecated and is missing either a replacedBy property or a consider property",
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
-
 
     ################# BAD URI REFERENCE ###########################
 
@@ -332,39 +482,52 @@ class EdamQueryTest(unittest.TestCase):
         "get_uri.rq" retrieves all URI. "uri_reference.rq" retrieves all referenced URI. Then check if the references URIs are in the declared concept URIs.
 
             > SPARQL query available here :
-            
+
                 * `get uri  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/get_uri.rq>`_
                 * `uri reference <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/uri_reference.rq>`_
         """
-            
+
         query = "queries/get_uri.rq"
-        uri=[]
-        with open(query,'r') as f:
+        uri = []
+        with open(query, "r") as f:
             query_term = f.read()
 
-        results = self.edam_graph.query(query_term) 
+        results = self.edam_graph.query(query_term)
         f.close()
 
-        for r in results :
-            uri.append(r['entity'])
+        for r in results:
+            uri.append(r["entity"])
 
         query = "queries/uri_reference.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
-        results = self.edam_graph.query(query_term) 
+        results = self.edam_graph.query(query_term)
         f.close()
 
         nb_err = 0
         for r in results:
-            if r['reference'] not in uri : 
+            if r["reference"] not in uri:
                 nb_err += 1
-                new_error = pd.DataFrame([['ESSENTIAL','bad_uri_reference',r['entity'],(f"'{r['label']}'"),(f"The property {r['property']} refers not an undeclared URI: '{r['reference']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-                self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
-        
-        self.assertEqual(nb_err, 0)
+                new_error = pd.DataFrame(
+                    [
+                        [
+                            "ESSENTIAL",
+                            "bad_uri_reference",
+                            r["entity"],
+                            (f"'{r['label']}'"),
+                            (
+                                f"The property {r['property']} refers not an undeclared URI: '{r['reference']}'"
+                            ),
+                        ]
+                    ],
+                    columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+                )
+                self.__class__.report = pd.concat(
+                    [self.report, new_error], ignore_index=True
+                )
 
+        self.assertEqual(nb_err, 0)
 
     ################# MISSING DEPRECATED PROPERTY ###########################
 
@@ -375,9 +538,9 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/missing_deprecated_property.rq>`_
         """
-            
+
         query = "queries/missing_deprecated_property.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -385,12 +548,23 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['ERROR','missing_deprecated_property',r['entity'],(f"'{r['label']}'"),(f"is missing mandatory deprecated property: {r['property']}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ERROR",
+                        "missing_deprecated_property",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (f"is missing mandatory deprecated property: {r['property']}"),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
-
 
     ################# MISSING WIKIPEDIA LINK ###########################
 
@@ -401,9 +575,9 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/check_wikipedia_link.rq>`_
         """
-            
+
         query = "queries/check_wikipedia_link.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -411,15 +585,26 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','check_wikipedia_link',r['entity'],(f"'{r['label']}'"),"Topic concept missing a wikipedia link"]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "check_wikipedia_link",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        "Topic concept missing a wikipedia link",
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
-
     ################# IDENTIFIER PROPERTY MISSING ###########################
-    
+
     def test_identifier_property_missing(self):
 
         """
@@ -427,9 +612,9 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/identifier_property_missing.rq>`_
         """
-            
+
         query = "queries/identifier_property_missing.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -437,15 +622,26 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','identifier_property_missing',r['entity'],(f"'{r['label']}'"),"is missing regex property"]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "identifier_property_missing",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        "is missing regex property",
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
-    
     ################# ID UNIQUE ###########################
-    
+
     def test_id_unique(self):
 
         """
@@ -453,13 +649,13 @@ class EdamQueryTest(unittest.TestCase):
 
         Uses a small pyhton script to retreive all duplicated id available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/edamxpath_id_unique.py>`_
         """
-            
-        duplicate_id = check_unique_id(os.environ.get('EDAM_PATH'))
+
+        duplicate_id = check_unique_id(os.environ.get("EDAM_PATH"))
         nb_err = len(duplicate_id)
 
         query = "queries/get_uri.rq"
-        uri=[]
-        with open(query,'r') as f:
+        uri = []
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -467,25 +663,43 @@ class EdamQueryTest(unittest.TestCase):
 
         for id in duplicate_id:
             for r in results:
-                if id in str(r['entity']):   
-                    new_error = pd.DataFrame([['ERROR','id_unique',r['entity'],(f"'{r['label']}'"),(f"numerical id is used several times")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-                    self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
+                if id in str(r["entity"]):
+                    new_error = pd.DataFrame(
+                        [
+                            [
+                                "ERROR",
+                                "id_unique",
+                                r["entity"],
+                                (f"'{r['label']}'"),
+                                (f"numerical id is used several times"),
+                            ]
+                        ],
+                        columns=[
+                            "Level",
+                            "Test Name",
+                            "Entity",
+                            "Label",
+                            "Debug Message",
+                        ],
+                    )
+                    self.__class__.report = pd.concat(
+                        [self.report, new_error], ignore_index=True
+                    )
 
-        self.assertEqual(nb_err, 0)    
-
+        self.assertEqual(nb_err, 0)
 
     ################# RELATION TOO BROAD ###########################
-    
+
     def test_relation_too_broad(self):
 
         """
-        Checks that a concept is not in relation (restriction) with a concept "not recommanded for annotation". 
+        Checks that a concept is not in relation (restriction) with a concept "not recommanded for annotation".
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/relation_too_broad.rq>`_
         """
-            
+
         query = "queries/relation_too_broad.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -493,25 +707,38 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','relation_too_broad',r['entity'],(f"'{r['label']}'"),(f"linked ({r['property']}) with a concept not recomanded for annotation : '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "relation_too_broad",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"linked ({r['property']}) with a concept not recomanded for annotation : '{r['value']}'"
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
- 
     ################# DUPLICATE IN CONCEPT ###########################
-    
+
     def test_duplicate_in_concept(self):
 
         """
-        Checks that there is no duplicate content (case insensitive) within a concept on given properties. 
+        Checks that there is no duplicate content (case insensitive) within a concept on given properties.
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/duplicate_in_concept.rq>`_
         """
-            
+
         query = "queries/duplicate_in_concept.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -519,27 +746,41 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','duplicate_in_concept',r['entity'],(f"'{r['label']}'"),(f"{r['property']} and {r['property2']} have the same content: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
-        #here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "duplicate_in_concept",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"{r['property']} and {r['property2']} have the same content: '{r['value']}'"
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
+
+        # here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
 
         self.assertEqual(nb_err, 0)
 
-
     ################# DUPLICATE ALL ###########################
-    
+
     def test_duplicate_all(self):
 
         """
-        Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties. 
+        Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/duplicate_all.rq>`_
         """
         # this is case sensitive for computational time reasons
-    
+
         query = "queries/duplicate_all.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -547,26 +788,40 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','duplicate_all',r['entity'],(f"'{r['label']}'"),(f"have the same content on {r['property']} as {r['entity2']} '{r['label2']}' on {r['property2']}: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
-        #here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "duplicate_all",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"have the same content on {r['property']} as {r['entity2']} '{r['label2']}' on {r['property2']}: '{r['value']}'"
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
+
+        # here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
 
         self.assertEqual(nb_err, 0)
 
-
     ################# LITERAL LINKS ###########################
-    
+
     def test_literal_links(self):
 
         """
-        Checks that all webpage and doi are declared as literal links. 
+        Checks that all webpage and doi are declared as literal links.
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/literal_links.rq>`_
         """
-            
+
         query = "queries/literal_links.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -574,25 +829,38 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','literal_links',r['entity'],(f"'{r['label']}'"),(f"{r['property']} value is not declared as a literal: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "literal_links",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"{r['property']} value is not declared as a literal: '{r['value']}'"
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
-
     ################# NEXT ID MODIF ###########################
-    
+
     def test_next_id_modif(self):
 
         """
-        Checks that the "next id" property is equal to "the maximal concept id numerical part" +1.  
+        Checks that the "next id" property is equal to "the maximal concept id numerical part" +1.
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/get_id_and_next_id.rq>`_
         """
-            
+
         query = "queries/get_id_and_next_id.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -600,30 +868,43 @@ class EdamQueryTest(unittest.TestCase):
         nb_err = 0
         ids = []
         for r in results:
-            ids.append(int(r['id']))
-            next_id = int(r['value'])
+            ids.append(int(r["id"]))
+            next_id = int(r["value"])
         max_ids = max(ids)
-        if next_id != (max_ids+1) : 
+        if next_id != (max_ids + 1):
             nb_err = 1
-            new_error = pd.DataFrame([['ERROR','next_id_modif','None','None',(f"The 'next_id' property has not been updated, it is not equal to the max id +1")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ERROR",
+                        "next_id_modif",
+                        "None",
+                        "None",
+                        (
+                            f"The 'next_id' property has not been updated, it is not equal to the max id +1"
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
-
     ################# SUBSET ID ###########################
-    
+
     def test_subset_id(self):
 
         """
-        Checks that the "subset" part of a concept id is the same as its superclass (e.g. data concept only subclass of another data concept). 
+        Checks that the "subset" part of a concept id is the same as its superclass (e.g. data concept only subclass of another data concept).
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/subset_id.rq>`_
         """
-            
+
         query = "queries/subset_id.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -631,15 +912,28 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['ERROR','subset_id',r['entity'],(f"'{r['label']}'"),(f"Concept subset id ({r['subset']}) is different from its subclass {r['superclass']} '{r['label_sc']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ERROR",
+                        "subset_id",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"Concept subset id ({r['subset']}) is different from its subclass {r['superclass']} '{r['label_sc']}'"
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
-
     ################# OBJECT RELATION OBSOLETE ###########################
-    
+
     def test_object_relation_obsolete(self):
 
         """
@@ -647,9 +941,9 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/object_relation_obsolete.rq>`_
         """
-            
+
         query = "queries/object_relation_obsolete.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -657,15 +951,28 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['ERROR','object_relation_obsolete',r['entity'],(f"'{r['label']}'"),(f"is related ({r['property']}) with {r['target']}, which is a deprecated concept")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ERROR",
+                        "object_relation_obsolete",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (
+                            f"is related ({r['property']}) with {r['target']}, which is a deprecated concept"
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
- 
     ################# FORMAT PROPERTY MISSING ###########################
-    
+
     def test_format_property_missing(self):
 
         """
@@ -673,9 +980,9 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/format_property_missing.rq>`_
         """
-            
+
         query = "queries/format_property_missing.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -683,25 +990,36 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['CURATION','format_property_missing',r['entity'],(f"'{r['label']}'"),(f"is missing mandatory format property: {r['property']}")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "format_property_missing",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (f"is missing mandatory format property: {r['property']}"),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
- 
 
     ################# EMPTY PROPERTY ###########################
-    
+
     def test_empty_property(self):
 
         """
-        Checks that no property is empty.  
+        Checks that no property is empty.
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/empty_property.rq>`_
         """
-            
+
         query = "queries/empty_property.rq"
-        with open(query,'r') as f:
+        with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -709,52 +1027,77 @@ class EdamQueryTest(unittest.TestCase):
         f.close()
 
         for r in results:
-            new_error = pd.DataFrame([['ERROR','empty_property',r['entity'],(f"'{r['label']}'"),(f"{r['property']} is empty")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "ERROR",
+                        "empty_property",
+                        r["entity"],
+                        (f"'{r['label']}'"),
+                        (f"{r['property']} is empty"),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
 
         self.assertEqual(nb_err, 0)
 
-
     ################# SPELLING CHECK ###########################
-    
+
     def test_spelling_check(self):
 
         """
-        Uses unix codespell command and custom spelling dictionnary to check spelling errors in EDAM. 
+        Uses unix codespell command and custom spelling dictionnary to check spelling errors in EDAM.
 
             > GitHub page of codespell available `here  <https://github.com/codespell-project/codespell>`_
         """
-        edam_path = str(os.environ.get('EDAM_PATH'))
-        cmd = "codespell -I spelling_ignore.txt "+edam_path
-        
+        edam_path = str(os.environ.get("EDAM_PATH"))
+        cmd = "codespell -I spelling_ignore.txt " + edam_path
+
         output = os.popen(cmd).read()
         spelling_err = output.rsplit("\n")
-        spelling_err.remove('')
+        spelling_err.remove("")
 
         for e in spelling_err:
-            line = e.rsplit(':')[1]
-            err = e.rsplit(': ')[1].rsplit(' ==>')[0]
-            suggest = e.rsplit('==> ')[1]
-            new_error = pd.DataFrame([['CURATION','spelling_check','Unknown','Unknown',(f'in your EDAM file, line {line}, "{err}" is suspected to be a spelling error. Could it be "{suggest}" instead? (if exeption needed comment in PR ... )')]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-            self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+            line = e.rsplit(":")[1]
+            err = e.rsplit(": ")[1].rsplit(" ==>")[0]
+            suggest = e.rsplit("==> ")[1]
+            new_error = pd.DataFrame(
+                [
+                    [
+                        "CURATION",
+                        "spelling_check",
+                        "Unknown",
+                        "Unknown",
+                        (
+                            f'in your EDAM file, line {line}, "{err}" is suspected to be a spelling error. Could it be "{suggest}" instead? (if exeption needed comment in PR ... )'
+                        ),
+                    ]
+                ],
+                columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+            )
+            self.__class__.report = pd.concat(
+                [self.report, new_error], ignore_index=True
+            )
+
         nb_err = len(spelling_err)
         self.assertEqual(nb_err, 0)
 
-
     # ################# TEMPLATE TO COPY-PASTE ###########################
-    
-    # def test_XXXTEST_NAMEXXX(self):
+
+    # def test_empty_property(self):
 
     #     """
-    #     Docstring documentation. 
+    #     Docstring documentation.
 
-        # > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/bad_uri.rq>`_
+    #         > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/xxxxxx.rq>`_
     #     """
-            
-    #     query = "queries/XXXQUERY_FILEXXX"
-    #     with open(query,'r') as f:
+
+    #     query = "queries/XXXQUERY_FILEXXX.rq"
+    #     with open(query, "r") as f:
     #         query_term = f.read()
 
     #     results = self.edam_graph.query(query_term)
@@ -762,33 +1105,62 @@ class EdamQueryTest(unittest.TestCase):
     #     f.close()
 
     #     for r in results:
-    #         new_error = pd.DataFrame([['XXXLEVELXXX','XXXTEST_NAMEXXX',r['entity'],(f"'{r['label']}'"),(f" XXXDEBUG_MESSAGEXXX {r['property']}: '{r['value']}'")]], columns=['Level','Test Name','Entity','Label','Debug Message'])
-    #         self.__class__.report = pd.concat([self.report, new_error],  ignore_index=True) 
-        
+    #         new_error = pd.DataFrame(
+    #             [
+    #                 [
+    #                     "XXXLEVELXXX",
+    #                     "XXXTEST_NAMEXXX",
+    #                     r["entity"],
+    #                     (f"'{r['label']}'"),
+    #                     (f" XXXDEBUG_MESSAGEXXX {r['property']}: '{r['value']}'"),
+    #                 ]
+    #             ],
+    #             columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
+    #         )
+    #         self.__class__.report = pd.concat(
+    #             [self.report, new_error], ignore_index=True
+    #         )
 
     #     self.assertEqual(nb_err, 0)
-    
+
     @classmethod
     def tearDownClass(cls):
-        
-        """
-            :meta private: 
-            doctring set to private to avoid automatic default docstring in documentation
-        """ 
 
-        #output = cls.report.sort('Level',)
+        """
+        :meta private:
+        doctring set to private to avoid automatic default docstring in documentation
+        """
+
+        # output = cls.report.sort('Level',)
         if cls.report.empty == False:
-            print("\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________")
-            pd.set_option("display.max_rows",None,"display.max_colwidth", 5000,"display.width",5000)
-            print(tabulate(cls.report[['Test Name','Entity','Label','Debug Message']], headers=['Test Name','Entity','Label','Debug Message']))
+            print(
+                "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________"
+            )
+            pd.set_option(
+                "display.max_rows",
+                None,
+                "display.max_colwidth",
+                5000,
+                "display.width",
+                5000,
+            )
+            print(
+                tabulate(
+                    cls.report[["Test Name", "Entity", "Label", "Debug Message"]],
+                    headers=["Test Name", "Entity", "Label", "Debug Message"],
+                )
+            )
             # prettify(cls.report[['Entity','Label','Debug Message']])
-        cls.report.to_csv("./output_caseologue.tsv", sep='\t')
+        cls.report.to_csv("./output_caseologue.tsv", sep="\t")
         return super().tearDownClass()
 
-if __name__ == '__main__':
 
-    run_error,run_essential,run_curation = parsing()
-    print(f"error = {run_error}, essential = {run_essential}, curation = {run_curation}")
+if __name__ == "__main__":
+
+    run_error, run_essential, run_curation = parsing()
+    print(
+        f"error = {run_error}, essential = {run_essential}, curation = {run_curation}"
+    )
 
     runner = unittest.TextTestRunner()
     # sys.exit(runner.run(suite()))
@@ -796,6 +1168,3 @@ if __name__ == '__main__':
     print(cmd)
     if len(cmd.failures) != 0:
         exit(1)
-    
-
-    
