@@ -28,3 +28,6 @@ Summary
    
    installation
    tests
+   reasonner
+   robot_report
+   workflow
