@@ -1,5 +1,9 @@
 name: Pages
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+  push:
+    paths: 
+      'docs/**'
 jobs:
   build:
     runs-on: ubuntu-latest
