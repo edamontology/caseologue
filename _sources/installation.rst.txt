@@ -10,7 +10,7 @@ As of this version, this tool is not available as a pyhton of conda package. To 
 
 Move to the xxxx directory and run :
 :: 
-   EDAM_PATH=<_path to test data_> python3  XXXXX.py  
+   EDAM_PATH=<_path to test data_> python3  caseologue.py --options  
 
 By default the scrip will run all tests. You can filter the tests on error level using these options:
 ::
