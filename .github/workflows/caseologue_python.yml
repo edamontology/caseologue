@@ -1,4 +1,4 @@
-name: caseologue
+name: caseologue_python
 
 on: 
   workflow_call:

@@ -1,4 +1,4 @@
-name: ROBOT report
+name: caseologue robot report
 
 on: 
   workflow_call:
