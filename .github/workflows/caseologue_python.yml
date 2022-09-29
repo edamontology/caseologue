@@ -21,6 +21,8 @@ jobs:
 
     - name: Install requirements
       run: |
+        pwd
+        echo ${{ github.action_path }}
         pip install -r ${{ github.action_path }}/../../caseologue/requirements.txt
 
     - name: run 
