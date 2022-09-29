@@ -22,7 +22,8 @@ jobs:
     - name: Install requirements
       run: |
         pwd
-        echo "GITHUB.ACTION_REPOSITORY=${{ GITHUB.ACTION_REPOSITORY }}"
+        echo "GITHUB.ACTION_REPOSITORY"
+        echo $GITHUB.ACTION_REPOSITORY
         pip install -r ${{GITHUB.ACTION_REPOSITORY }}/caseologue/requirements.txt
 
     - name: run 
