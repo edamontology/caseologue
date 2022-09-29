@@ -20,7 +20,6 @@ jobs:
 
     - name: run reason
       run: |
-        cd robot/ 
-        export PATH=/home/runner/work/edamontology/edamontology/edam-validation/robot:$PATH
+        export PATH=${{ github.action_path }}/../../robot:$PATH
         java -jar robot.jar reason --reasoner ELK   --input ${{inputs.edam_path}} -v 
 
