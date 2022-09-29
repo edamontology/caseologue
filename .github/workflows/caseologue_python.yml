@@ -22,8 +22,8 @@ jobs:
     - name: Install requirements
       run: |
         pwd
-        echo "github.action_path=${{ github.action_path }}"
-        pip install -r ${{ github.action_path }}/../../caseologue/requirements.txt
+        echo "GITHUB_ACTION_REPOSITORY=${{ GITHUB_ACTION_REPOSITORY }}"
+        pip install -r ${{GITHUB_ACTION_REPOSITORY }}/caseologue/requirements.txt
 
     - name: run 
       run: |
