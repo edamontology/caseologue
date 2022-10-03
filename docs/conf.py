@@ -12,7 +12,7 @@ author = 'Lucie Lamothe, Alban Gaignard, Matúš Kalaš, Hervé Ménager'
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../caseologue'))
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
