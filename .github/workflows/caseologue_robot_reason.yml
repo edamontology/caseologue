@@ -17,9 +17,12 @@ jobs:
     steps:
       
     - uses: actions/checkout@v2
+      with: 
+        repository: edamontology/caseologue
 
     - name: run reason
       run: |
-        export PATH=${{ github.action_path }}/../../robot:$PATH
+        cd robot/ 
+        export PATH=/home/runner/work/edamontology/edamontology/edam-validation/robot:$PATH
         java -jar robot.jar reason --reasoner ELK   --input ${{inputs.edam_path}} -v 
 
