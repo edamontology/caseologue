@@ -12,7 +12,9 @@ jobs:
   report:
     uses: edamontology/edam-validation/.github/workflows/caseologue_robot_report.yml@call_from_main
     with:
-      artifact_edam: True
+      artifact_edam: False
 
   reason:
     uses: edamontology/edam-validation/.github/workflows/caseologue_robot_reason.yml@call_from_main
+    with:
+      artifact_edam: False
