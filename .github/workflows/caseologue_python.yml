@@ -5,7 +5,7 @@ on:
     inputs:
       edam_path: 
         type: string
-        default: '$( wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl)EDAM_dev.owl'
+        required: true
       caseologue_options:
         type: string
 
@@ -18,7 +18,16 @@ jobs:
     steps:
       
     - uses: actions/checkout@v2
-
+      with: 
+        repository: edamontology/caseologue
+    
+    - name: download artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: EDAM_artifacts.owl
+    - name: Display structure of files
+      run: ls -R
+  
     - name: Install requirements
       run: |
         pip install -r caseologue/requirements.txt
