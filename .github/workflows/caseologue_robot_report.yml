@@ -20,6 +20,9 @@ jobs:
       with: 
         repository: edamontology/caseologue
 
+    - name: Display structure 
+      run: ls -R
+
     - name: run report 
       if: always()
       run: |
