@@ -19,8 +19,12 @@ jobs:
     - uses: actions/checkout@v2
       with: 
         repository: edamontology/caseologue
-
-    - name: Display structure 
+    
+    - name: download artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: EDAM_artifacts.owl
+    - name: Display structure of downloaded files
       run: ls -R
 
     - name: run report 
