@@ -21,8 +21,8 @@ jobs:
         repository: edamontology/caseologue
     - name: download artifacts
       uses: actions/download-artifact@v3
-        with:
-          name: EDAM_dev.owl
+      with:
+        name: EDAM_dev.owl
       run: ls -R
 
     - name: run reason
