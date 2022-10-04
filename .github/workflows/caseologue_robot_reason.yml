@@ -23,6 +23,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: EDAM_dev.owl
+    - name: Display structure of downloaded files
       run: ls -R
 
     - name: run reason
