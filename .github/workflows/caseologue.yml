@@ -3,18 +3,34 @@ name: caseologue
 on: [workflow_dispatch, push]
 
 jobs:
+
+  upload_edam: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: download edam
+      run: wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
+    - name: upload edam
+      uses: actions/upload-artifact@v2
+      with:
+        name: EDAM_artifacts.owl
+        path: EDAM_dev.owl
   
   caseologue:
-    uses: edamontology/edam-validation/.github/workflows/caseologue_python.yml@call_from_main
+    needs: upload_edam
+    uses: edamontology/caseologue/.github/workflows/caseologue_python.yml@call_from_main
     with: 
+      edam_path: '../EDAM_dev.owl'
       caseologue_options: '-e -E'
 
   report:
-    uses: edamontology/edam-validation/.github/workflows/caseologue_robot_report.yml@call_from_main
-    with:
-      artifact_edam: False
+    needs: upload_edam
+    uses: edamontology/caseologue/.github/workflows/caseologue_robot_report.yml@call_from_main
+    with: 
+      edam_path: '../EDAM_dev.owl'
 
   reason:
-    uses: edamontology/edam-validation/.github/workflows/caseologue_robot_reason.yml@call_from_main
-    with:
-      artifact_edam: False
+    needs: upload_edam
+    uses: edamontology/caseologue/.github/workflows/caseologue_robot_reason.yml@call_from_main
+    with: 
+      edam_path: '../EDAM_dev.owl'

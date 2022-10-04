@@ -5,10 +5,7 @@ on:
     inputs:
       edam_path: 
         type: string
-        default: '$( wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl)EDAM_dev.owl'
-      artifact_edam: 
-        type: boolean
-
+        required: true
 
 jobs:
   
@@ -26,7 +23,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: EDAM_artifacts.owl
-    - name: Display structure of downloaded files
+    - name: Display structure of files
       run: ls -R
 
     - name: run reason
