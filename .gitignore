@@ -1,5 +1,5 @@
 .env
 robot/report_profile.tsv
 caseologue/output_caseologue.tsv
-caseologue/queries/__pycache__/
+**/__pycache__/
 docs/_build/
