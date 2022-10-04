@@ -6,6 +6,8 @@ on:
       edam_path: 
         type: string
         default: '$( wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl)EDAM_dev.owl'
+      artifact_edam: 
+        type: boolean
 
 
 jobs:
@@ -21,6 +23,7 @@ jobs:
         repository: edamontology/caseologue
     
     - name: download artifacts
+      if: ${{inputs.artifact_edam}}
       uses: actions/download-artifact@v3
       with:
         name: EDAM_artifacts.owl
