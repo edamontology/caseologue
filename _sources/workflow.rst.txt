@@ -1,6 +1,6 @@
 .. _workflow:
 
-Workflow
+Workflows
 =============
 
-GitHub Actions workflow were designed to run all acseologues tools. 
+GitHub Actions workflow were designed to run all caseologue tools. 

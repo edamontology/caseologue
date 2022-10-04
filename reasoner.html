@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reasoner &mdash; EDAM Continuous Interagtion custom tool  documentation</title>
+  <title>2. Reasoner - ELK &mdash; EDAM Continuous Interagtion custom tool  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,9 @@
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. ROBOT report" href="robot_report.html" />
+    <link rel="prev" title="1. Caseologue custom python script" href="caseologue_python.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,11 +39,14 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">2. Tests documentation</a></li>
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="caseologue_python.html">1. Caseologue custom python script</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Reasoner - ELK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-usage">2.1. Installation &amp; Usage</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="robot_report.html">3. ROBOT report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="workflow.html">4. Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">4. Workflows</a></li>
 </ul>
 
         </div>
@@ -58,7 +63,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Reasoner</li>
+      <li><span class="section-number">2. </span>Reasoner - ELK</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/reasoner.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -68,15 +73,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="reasoner">
-<span id="reasonner"></span><h1>Reasoner<a class="headerlink" href="#reasoner" title="Permalink to this heading"></a></h1>
-<p>A reasonner is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/reason">reason command</a>, calling the ELK reasonner</p>
+  <section id="reasoner-elk">
+<span id="reasonner"></span><h1><span class="section-number">2. </span>Reasoner - ELK<a class="headerlink" href="#reasoner-elk" title="Permalink to this heading"></a></h1>
+<p>A reasonner is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/reason">reason command</a>, calling the <a class="reference external" href="http://liveontologies.github.io/elk-reasoner/">ELK</a> reasonner.</p>
+<p>By running ELK we ensure the of semantic consistency the EDAM ontology.</p>
+<section id="installation-usage">
+<h2><span class="section-number">2.1. </span>Installation &amp; Usage<a class="headerlink" href="#installation-usage" title="Permalink to this heading"></a></h2>
+<p>You can check out robot installation documentation  <a class="reference external" href="http://robot.obolibrary.org/">here</a>.</p>
+<p>Once robot is installed you can run ELK with robot reason on EDAM using this command
+::
+robot reason --reasoner ELK  --input &lt;path to EDAM&gt; -v</p>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="caseologue_python.html" class="btn btn-neutral float-left" title="1. Caseologue custom python script" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="robot_report.html" class="btn btn-neutral float-right" title="3. ROBOT report" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

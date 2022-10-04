@@ -20,8 +20,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="4. Workflow" href="workflow.html" />
-    <link rel="prev" title="2. Tests documentation" href="tests.html" /> 
+    <link rel="next" title="4. Workflows" href="workflow.html" />
+    <link rel="prev" title="2. Reasoner - ELK" href="reasoner.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,10 +40,13 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">2. Tests documentation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. ROBOT report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="workflow.html">4. Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caseologue_python.html">1. Caseologue custom python script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reasoner.html">2. Reasoner - ELK</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. ROBOT report</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-usage">3.1. Installation &amp; Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">4. Workflows</a></li>
 </ul>
 
         </div>
@@ -72,17 +75,25 @@
              
   <section id="robot-report">
 <span id="id1"></span><h1><span class="section-number">3. </span>ROBOT report<a class="headerlink" href="#robot-report" title="Permalink to this heading"></a></h1>
-<p>General quality control for ontology is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/report">report command</a>.
-This tool calls a customizable list of <a class="reference external" href="http://robot.obolibrary.org/report_queries/">SPARQL queries</a>.
-Some of these queries were modified to fit the EDAM properties.</p>
+<p>General quality control for ontology is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/report">report command</a> from the robot suite.
+Robot report is a command line tool caling a customizable list of <a class="reference external" href="http://robot.obolibrary.org/report_queries/">SPARQL queries</a>.
+Some of these queries were modified to fit the EDAM properties declaration.</p>
+<p>You can check out our custom selection of the robot SPARQL queries in our caseologue repository  <a class="reference external" href="https://github.com/edamontology/caseologue/tree/main/robot">here</a>.</p>
+<section id="installation-usage">
+<h2><span class="section-number">3.1. </span>Installation &amp; Usage<a class="headerlink" href="#installation-usage" title="Permalink to this heading"></a></h2>
+<p>You can check out robot installation documentation  <a class="reference external" href="http://robot.obolibrary.org/">here</a>.</p>
+<p>Once robot is installed you can run robot report on EDAM using this command
+::
+robot report --input &lt;path to EDAM&gt; --output &lt;output tsv file&gt; --profile report_queries.txt</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tests.html" class="btn btn-neutral float-left" title="2. Tests documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="workflow.html" class="btn btn-neutral float-right" title="4. Workflow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="reasoner.html" class="btn btn-neutral float-left" title="2. Reasoner - ELK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="workflow.html" class="btn btn-neutral float-right" title="4. Workflows" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
