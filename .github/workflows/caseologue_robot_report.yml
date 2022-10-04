@@ -17,6 +17,8 @@ jobs:
     steps:
       
     - uses: actions/checkout@v2
+      with: 
+        repository: edamontology/caseologue
 
     - name: run report 
       if: always()

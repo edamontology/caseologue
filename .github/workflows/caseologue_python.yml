@@ -18,17 +18,17 @@ jobs:
     steps:
       
     - uses: actions/checkout@v2
-
+      with: 
+        repository: edamontology/caseologue
+  
     - name: Install requirements
       run: |
-        pwd
-        echo "GITHUB.ACTION_REPOSITORY"
-        echo $GITHUB_ACTION_REPOSITORY
-        pip install -r ${{GITHUB.ACTION_REPOSITORY }}/caseologue/requirements.txt
+        pip install -r caseologue/requirements.txt
 
     - name: run 
       run: |
-        EDAM_PATH=${{inputs.edam_path}} python3 ${{ github.action_path }}/../../caseologue/caseologue.py ${{inputs.caseologue_options}}
+        cd caseologue/
+        EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
      
     # - name: Print output
     #   if: always()
