@@ -19,7 +19,6 @@ jobs:
       with: 
         repository: edamontology/caseologue
     - name: download artifacts
-      if: ${{inputs.artifact_edam}}
       uses: actions/download-artifact@v3
       with:
         name: EDAM_artifacts.owl
