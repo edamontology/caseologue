@@ -1,2 +1,6 @@
 sphinx-rtd-theme
 rdflib
+pandas
+argparse
+tabulate
+lxml
