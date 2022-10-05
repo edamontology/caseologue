@@ -18,7 +18,7 @@ You can test it yourself on the curent developpement version of EDAM clicking th
 
 |
 A `reusable workflow <https://docs.github.com/en/actions/using-workflows/reusing-workflows>`_ is availble for each test in the caseologue repository (`here  <https://github.com/edamontology/caseologue/tree/main/.github/workflows>`_).
-The *caseologue_robot_report*, *caseologue_robot_reason* and *caseologue_python* workflows all take as input a path to an EDAM.owl file. *caseologue_python* can also take as input the error level options chosen to run the tool (see :doc:`caseologue custom python script page <caseologue_python>`)
+The ``caseologue_robot_report``, ``caseologue_robot_reason`` and ``caseologue_python`` workflows all take as input a path to an EDAM.owl file. ``caseologue_python`` can also take as input the error level options chosen to run the tool (see :doc:`caseologue custom python script page <caseologue_python>`)
 
 These reusable workflows can't run on their own, they need to be **called** by another GitHub Actions yaml file. This "caller" workflow will need to **upload** the tested EDAM.owl file as an `artifact <https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts>`_ so it can be **dowloaded** and used by the "called" worflow (i.e. *caseologue_robot_report*, *caseologue_robot_reason* or *caseologue_python*).
 
