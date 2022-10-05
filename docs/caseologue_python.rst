@@ -4,7 +4,9 @@
 Caseologue custom python script
 =================================
 
-This custom pyhton script complement the test performed by the ELK reasoner and our custom version of the robot report tool. It alows us to test for specific features of the EDAM ontology (e.g. check for wikipedia links or for mandatory property)
+
+This custom pyhton script **complement** the test performed by the ELK reasoner and our custom version of the robot report tool.
+It alows us to test for **specific features** of the EDAM ontology (e.g. check for wikipedia links or for mandatory property)
 
 Installation & Usage
 ---------------------
@@ -24,6 +26,9 @@ By default the scrip will run all tests. You can filter the tests on error level
   -c, --curation   runs all curation tests
 
 Repartition of tests can be seen in the source code `here <file:///home/llamothe/work/edam-validation/caseologue/doc/_build/html/_modules/caseologue.html#suite>`_.
+
+Options
+~~~~~~~~~~
 
 * **Error**: tests insuring this semantic and sintactic consistency of the ontology, that are mandatory to pass for a pull request to be merged on the GitHub repository. 
 * **Essential**: error tests that can be applicable to other side of the EDAM ontology such as EDAM geo of EDAM bioimaging.
