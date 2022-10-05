@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>caseologue &mdash; EDAM Continuous Interagtion custom tool  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> EDAM Continuous Interagtion custom tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../caseologue_python.html">1. Caseologue custom python script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reasoner.html">2. Reasoner - ELK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot_report.html">3. ROBOT report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow.html">4. Workflows</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EDAM Continuous Interagtion custom tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      <li>caseologue</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for caseologue</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">rdflib</span> <span class="kn">import</span> <span class="n">OWL</span><span class="p">,</span> <span class="n">ConjunctiveGraph</span><span class="p">,</span> <span class="n">Namespace</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">rdflib.namespace</span> <span class="kn">import</span> <span class="n">RDF</span><span class="p">,</span> <span class="n">RDFS</span><span class="p">,</span> <span class="n">_OWL</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+
+<span class="c1"># from rich_dataframe import prettify</span>
+<span class="kn">from</span> <span class="nn">queries.edamxpath_id_unique</span> <span class="kn">import</span> <span class="n">check_unique_id</span>
+
+
+<span class="k">def</span> <span class="nf">parsing</span><span class="p">():</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Level of tests, by default all levels are ran&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--error&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;runs all error tests&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-E&quot;</span><span class="p">,</span> <span class="s2">&quot;--essential&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;runs all essential tests&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;--curation&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;runs all curation tests&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;unittest_args&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># print(&quot;args argparse&quot;,args.error,args.essential,args.curation)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">error</span> <span class="o">!=</span> <span class="kc">False</span> <span class="ow">or</span> <span class="n">args</span><span class="o">.</span><span class="n">essential</span> <span class="o">!=</span> <span class="kc">False</span> <span class="ow">or</span> <span class="n">args</span><span class="o">.</span><span class="n">curation</span> <span class="o">!=</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">run_error</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">error</span>
+        <span class="n">run_essential</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">essential</span>
+        <span class="n">run_curation</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">curation</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">run_error</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">run_essential</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">run_curation</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># print(&quot;def parsing&quot;,run_error,run_essential,run_curation)</span>
+
+    <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">unittest_args</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">run_error</span><span class="p">,</span> <span class="n">run_essential</span><span class="p">,</span> <span class="n">run_curation</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="suite"><a class="viewcode-back" href="../caseologue_python.html#caseologue.suite">[docs]</a><span class="k">def</span> <span class="nf">suite</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines the level of error of each test.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">run_curation</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_deprecated_replacement_obsolete&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_formating&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_check_wikipedia_link&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_identifier_property_missing&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_relation_too_broad&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_duplicate_in_concept&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_literal_links&quot;</span><span class="p">))</span>
+        <span class="c1">#        suite.addTest(EdamQueryTest(&#39;test_duplicate_all&#39;))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_format_property_missing&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_spelling_check&quot;</span><span class="p">))</span>  <span class="c1"># can me moved to essential</span>
+
+    <span class="k">if</span> <span class="n">run_essential</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_super_class_refers_to_self&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_bad_uri_reference&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_empty_property&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_id_unique&quot;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">run_error</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_mandatory_property_missing&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_deprecated_replacement&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_missing_deprecated_property&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_next_id_modif&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_subset_id&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_object_relation_obsolete&quot;</span><span class="p">))</span>
+        <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_bad_uri&quot;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">suite</span></div>
+
+
+<span class="c1"># each test is added in function of the boolean input (error essential curation), to change level category, change tested variable (+ change level error when adding new_error in data frame)</span>
+
+
+<div class="viewcode-block" id="EdamQueryTest"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest">[docs]</a><span class="k">class</span> <span class="nc">EdamQueryTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :meta private:</span>
+<span class="sd">        doctring set to private to avoid automatic default docstring in documentation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">edam_graph</span> <span class="o">=</span> <span class="n">ConjunctiveGraph</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EDAM_PATH&quot;</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;xml&quot;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="c1"># print(cls.report)</span>
+
+    <span class="c1">################# DEPRECATED REPLACEMENT OBSOLETE ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_deprecated_replacement_obsolete"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_deprecated_replacement_obsolete">[docs]</a>    <span class="k">def</span> <span class="nf">test_deprecated_replacement_obsolete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that the suggested replacement (replacedBy/consider) for a deprecated term is not obsolete.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/deprecated_replacement_obsolete.rq&gt;`_</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/deprecated_replacement_obsolete.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;deprecated_replacement_obsolete&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;concept is replaced by (</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) an obsolete concept: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;replacement&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# SUPERCLASS REFERS TO SELF ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_super_class_refers_to_self"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_super_class_refers_to_self">[docs]</a>    <span class="k">def</span> <span class="nf">test_super_class_refers_to_self</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if a given concept doesn&#39;t refers to itself as superclass.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/super_class_refers_to_self.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/super_class_refers_to_self.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ESSENTIAL&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;super_class_refers_to_self&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;concept declared as superclass of itself&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# BAD URI ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_bad_uri"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_bad_uri">[docs]</a>    <span class="k">def</span> <span class="nf">test_bad_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that the concepts URI matches the regex ^http://edamontology.org/(data|topic|operation|format)_[0-9]{4}$.</span>
+
+<span class="sd">           &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/bad_uri.rq&gt;`_</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/bad_uri.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ESSENTIAL&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;bad_rui&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;has a bad URI (entity) (regex :^http://edamontology.org/(data|topic|operation|format)_[0-9]\{4\}$)&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# MANDATORY PROPERTY MISSING ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_mandatory_property_missing"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_mandatory_property_missing">[docs]</a>    <span class="k">def</span> <span class="nf">test_mandatory_property_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that no mandatory property for all concepts are missing (oboInOwl:hasDefinition, rdfs:subClassOf, created_in, oboInOwl:inSubset, rdfs:label).</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/mandatory_property_missing.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/mandatory_property_missing.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;mandatory_property_missing&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;is missing mandatory property: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# FORMATING ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_formating"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_formating">[docs]</a>    <span class="k">def</span> <span class="nf">test_formating</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the formating of the properties. Properties should not have a space neither at the start nor the end, no tab and no end of line.</span>
+<span class="sd">        Checks that label have no dot at the end and that definition do have a dot at the end.</span>
+
+<span class="sd">            &gt; SPARQL query available here:</span>
+
+<span class="sd">                * `Definition dot  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_dot_def_missing.rq.rq&gt;`_</span>
+<span class="sd">                * `Lable dot  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_dot_label.rq&gt;`_</span>
+<span class="sd">                * `End space  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_space_annotation.rq&gt;`_</span>
+<span class="sd">                * `Start space  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/start_space_annotation.rq&gt;`_</span>
+<span class="sd">                * `Tab  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/tab_in_annotation.rq&gt;`_</span>
+<span class="sd">                * `End of line  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/eol_in_annotation.rq&gt;`_</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/end_dot_def_missing.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;end_dot_def_missing&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;A dot is missing at the end of the definition.&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/end_dot_label.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>  <span class="c1"># add to same counter for the test</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;end_dot_label&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;There is an unwanted dot at the end of the label.&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/end_space_annotation.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;end_space_annotation&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;There is an unwanted space at the end of </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/eol_in_annotation.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;eol_in_annotation&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;There is an unwanted end-of-line in </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/start_space_annotation.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;start_space_annotation&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;There is an unwanted space at the start of </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/tab_in_annotation.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;tab_in_annotation&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;There is an unwanted tabulation in </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# DEPRECATED REPLACEMENT ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_deprecated_replacement"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_deprecated_replacement">[docs]</a>    <span class="k">def</span> <span class="nf">test_deprecated_replacement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that every deprecated concept has a replacement suggested (replaced_by or consider).</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/deprecated_replacement.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/deprecated_replacement.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;deprecated_replacement&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;is deprecated and is missing either a replacedBy property or a consider property&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# BAD URI REFERENCE ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_bad_uri_reference"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_bad_uri_reference">[docs]</a>    <span class="k">def</span> <span class="nf">test_bad_uri_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check that a reference (e.g. superclass) to another concept is actually declared in EDAM.</span>
+
+<span class="sd">        &quot;get_uri.rq&quot; retrieves all URI. &quot;uri_reference.rq&quot; retrieves all referenced URI. Then check if the references URIs are in the declared concept URIs.</span>
+
+<span class="sd">            &gt; SPARQL query available here :</span>
+
+<span class="sd">                * `get uri  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/get_uri.rq&gt;`_</span>
+<span class="sd">                * `uri reference &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/uri_reference.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/get_uri.rq&quot;</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">uri</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">])</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/uri_reference.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">uri</span><span class="p">:</span>
+                <span class="n">nb_err</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="p">[</span>
+                            <span class="s2">&quot;ESSENTIAL&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;bad_uri_reference&quot;</span><span class="p">,</span>
+                            <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                            <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                            <span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;The property </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> refers not an undeclared URI: &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;reference&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                            <span class="p">),</span>
+                        <span class="p">]</span>
+                    <span class="p">],</span>
+                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# MISSING DEPRECATED PROPERTY ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_missing_deprecated_property"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_missing_deprecated_property">[docs]</a>    <span class="k">def</span> <span class="nf">test_missing_deprecated_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that no mandatory property for deprecated concept are missing (edam:obsolete_since, edam:oldParent, oboInOwl:inSubset &lt;http://purl.obolibrary.org/obo/edam#obsolete&gt;, rdfs:subClassOf &lt;http://www.w3.org/2002/07/owl#DeprecatedClass&gt;).</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/missing_deprecated_property.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/missing_deprecated_property.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;missing_deprecated_property&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;is missing mandatory deprecated property: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# MISSING WIKIPEDIA LINK ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_check_wikipedia_link"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_check_wikipedia_link">[docs]</a>    <span class="k">def</span> <span class="nf">test_check_wikipedia_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that every topic has a wikipedia link filled in the seeAlso property.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/check_wikipedia_link.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/check_wikipedia_link.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;check_wikipedia_link&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;Topic concept missing a wikipedia link&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# IDENTIFIER PROPERTY MISSING ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_identifier_property_missing"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_identifier_property_missing">[docs]</a>    <span class="k">def</span> <span class="nf">test_identifier_property_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the no mandatory property for identifier (subclass of accession) are missing (regex).</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/identifier_property_missing.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/identifier_property_missing.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;identifier_property_missing&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;is missing regex property&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# ID UNIQUE ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_id_unique"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_id_unique">[docs]</a>    <span class="k">def</span> <span class="nf">test_id_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that the numerical part of the URI is not duplicated.</span>
+
+<span class="sd">        Uses a small pyhton script to retreive all duplicated id available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/edamxpath_id_unique.py&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">duplicate_id</span> <span class="o">=</span> <span class="n">check_unique_id</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EDAM_PATH&quot;</span><span class="p">))</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicate_id</span><span class="p">)</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/get_uri.rq&quot;</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">duplicate_id</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">]):</span>
+                    <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                        <span class="p">[</span>
+                            <span class="p">[</span>
+                                <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;id_unique&quot;</span><span class="p">,</span>
+                                <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                                <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                                <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;numerical id is used several times&quot;</span><span class="p">),</span>
+                            <span class="p">]</span>
+                        <span class="p">],</span>
+                        <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+                            <span class="s2">&quot;Level&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Entity&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Label&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Debug Message&quot;</span><span class="p">,</span>
+                        <span class="p">],</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# RELATION TOO BROAD ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_relation_too_broad"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_relation_too_broad">[docs]</a>    <span class="k">def</span> <span class="nf">test_relation_too_broad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that a concept is not in relation (restriction) with a concept &quot;not recommanded for annotation&quot;.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/relation_too_broad.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/relation_too_broad.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;relation_too_broad&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;linked (</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) with a concept not recomanded for annotation : &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# DUPLICATE IN CONCEPT ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_duplicate_in_concept"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_duplicate_in_concept">[docs]</a>    <span class="k">def</span> <span class="nf">test_duplicate_in_concept</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that there is no duplicate content (case insensitive) within a concept on given properties.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/duplicate_in_concept.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/duplicate_in_concept.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;duplicate_in_concept&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> have the same content: &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="c1"># here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# DUPLICATE ALL ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_duplicate_all"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_duplicate_all">[docs]</a>    <span class="k">def</span> <span class="nf">test_duplicate_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/duplicate_all.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># this is case sensitive for computational time reasons</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/duplicate_all.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;duplicate_all&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;have the same content on </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> as </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;entity2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; on </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="c1"># here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# LITERAL LINKS ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_literal_links"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_literal_links">[docs]</a>    <span class="k">def</span> <span class="nf">test_literal_links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that all webpage and doi are declared as literal links.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/literal_links.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/literal_links.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;literal_links&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> value is not declared as a literal: &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# NEXT ID MODIF ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_next_id_modif"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_next_id_modif">[docs]</a>    <span class="k">def</span> <span class="nf">test_next_id_modif</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that the &quot;next id&quot; property is equal to &quot;the maximal concept id numerical part&quot; +1.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/get_id_and_next_id.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/get_id_and_next_id.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+            <span class="n">next_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+        <span class="n">max_ids</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">next_id</span> <span class="o">!=</span> <span class="p">(</span><span class="n">max_ids</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">nb_err</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;next_id_modif&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;The &#39;next_id&#39; property has not been updated, it is not equal to the max id +1&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# SUBSET ID ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_subset_id"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_subset_id">[docs]</a>    <span class="k">def</span> <span class="nf">test_subset_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that the &quot;subset&quot; part of a concept id is the same as its superclass (e.g. data concept only subclass of another data concept).</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/subset_id.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/subset_id.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;subset_id&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Concept subset id (</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;subset&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) is different from its subclass </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;superclass&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label_sc&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# OBJECT RELATION OBSOLETE ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_object_relation_obsolete"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_object_relation_obsolete">[docs]</a>    <span class="k">def</span> <span class="nf">test_object_relation_obsolete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that a relation between concepts is not pointing towards obsolete concepts (is_format_of, has_input, has_output, is_identifier_of, has_topic ...)</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/object_relation_obsolete.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/object_relation_obsolete.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;object_relation_obsolete&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;is related (</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) with </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, which is a deprecated concept&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# FORMAT PROPERTY MISSING ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_format_property_missing"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_format_property_missing">[docs]</a>    <span class="k">def</span> <span class="nf">test_format_property_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the no mandatory property for format are missing (documentation).</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/format_property_missing.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/format_property_missing.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;format_property_missing&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;is missing mandatory format property: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# EMPTY PROPERTY ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_empty_property"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_empty_property">[docs]</a>    <span class="k">def</span> <span class="nf">test_empty_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks that no property is empty.</span>
+
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/empty_property.rq&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/empty_property.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;empty_property&quot;</span><span class="p">,</span>
+                        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> is empty&quot;</span><span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">################# SPELLING CHECK ###########################</span>
+
+<div class="viewcode-block" id="EdamQueryTest.test_spelling_check"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_spelling_check">[docs]</a>    <span class="k">def</span> <span class="nf">test_spelling_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uses unix codespell command and custom spelling dictionnary to check spelling errors in EDAM.</span>
+
+<span class="sd">            &gt; GitHub page of codespell available `here  &lt;https://github.com/codespell-project/codespell&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">edam_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EDAM_PATH&quot;</span><span class="p">))</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;codespell -I spelling_ignore.txt &quot;</span> <span class="o">+</span> <span class="n">edam_path</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">spelling_err</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">spelling_err</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">spelling_err</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;: &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot; ==&gt;&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">suggest</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;==&gt; &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">new_error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;CURATION&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;spelling_check&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span>
+                        <span class="p">(</span>
+                            <span class="sa">f</span><span class="s1">&#39;in your EDAM file, line </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1">, &quot;</span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">&quot; is suspected to be a spelling error. Could it be &quot;</span><span class="si">{</span><span class="n">suggest</span><span class="si">}</span><span class="s1">&quot; instead? (if exeption needed comment in PR ... )&#39;</span>
+                        <span class="p">),</span>
+                    <span class="p">]</span>
+                <span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+        <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spelling_err</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1"># ################# TEMPLATE TO COPY-PASTE ###########################</span>
+
+    <span class="c1"># def test_empty_property(self):</span>
+
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Docstring documentation.</span>
+
+    <span class="c1">#         &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/xxxxxx.rq&gt;`_</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+
+    <span class="c1">#     query = &quot;queries/XXXQUERY_FILEXXX.rq&quot;</span>
+    <span class="c1">#     with open(query, &quot;r&quot;) as f:</span>
+    <span class="c1">#         query_term = f.read()</span>
+
+    <span class="c1">#     results = self.edam_graph.query(query_term)</span>
+    <span class="c1">#     nb_err = len(results)</span>
+    <span class="c1">#     f.close()</span>
+
+    <span class="c1">#     for r in results:</span>
+    <span class="c1">#         new_error = pd.DataFrame(</span>
+    <span class="c1">#             [</span>
+    <span class="c1">#                 [</span>
+    <span class="c1">#                     &quot;XXXLEVELXXX&quot;,</span>
+    <span class="c1">#                     &quot;XXXTEST_NAMEXXX&quot;,</span>
+    <span class="c1">#                     r[&quot;entity&quot;],</span>
+    <span class="c1">#                     (f&quot;&#39;{r[&#39;label&#39;]}&#39;&quot;),</span>
+    <span class="c1">#                     (f&quot; XXXDEBUG_MESSAGEXXX {r[&#39;property&#39;]}: &#39;{r[&#39;value&#39;]}&#39;&quot;),</span>
+    <span class="c1">#                 ]</span>
+    <span class="c1">#             ],</span>
+    <span class="c1">#             columns=[&quot;Level&quot;, &quot;Test Name&quot;, &quot;Entity&quot;, &quot;Label&quot;, &quot;Debug Message&quot;],</span>
+    <span class="c1">#         )</span>
+    <span class="c1">#         self.__class__.report = pd.concat(</span>
+    <span class="c1">#             [self.report, new_error], ignore_index=True</span>
+    <span class="c1">#         )</span>
+
+    <span class="c1">#     self.assertEqual(nb_err, 0)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :meta private:</span>
+<span class="sd">        doctring set to private to avoid automatic default docstring in documentation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># output = cls.report.sort(&#39;Level&#39;,)</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">empty</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">_____________________________________________________________________________________________</span><span class="se">\n\n</span><span class="s2">Following debug table can be found as a tsv file at the bottom of the summary of this job</span><span class="se">\n</span><span class="s2">_____________________________________________________________________________________________&quot;</span>
+            <span class="p">)</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span>
+                <span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span>
+                <span class="mi">5000</span><span class="p">,</span>
+                <span class="s2">&quot;display.width&quot;</span><span class="p">,</span>
+                <span class="mi">5000</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="n">tabulate</span><span class="p">(</span>
+                    <span class="bp">cls</span><span class="o">.</span><span class="n">report</span><span class="p">[[</span><span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">]],</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Test Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;Debug Message&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># prettify(cls.report[[&#39;Entity&#39;,&#39;Label&#39;,&#39;Debug Message&#39;]])</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;./output_caseologue.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">tearDownClass</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">run_error</span><span class="p">,</span> <span class="n">run_essential</span><span class="p">,</span> <span class="n">run_curation</span> <span class="o">=</span> <span class="n">parsing</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;error = </span><span class="si">{</span><span class="n">run_error</span><span class="si">}</span><span class="s2">, essential = </span><span class="si">{</span><span class="n">run_essential</span><span class="si">}</span><span class="s2">, curation = </span><span class="si">{</span><span class="n">run_curation</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">runner</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">()</span>
+    <span class="c1"># sys.exit(runner.run(suite()))</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">failures</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Lucie Lamothe, Alban Gaignard, Hervé Ménager, Matúš Kalaš.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
