@@ -1166,5 +1166,5 @@ if __name__ == "__main__":
     # sys.exit(runner.run(suite()))
     cmd = runner.run(suite())
     print(cmd)
-    if len(cmd.failures) != 0:
+    if (len(cmd.failures) != 0) or (len(cmd.errors) != 0):
         exit(1)
