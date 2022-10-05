@@ -21,7 +21,7 @@ jobs:
     - name: download artifacts
       uses: actions/download-artifact@v3
       with:
-        name: EDAM_artifacts.owl
+        name: input_ontology.owl
     - name: Display structure of files
       run: ls -R
 
