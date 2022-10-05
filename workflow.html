@@ -71,7 +71,18 @@
              
   <section id="workflows">
 <span id="workflow"></span><h1><span class="section-number">4. </span>Workflows<a class="headerlink" href="#workflows" title="Permalink to this heading"></a></h1>
-<p>GitHub Actions workflow were designed to run all caseologue tools.</p>
+<a class="reference internal image-reference" href="_images/github_actions.png"><img alt="_images/github_actions.png" class="align-right" src="_images/github_actions.png" style="width: 300px;" /></a>
+<p>The caselogue suite is implemented in <strong>GitHub Actions</strong> to run quality checks at <strong>each Pull Requests merge</strong> into the main EDAM Ontology repository. It can also be <strong>run manually</strong> when needed from the caseologue and the main edamontology repositories.</p>
+<p>You can test it yourself on the curent developpement version of EDAM clicking this <a class="reference external" href="https://github.com/edamontology/caseologue/actions/workflows/caseologue.yml">link</a> and click on &quot;Run workflow&quot;.</p>
+<a class="reference internal image-reference" href="_images/run_wf.png"><img alt="_images/run_wf.png" class="align-center" src="_images/run_wf.png" style="width: 800px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>A <a class="reference external" href="https://docs.github.com/en/actions/using-workflows/reusing-workflows">reusable workflow</a> is availble for each test in the caseologue repository (<a class="reference external" href="https://github.com/edamontology/caseologue/tree/main/.github/workflows">here</a>).
+The <em>caseologue_robot_report</em>, <em>caseologue_robot_reason</em> and <em>caseologue_python</em> workflows all take as input a path to an EDAM.owl file. <em>caseologue_python</em> can also take as input the error level options chosen to run the tool (see <a class="reference internal" href="caseologue_python.html"><span class="doc">caseologue custom python script page</span></a>)</p>
+<p>These reusable workflows can't run on their own, they need to be <strong>called</strong> by another GitHub Actions yaml file. This &quot;caller&quot; workflow will need to <strong>upload</strong> the tested EDAM.owl file as an <a class="reference external" href="https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts">artifact</a> so it can be <strong>dowloaded</strong> and used by the &quot;called&quot; worflow (i.e. <em>caseologue_robot_report</em>, <em>caseologue_robot_reason</em> or <em>caseologue_python</em>).</p>
+<p>You can find is an <strong>example</strong> of a script calling the caseologue suite of tool to run it on the current dev version on EDAM <a class="reference external" href="https://github.com/edamontology/caseologue/blob/main/.github/workflows/caseologue.yml">here</a>.</p>
+<a class="reference internal image-reference" href="_images/caseologue_wf.png"><img alt="_images/caseologue_wf.png" src="_images/caseologue_wf.png" style="width: 800px;" /></a>
 </section>
 
 

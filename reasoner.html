@@ -75,14 +75,15 @@
              
   <section id="reasoner-elk">
 <span id="reasonner"></span><h1><span class="section-number">2. </span>Reasoner - ELK<a class="headerlink" href="#reasoner-elk" title="Permalink to this heading"></a></h1>
-<p>A reasonner is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/reason">reason command</a>, calling the <a class="reference external" href="http://liveontologies.github.io/elk-reasoner/">ELK</a> reasonner.</p>
-<p>By running ELK we ensure the of semantic consistency the EDAM ontology.</p>
+<p>A <strong>reasonner</strong> is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/reason">reason command</a>, calling the <a class="reference external" href="http://liveontologies.github.io/elk-reasoner/">ELK</a> reasonner.</p>
+<p>By running ELK we ensure the of <strong>semantic consistency</strong> the EDAM ontology by infering logical consequences from the ontology axioms.</p>
 <section id="installation-usage">
 <h2><span class="section-number">2.1. </span>Installation &amp; Usage<a class="headerlink" href="#installation-usage" title="Permalink to this heading"></a></h2>
 <p>You can check out robot installation documentation  <a class="reference external" href="http://robot.obolibrary.org/">here</a>.</p>
-<p>Once robot is installed you can run ELK with robot reason on EDAM using this command
-::
-robot reason --reasoner ELK  --input &lt;path to EDAM&gt; -v</p>
+<p>Once robot is installed you can run ELK with robot reason on EDAM using this command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">robot</span> <span class="n">reason</span> <span class="o">--</span><span class="n">reasoner</span> <span class="n">ELK</span>  <span class="o">--</span><span class="nb">input</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">EDAM</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">v</span>
+</pre></div>
+</div>
 </section>
 </section>
 

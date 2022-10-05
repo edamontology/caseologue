@@ -23,6 +23,7 @@ To understand EDAM and discover more about it's structure go and check out it's 
 
 Summary
 --------
+The tools and there usage in CI workflow are further described in the pages bellow: 
 
 .. toctree::
    :maxdepth: 1
