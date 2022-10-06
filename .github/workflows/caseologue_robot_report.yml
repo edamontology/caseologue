@@ -22,7 +22,7 @@ jobs:
     - name: download artifacts
       uses: actions/download-artifact@v3
       with:
-        name: input_ontology.owl
+        name: input_ontology 
     - name: Display structure of files
       run: ls -R
 
