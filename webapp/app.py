@@ -163,7 +163,9 @@ def compute_repo_metadata ():
 
     # last_workflow = {"date":date, "link" : link, "trigger_commit" : "" }
 
-    return(nb_contributors,list_contributors,issue_contributors,nb_issue_contributors,link)
+    # return(nb_contributors,list_contributors,issue_contributors,nb_issue_contributors,link)
+    return(nb_contributors,list_contributors,issue_contributors,nb_issue_contributors)
+
 
 print("Loading data")
 g,g_last_stable,idx_label,idx_uri=load_edam()
@@ -174,7 +176,8 @@ edam_dev_numbers=get_edam_numbers(g)
 print("3/5")
 edam_stable_numbers=get_edam_numbers(g_last_stable)
 print("4/5")
-nb_contributors,list_contributors,issue_contributors,nb_issue_contributors,last_workflow=compute_repo_metadata()
+# nb_contributors,list_contributors,issue_contributors,nb_issue_contributors,last_workflow=compute_repo_metadata()
+nb_contributors,list_contributors,issue_contributors,nb_issue_contributors=compute_repo_metadata()
 print("5/5 - Done!")
 
 
