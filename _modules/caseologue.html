@@ -1046,16 +1046,27 @@
 <div class="viewcode-block" id="EdamQueryTest.test_format_property_missing"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_format_property_missing">[docs]</a>    <span class="k">def</span> <span class="nf">test_format_property_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks the no mandatory property for format are missing (documentation).</span>
+<span class="sd">        Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inhereted &quot;is_format_of&quot; property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph. </span>
 
 <span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/format_property_missing.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">construct</span> <span class="o">=</span> <span class="s2">&quot;queries/is_format_of_construct.rq&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">construct</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">construct_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        
+        <span class="n">results_update</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">construct_term</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results_update</span><span class="p">:</span>
+            <span class="n">update_edam</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
 
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/format_property_missing.rq&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results_update</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">update_edam</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
 
-        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
         <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
         <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 

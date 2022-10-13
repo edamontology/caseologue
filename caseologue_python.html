@@ -223,7 +223,7 @@ It alows us to test for <strong>specific features</strong> of the EDAM ontology 
 <dl class="py method">
 <dt class="sig sig-object py" id="caseologue.EdamQueryTest.test_format_property_missing">
 <span class="sig-name descname"><span class="pre">test_format_property_missing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_format_property_missing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_format_property_missing" title="Permalink to this definition"></a></dt>
-<dd><p>Checks the no mandatory property for format are missing (documentation).</p>
+<dd><p>Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inhereted &quot;is_format_of&quot; property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph.</p>
 <blockquote>
 <div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/format_property_missing.rq">here</a></p>
 </div></blockquote>
