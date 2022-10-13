@@ -976,16 +976,27 @@ class EdamQueryTest(unittest.TestCase):
     def test_format_property_missing(self):
 
         """
-        Checks the no mandatory property for format are missing (documentation).
+        Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inhereted "is_format_of" property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph. 
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/format_property_missing.rq>`_
         """
+        construct = "queries/is_format_of_construct.rq"
+        with open(construct, "r") as f:
+            construct_term = f.read()
+        
+        results_update = self.edam_graph.query(construct_term)
+        for r in results_update:
+            update_edam=self.edam_graph.add((r[0],r[1],r[2]))
 
+        f.close()
         query = "queries/format_property_missing.rq"
         with open(query, "r") as f:
             query_term = f.read()
+        if len(results_update)!=0:
+            results = update_edam.query(query_term)
+        else:
+            results = self.edam_graph.query(query_term)
 
-        results = self.edam_graph.query(query_term)
         nb_err = len(results)
         f.close()
 
