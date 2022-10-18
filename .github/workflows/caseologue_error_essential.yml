@@ -1,4 +1,4 @@
-name: caseologue
+name: caseologue error essential
 
 on: [workflow_dispatch, push]
 
