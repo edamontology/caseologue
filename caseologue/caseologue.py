@@ -67,13 +67,13 @@ def suite():
         suite.addTest(EdamQueryTest("test_literal_links"))
         #        suite.addTest(EdamQueryTest('test_duplicate_all'))
         suite.addTest(EdamQueryTest("test_format_property_missing"))
-        suite.addTest(EdamQueryTest("test_spelling_check"))  # can me moved to essential
 
     if run_essential == True:
         suite.addTest(EdamQueryTest("test_super_class_refers_to_self"))
         suite.addTest(EdamQueryTest("test_bad_uri_reference"))
         suite.addTest(EdamQueryTest("test_empty_property"))
         suite.addTest(EdamQueryTest("test_id_unique"))
+        suite.addTest(EdamQueryTest("test_spelling_check"))
 
     if run_error == True:
         suite.addTest(EdamQueryTest("test_mandatory_property_missing"))
