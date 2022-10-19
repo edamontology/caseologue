@@ -3,3 +3,4 @@ pandas
 argparse
 tabulate
 lxml
+codespell
