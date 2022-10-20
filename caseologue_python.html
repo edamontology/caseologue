@@ -106,19 +106,19 @@
              
   <section id="caseologue-custom-python-script">
 <span id="tests"></span><h1><span class="section-number">1. </span>Caseologue custom python script<a class="headerlink" href="#caseologue-custom-python-script" title="Permalink to this heading"></a></h1>
-<p>This custom pyhton script <strong>complement</strong> the test performed by the ELK reasoner and our custom version of the robot report tool.
-It alows us to test for <strong>specific features</strong> of the EDAM ontology (e.g. check for wikipedia links or for mandatory property)</p>
+<p>This custom python script <strong>complements</strong> the tests performed by the ELK reasoner and the ROBOT report tool.
+It alows us to test for <strong>specific features</strong> of the EDAM ontology (e.g. check for wikipedia links or for mandatory properties)</p>
 <section id="installation-usage">
 <h2><span class="section-number">1.1. </span>Installation &amp; Usage<a class="headerlink" href="#installation-usage" title="Permalink to this heading"></a></h2>
-<p>As of this version, this tool is not available as a pyhton of conda package. To use this tool on your owl file you will need to clone the public GitHub repository:</p>
+<p>This tool is not yet available as a python or a conda package. To use it on your owl file, you will need to clone the public GitHub repository:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">edamontology</span><span class="o">/</span><span class="n">edam</span><span class="o">-</span><span class="n">validation</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<p>Move to the caseologue directory and run :</p>
+<p>Move to the caseologue directory and run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EDAM_PATH</span><span class="o">=&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">test</span> <span class="n">data</span><span class="o">&gt;</span> <span class="n">python3</span>  <span class="n">caseologue</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">options</span>
 </pre></div>
 </div>
-<p>By default the scrip will run all tests. You can filter the tests on error level using these options:</p>
+<p>By default the script will run all tests. You can filter the tests on error level using these options:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">e</span><span class="p">,</span> <span class="o">--</span><span class="n">error</span>      <span class="n">runs</span> <span class="nb">all</span> <span class="n">error</span> <span class="n">tests</span>
 <span class="o">-</span><span class="n">E</span><span class="p">,</span> <span class="o">--</span><span class="n">essential</span>  <span class="n">runs</span> <span class="nb">all</span> <span class="n">essential</span> <span class="n">tests</span>
 <span class="o">-</span><span class="n">c</span><span class="p">,</span> <span class="o">--</span><span class="n">curation</span>   <span class="n">runs</span> <span class="nb">all</span> <span class="n">curation</span> <span class="n">tests</span>
@@ -128,15 +128,15 @@ It alows us to test for <strong>specific features</strong> of the EDAM ontology 
 <section id="options">
 <h3><span class="section-number">1.1.1. </span>Options<a class="headerlink" href="#options" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>Error</strong>: tests insuring this semantic and sintactic consistency of the ontology, that are mandatory to pass for a pull request to be merged on the GitHub repository.</p></li>
-<li><p><strong>Essential</strong>: error tests that can be applicable to other side of the EDAM ontology such as EDAM geo of EDAM bioimaging.</p></li>
+<li><p><strong>Error</strong>: tests validating the semantic and syntactic consistency of the ontology, that are mandatory to pass for a pull request to be merged on the GitHub repository.</p></li>
+<li><p><strong>Essential</strong>: tests that can be applicable to other side of the EDAM ontology such as EDAM geo of EDAM bioimaging.</p></li>
 <li><p><strong>Curation</strong>: unmandatory tests, ran by maintainers, that, if failed, do not compromise the integrity or the logical structure of the ontology. The error level is also a staging area for tests that should be error or essential but still raise errors needing to be fixed.</p></li>
 </ul>
 </section>
 </section>
 <section id="tests-documentation">
 <h2><span class="section-number">1.2. </span>Tests documentation<a class="headerlink" href="#tests-documentation" title="Permalink to this heading"></a></h2>
-<p>This pyhton script uses the unittest modules to test and report errors of the tested EDAM owl file.</p>
+<p>This python script uses the unittest modules to test and report errors of the tested EDAM owl file.</p>
 <p>For (almost) each test described bellow, the script calls a custom <a class="reference external" href="https://www.w3.org/TR/rdf-sparql-query/">SPARQL</a> query, using the RDFlib library, and report the error in a comprehensive table.</p>
 <span class="target" id="module-caseologue"></span><dl class="py class">
 <dt class="sig sig-object py" id="caseologue.EdamQueryTest">

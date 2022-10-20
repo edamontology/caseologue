@@ -75,15 +75,15 @@
              
   <section id="robot-report">
 <span id="id1"></span><h1><span class="section-number">3. </span>ROBOT report<a class="headerlink" href="#robot-report" title="Permalink to this heading"></a></h1>
-<p><strong>A general quality control</strong> for ontology is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/report">report command</a> from the robot suite.
-Robot report is a <strong>command line tool</strong> calling a <strong>customizable list</strong> of <a class="reference external" href="http://robot.obolibrary.org/report_queries/">SPARQL queries</a>  that ensure <strong>basic requirement</strong> for all ontology fallowing the obo guidelines (e.g. presence of a liscence, more than one label in a entity)
+<p><strong>A generic ontology quality control</strong> is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/report">report command</a>.
+ROBOT report is a <strong>command line tool</strong> calling a <strong>customizable list</strong> of <a class="reference external" href="http://robot.obolibrary.org/report_queries/">SPARQL queries</a>  that ensure <strong>basic requirements</strong> for all ontologies following the OBO guidelines (e.g. presence of a licence, more than one label in a entity)
 Some of these queries were modified to fit the EDAM properties declaration.</p>
 <p>You can check out our custom selection of the robot SPARQL queries in our caseologue repository  <a class="reference external" href="https://github.com/edamontology/caseologue/tree/main/robot/report_queries.txt">here</a>.</p>
 <section id="installation-usage">
 <h2><span class="section-number">3.1. </span>Installation &amp; Usage<a class="headerlink" href="#installation-usage" title="Permalink to this heading"></a></h2>
-<p>You can check out robot installation documentation  <a class="reference external" href="http://robot.obolibrary.org/">here</a>.</p>
-<p>Once robot is installed you can run robot report on EDAM using this command</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">robot</span> <span class="n">report</span> <span class="o">--</span><span class="nb">input</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">EDAM</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">output</span> <span class="o">&lt;</span><span class="n">output</span> <span class="n">tsv</span> <span class="n">file</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">profile</span> <span class="n">report_queries</span><span class="o">.</span><span class="n">txt</span>
+<p>You can access the ROBOT installation documentation  <a class="reference external" href="http://robot.obolibrary.org/">here</a>.</p>
+<p>Once ROBOT is installed, you can run ROBOT report on EDAM using this command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ROBOT</span> <span class="n">report</span> <span class="o">--</span><span class="nb">input</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">EDAM</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">output</span> <span class="o">&lt;</span><span class="n">output</span> <span class="n">tsv</span> <span class="n">file</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">profile</span> <span class="n">report_queries</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
 <p>This tool returns in the output tsv file a table of all the detected errors.</p>
