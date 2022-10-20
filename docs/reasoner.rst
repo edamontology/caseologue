@@ -1,11 +1,11 @@
-.. _reasonner:
+.. _reasoner:
 
 Reasoner - ELK
 =================
 
-A **reasonner** is run on EDAM using the ROBOT `reason command <http://robot.obolibrary.org/reason>`_, calling the `ELK <http://liveontologies.github.io/elk-reasoner/>`_ reasonner.
+A **reasoner** is run on EDAM using the ROBOT `reason command <http://robot.obolibrary.org/reason>`_, which calls the `ELK reasoner <http://liveontologies.github.io/elk-reasoner/>`_.
 
-By running ELK we ensure the of **semantic consistency** the EDAM ontology by infering logical consequences from the ontology axioms. 
+By running ELK we validate the **semantic consistency** of the EDAM ontology by infering logical consequences from the ontology axioms. 
 
 Installation & Usage
 ---------------------
