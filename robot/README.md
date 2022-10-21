@@ -7,11 +7,13 @@ curl https://raw.githubusercontent.com/ontodev/robot/master/bin/robot >
 
 ## Launch reasonner 
 robot reason --reasoner ELK   --input <_path to EDAM_>
-
+or
+java -jar robot.jar reason --reasoner ELK   --input <_path to EDAM_>
 
 ## Launch custom robot report (sparql queries)
 robot report --input <_path to EDAM_> --output report_profile.tsv --profile report_queries.txt
-
+or
+java -jar robot.jar report --input <_path to EDAM_> --output report_profile.tsv --profile report_queries.txt
 
 ## Queries ducumentation 
 
