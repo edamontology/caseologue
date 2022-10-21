@@ -6,7 +6,7 @@ Caseologue custom python script
 
 
 This custom python script **complements** the tests performed by the ELK reasoner and the ROBOT report tool.
-It alows us to test for **specific features** of the EDAM ontology (e.g. check for wikipedia links or for mandatory properties)
+It allows us to test for **specific features** of the EDAM ontology (e.g. check for wikipedia links or for mandatory properties)
 
 Installation & Usage
 ---------------------
@@ -39,7 +39,7 @@ Tests documentation
 
 This python script uses the unittest modules to test and report errors of the tested EDAM owl file. 
 
-For (almost) each test described bellow, the script calls a custom `SPARQL <https://www.w3.org/TR/rdf-sparql-query/>`_ query, using the RDFlib library, and report the error in a comprehensive table. 
+For (almost) each test described below, the script calls a custom `SPARQL <https://www.w3.org/TR/rdf-sparql-query/>`_ query, using the RDFlib library, and report the error in a comprehensive table. 
 
 
 .. automodule:: caseologue

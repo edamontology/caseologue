@@ -44,6 +44,7 @@
 <li class="toctree-l1"><a class="reference internal" href="reasoner.html">2. Reasoner - ELK</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3. ROBOT report</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation-usage">3.1. Installation &amp; Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-and-output-documentation">3.2. Test and output documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">4. Workflows</a></li>
@@ -87,6 +88,20 @@ Some of these queries were modified to fit the EDAM properties declaration.</p>
 </pre></div>
 </div>
 <p>This tool returns in the output tsv file a table of all the detected errors.</p>
+</section>
+<section id="test-and-output-documentation">
+<h2><span class="section-number">3.2. </span>Test and output documentation<a class="headerlink" href="#test-and-output-documentation" title="Permalink to this heading"></a></h2>
+<dl>
+<dt>The output of the robot report tool is a tsv file compiling the detected error, warning and info. This tsv file has 5 columns.</dt><dd><ul class="simple">
+<li><p>Level: can be ERROR, WARNING or INFO depending on the settings in the report_queries.txt file.</p></li>
+<li><p>Rule Name: the name of the SPARQL query run. If the SPARQL query is custom made the rule name is the name of the file without the &quot;.rq&quot; extension.</p></li>
+</ul>
+<p>&gt; The 3 next columns report the rdf triplet that rose the error:
+- Suject: the URI of the concept that rose the error.
+- Property: the URI of the tested property.
+- Value: the object of the triplet.</p>
+</dd>
+</dl>
 </section>
 </section>
 
