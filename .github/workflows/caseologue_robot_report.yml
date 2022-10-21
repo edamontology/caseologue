@@ -30,6 +30,7 @@ jobs:
       if: always()
       run: |
         cd robot/
+        wget https://github.com/ontodev/robot/releases/download/v1.8.1/robot.jar
         export PATH=:/home/runner/work/edamontology/edamontology/edam-validation/robot:$PATH
         java -jar robot.jar report --input ${{inputs.edam_path}} --output report_profile.tsv --profile report_queries.txt
 
