@@ -63,8 +63,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><span class="section-number">3. </span>ROBOT report</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3. </span>ROBOT report</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/robot_report.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,15 +91,17 @@ Some of these queries were modified to fit the EDAM properties declaration.</p>
 </section>
 <section id="test-and-output-documentation">
 <h2><span class="section-number">3.2. </span>Test and output documentation<a class="headerlink" href="#test-and-output-documentation" title="Permalink to this heading"></a></h2>
-<dl>
-<dt>The output of the robot report tool is a tsv file compiling the detected error, warning and info. This tsv file has 5 columns.</dt><dd><ul class="simple">
-<li><p>Level: can be ERROR, WARNING or INFO depending on the settings in the report_queries.txt file.</p></li>
-<li><p>Rule Name: the name of the SPARQL query run. If the SPARQL query is custom made the rule name is the name of the file without the &quot;.rq&quot; extension.</p></li>
+<dl class="simple">
+<dt><strong>The output of the robot report tool is a tsv file compiling the detected error, warning and info. This tsv file has 5 columns.</strong></dt><dd><ul class="simple">
+<li><p><strong>Level</strong>: can be ERROR, WARNING or INFO depending on the settings in the report_queries.txt file.</p></li>
+<li><p><strong>Rule Name</strong>: the name of the SPARQL query run. If the SPARQL query is custom made the rule name is the name of the file without the &quot;.rq&quot; extension.</p></li>
 </ul>
-<p>&gt; The 3 next columns report the rdf triplet that rose the error:
-- Suject: the URI of the concept that rose the error.
-- Property: the URI of the tested property.
-- Value: the object of the triplet.</p>
+</dd>
+<dt>The 3 next columns report the rdf triplet that rose the error:</dt><dd><ul class="simple">
+<li><p><strong>Suject</strong>: the URI of the concept that rose the error.</p></li>
+<li><p><strong>Property</strong>: the URI of the tested property.</p></li>
+<li><p><strong>Value</strong>: the object of the triplet.</p></li>
+</ul>
 </dd>
 </dl>
 </section>
