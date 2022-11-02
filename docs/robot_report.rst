@@ -24,10 +24,10 @@ Test and output documentation
 -------------------------------
 
 
-The output of the robot report tool is a tsv file compiling the detected error, warning and info. This tsv file has 5 columns.
-    - Level: can be ERROR, WARNING or INFO depending on the settings in the report_queries.txt file. 
-    - Rule Name: the name of the SPARQL query run. If the SPARQL query is custom made the rule name is the name of the file without the ".rq" extension. 
-    > The 3 next columns report the rdf triplet that rose the error:
-    - Suject: the URI of the concept that rose the error. 
-    - Property: the URI of the tested property.
-    - Value: the object of the triplet.
+**The output of the robot report tool is a tsv file compiling the detected error, warning and info. This tsv file has 5 columns.**
+    - **Level**: can be ERROR, WARNING or INFO depending on the settings in the report_queries.txt file. 
+    - **Rule Name**: the name of the SPARQL query run. If the SPARQL query is custom made the rule name is the name of the file without the ".rq" extension. 
+The 3 next columns report the rdf triplet that rose the error:
+    - **Suject**: the URI of the concept that rose the error. 
+    - **Property**: the URI of the tested property.
+    - **Value**: the object of the triplet.
