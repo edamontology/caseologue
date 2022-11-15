@@ -1,4 +1,4 @@
-## dowlload .jar file 
+## download .jar file 
 wget https://github.com/ontodev/robot/releases/download/v1.8.1/robot.jar
 -P /usr/local/bin
 ## download shell script wrapper 
