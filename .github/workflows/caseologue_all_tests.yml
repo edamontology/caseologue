@@ -1,6 +1,6 @@
 name: caseologue all tests
 
-on: [workflow_dispatch , push ]
+on: [workflow_dispatch]
 
 jobs:
 
