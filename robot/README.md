@@ -22,7 +22,7 @@ or
 ```
 java -jar robot.jar report --input <_path to EDAM_> --output report_profile.tsv --profile report_queries.txt
 ```
-## Queries ducumentation 
+## Queries documentation 
 
 http://robot.obolibrary.org/report_queries/ 
 
