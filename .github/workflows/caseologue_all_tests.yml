@@ -1,6 +1,6 @@
 name: caseologue all tests
 
-on: [workflow_dispatch]
+on: [workflow_dispatch , push ]
 
 jobs:
 
@@ -18,18 +18,18 @@ jobs:
   
   caseologue:
     needs: upload_edam
-    uses: edamontology/caseologue/.github/workflows/caseologue_python.yml@main
+    uses: edamontology/caseologue/.github/workflows/caseologue_python.yml
     with: 
       edam_path: '../EDAM_dev.owl'
 
   report:
     needs: upload_edam
-    uses: edamontology/caseologue/.github/workflows/caseologue_robot_report.yml@main
+    uses: edamontology/caseologue/.github/workflows/caseologue_robot_report.yml
     with: 
       edam_path: '../EDAM_dev.owl'
 
   reason:
     needs: upload_edam
-    uses: edamontology/caseologue/.github/workflows/caseologue_robot_reason.yml@main
+    uses: edamontology/caseologue/.github/workflows/caseologue_robot_reason.yml
     with: 
       edam_path: '../EDAM_dev.owl'
