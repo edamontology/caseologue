@@ -3,4 +3,4 @@ robot_config/report_profile.tsv
 caseologue_python/output_caseologue.tsv
 **/__pycache__/
 docs/_build/
-robot/robot.jar
+robot_config/robot.jar
