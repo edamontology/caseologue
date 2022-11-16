@@ -1,0 +1,19 @@
+Level	Rule Name	Subject	Property	Value
+WARN	duplicate_label_synonym	http://edamontology.org/data_0893	oboInOwl:hasExactSynonym	Sequence-structure alignment
+WARN	duplicate_label_synonym	http://edamontology.org/data_1459	oboInOwl:hasExactSynonym	Nucleic acid structure
+WARN	duplicate_label_synonym	http://edamontology.org/data_1460	oboInOwl:hasExactSynonym	Protein structure
+WARN	duplicate_label_synonym	http://edamontology.org/data_2012	oboInOwl:hasExactSynonym	Sequence coordinates
+WARN	duplicate_label_synonym	http://edamontology.org/data_2956	oboInOwl:hasExactSynonym	Protein secondary structure
+WARN	duplicate_label_synonym	http://edamontology.org/format_1631	oboInOwl:hasExactSynonym	EXP
+WARN	duplicate_label_synonym	http://edamontology.org/format_3309	oboInOwl:hasExactSynonym	CT
+WARN	duplicate_label_synonym	http://edamontology.org/format_3773	oboInOwl:hasExactSynonym	BioYAML
+WARN	duplicate_label_synonym	http://edamontology.org/operation_0492	oboInOwl:hasExactSynonym	Multiple sequence alignment
+WARN	duplicate_label_synonym	http://edamontology.org/operation_3478	oboInOwl:hasExactSynonym	Phylogenetic reconstruction
+WARN	duplicate_label_synonym	http://edamontology.org/operation_3680	oboInOwl:hasExactSynonym	RNA-Seq analysis
+WARN	duplicate_label_synonym	http://edamontology.org/topic_0084	oboInOwl:hasExactSynonym	Phylogeny
+WARN	duplicate_label_synonym	http://edamontology.org/topic_0092	oboInOwl:hasExactSynonym	Data visualisation
+WARN	duplicate_label_synonym	http://edamontology.org/topic_0123	oboInOwl:hasExactSynonym	Protein properties
+WARN	duplicate_label_synonym	http://edamontology.org/topic_3542	oboInOwl:hasExactSynonym	Protein secondary structure
+WARN	missing_subset_declaration	blank node	rdfs:subPropertyOf	
+WARN	missing_subset_declaration	blank node	rdfs:subPropertyOf	
+WARN	missing_subset_declaration	blank node	rdfs:subPropertyOf	
