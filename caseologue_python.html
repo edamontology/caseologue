@@ -56,7 +56,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#caseologue.EdamQueryTest.test_duplicate_in_concept"><code class="docutils literal notranslate"><span class="pre">EdamQueryTest.test_duplicate_in_concept()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#caseologue.EdamQueryTest.test_empty_property"><code class="docutils literal notranslate"><span class="pre">EdamQueryTest.test_empty_property()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#caseologue.EdamQueryTest.test_format_property_missing"><code class="docutils literal notranslate"><span class="pre">EdamQueryTest.test_format_property_missing()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#caseologue.EdamQueryTest.test_formating"><code class="docutils literal notranslate"><span class="pre">EdamQueryTest.test_formating()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#caseologue.EdamQueryTest.test_formatting"><code class="docutils literal notranslate"><span class="pre">EdamQueryTest.test_formatting()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#caseologue.EdamQueryTest.test_id_unique"><code class="docutils literal notranslate"><span class="pre">EdamQueryTest.test_id_unique()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#caseologue.EdamQueryTest.test_identifier_property_missing"><code class="docutils literal notranslate"><span class="pre">EdamQueryTest.test_identifier_property_missing()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#caseologue.EdamQueryTest.test_literal_links"><code class="docutils literal notranslate"><span class="pre">EdamQueryTest.test_literal_links()</span></code></a></li>
@@ -230,9 +230,9 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="caseologue.EdamQueryTest.test_formating">
-<span class="sig-name descname"><span class="pre">test_formating</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_formating"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_formating" title="Permalink to this definition"></a></dt>
-<dd><p>Checks the formating of the properties. Properties should not have a space neither at the start nor the end, no tab and no end of line.
+<dt class="sig sig-object py" id="caseologue.EdamQueryTest.test_formatting">
+<span class="sig-name descname"><span class="pre">test_formatting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_formatting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_formatting" title="Permalink to this definition"></a></dt>
+<dd><p>Checks the formatting of the properties. Properties should not have a space neither at the start nor the end, no tab and no end of line.
 Checks that label have no dot at the end and that definition do have a dot at the end.</p>
 <blockquote>
 <div><p>&gt; SPARQL query available here:</p>
@@ -253,7 +253,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <dt class="sig sig-object py" id="caseologue.EdamQueryTest.test_id_unique">
 <span class="sig-name descname"><span class="pre">test_id_unique</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_id_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_id_unique" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that the numerical part of the URI is not duplicated.</p>
-<p>Uses a small pyhton script to retreive all duplicated id available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/edamxpath_id_unique.py">here</a></p>
+<p>Uses a small python script to retrieve all duplicated id available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/edamxpath_id_unique.py">here</a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -313,7 +313,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <dl class="py method">
 <dt class="sig sig-object py" id="caseologue.EdamQueryTest.test_relation_too_broad">
 <span class="sig-name descname"><span class="pre">test_relation_too_broad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_relation_too_broad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_relation_too_broad" title="Permalink to this definition"></a></dt>
-<dd><p>Checks that a concept is not in relation (restriction) with a concept &quot;not recommanded for annotation&quot;.</p>
+<dd><p>Checks that a concept is not in relation (restriction) with a concept &quot;not recommended for annotation&quot;.</p>
 <blockquote>
 <div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/relation_too_broad.rq">here</a></p>
 </div></blockquote>
@@ -322,7 +322,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <dl class="py method">
 <dt class="sig sig-object py" id="caseologue.EdamQueryTest.test_spelling_check">
 <span class="sig-name descname"><span class="pre">test_spelling_check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_spelling_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_spelling_check" title="Permalink to this definition"></a></dt>
-<dd><p>Uses unix codespell command and custom spelling dictionnary to check spelling errors in EDAM.</p>
+<dd><p>Uses unix codespell command and custom spelling dictionary to check spelling errors in EDAM.</p>
 <blockquote>
 <div><p>&gt; GitHub page of codespell available <a class="reference external" href="https://github.com/codespell-project/codespell">here</a></p>
 </div></blockquote>
