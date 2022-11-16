@@ -27,7 +27,7 @@ jobs:
 
     - name: run reason
       run: |
-        cd robot/ 
+        cd robot_config/ 
         wget https://github.com/ontodev/robot/releases/download/v1.8.1/robot.jar
         java -jar robot.jar reason --reasoner ELK   --input ${{inputs.edam_path}} -v 
 
