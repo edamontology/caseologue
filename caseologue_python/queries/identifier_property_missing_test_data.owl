@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://edamontology.org/"
+     xml:base="http://edamontology.org/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:doap="http://usefulinc.com/ns/doap#"
+     xmlns:edam="http://purl.obolibrary.org/obo/edam#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:oboOther="http://purl.obolibrary.org/obo/">
+
+    <!-- http://edamontology.org/data_2091 -->
+
+    <owl:Class rdf:about="http://edamontology.org/data_2091">
+        <rdfs:subClassOf rdf:resource="http://edamontology.org/data_0842"/>
+        <created_in>beta12orEarlier</created_in>
+        <notRecommendedForAnnotation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</notRecommendedForAnnotation>
+        <oboInOwl:hasDefinition>A persistent (stable) and unique identifier, typically identifying an object (entry) from a database.</oboInOwl:hasDefinition>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#data"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#identifiers"/>
+        <rdfs:label>Accession</rdfs:label>
+        <rdfs:seeAlso>http://semanticscience.org/resource/SIO_000675</rdfs:seeAlso>
+        <rdfs:seeAlso>http://semanticscience.org/resource/SIO_000731</rdfs:seeAlso>
+    </owl:Class>
+
+    <!-- http://edamontology.org/data_1027 -->
+
+    <owl:Class rdf:about="http://edamontology.org/data_1027">
+        <rdfs:subClassOf rdf:resource="http://edamontology.org/data_1098"/>
+        <rdfs:subClassOf rdf:resource="http://edamontology.org/data_2091"/>
+        <rdfs:subClassOf rdf:resource="http://edamontology.org/data_2295"/>
+        <created_in>beta12orEarlier</created_in>
+        <oboInOwl:hasDbXref>http://www.geneontology.org/doc/GO.xrf_abbs:LocusID</oboInOwl:hasDbXref>
+        <oboInOwl:hasDbXref>http://www.geneontology.org/doc/GO.xrf_abbs:NCBI_Gene</oboInOwl:hasDbXref>
+        <oboInOwl:hasDefinition>An NCBI unique identifier of a gene.</oboInOwl:hasDefinition>
+        <oboInOwl:hasExactSynonym>Entrez gene ID</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>Gene identifier (Entrez)</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>Gene identifier (NCBI)</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>NCBI gene ID</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>NCBI geneid</oboInOwl:hasExactSynonym>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#data"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#identifiers"/>
+        <rdfs:label>Gene ID (NCBI)</rdfs:label>
+    </owl:Class>
+
+</rdf:RDF>

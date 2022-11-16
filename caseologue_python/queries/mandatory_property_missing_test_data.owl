@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://edamontology.org/"
+     xml:base="http://edamontology.org/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:doap="http://usefulinc.com/ns/doap#"
+     xmlns:edam="http://purl.obolibrary.org/obo/edam#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:oboOther="http://purl.obolibrary.org/obo/">
+
+<!-- http://edamontology.org/topic_0203 -->
+
+<owl:Class rdf:about="http://edamontology.org/topic_0203">
+    <isdebtag rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isdebtag>
+    <oboInOwl:hasAlternativeId>http://edamontology.org/topic_0197</oboInOwl:hasAlternativeId>
+    <oboInOwl:hasExactSynonym>Expression</oboInOwl:hasExactSynonym>
+    <oboInOwl:hasHumanReadableId>Gene_expression</oboInOwl:hasHumanReadableId>
+    <oboInOwl:hasNarrowSynonym>Codon usage</oboInOwl:hasNarrowSynonym>
+    <oboInOwl:hasNarrowSynonym>DNA chips</oboInOwl:hasNarrowSynonym>
+    <oboInOwl:hasNarrowSynonym>DNA microarrays</oboInOwl:hasNarrowSynonym>
+    <oboInOwl:hasNarrowSynonym>Gene expression profiling</oboInOwl:hasNarrowSynonym>
+    <oboInOwl:hasNarrowSynonym>Gene transcription</oboInOwl:hasNarrowSynonym>
+    <oboInOwl:hasNarrowSynonym>Gene translation</oboInOwl:hasNarrowSynonym>
+    <oboInOwl:hasNarrowSynonym>Transcription</oboInOwl:hasNarrowSynonym>
+    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#events"/>
+    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#topics"/>
+    <rdfs:comment>Gene expression levels are analysed by identifying, quantifying or comparing mRNA transcripts, for example using microarrays, RNA-seq, northern blots, gene-indexed expression profiles etc.</rdfs:comment>
+    <rdfs:comment>This includes the study of codon usage in nucleotide sequence(s), genetic codes and so on.</rdfs:comment>
+    <rdfs:label>Gene expression</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://en.wikipedia.org/wiki/Gene_expression"/>
+    <rdfs:seeAlso>http://purl.bioontology.org/ontology/MSH/D015870</rdfs:seeAlso>
+</owl:Class>
+
+<!-- http://edamontology.org/topic_0204 -->
+
+<owl:Class rdf:about="http://edamontology.org/topic_0204">
+    <rdfs:subClassOf rdf:resource="http://edamontology.org/topic_0203"/>
+    <created_in>beta12orEarlier</created_in>
+    <isdebtag rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isdebtag>
+    <oboInOwl:hasDefinition>The regulation	 of gene expression</oboInOwl:hasDefinition>
+    <oboInOwl:hasNarrowSynonym>Regulatory genomics</oboInOwl:hasNarrowSynonym>
+</owl:Class>
+
+    <!-- http://edamontology.org/operation_0308 -->
+
+    <owl:Class rdf:about="http://edamontology.org/operation_0308">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_input"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/data_2977"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_input"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/data_0006"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_output"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/data_1240"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_topic"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/topic_0608"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <created_in>beta12orEarlier</created_in>
+        <oboInOwl:hasDefinition>Design or predict oligonucleotide primers for PCR and DNA amplification etc.</oboInOwl:hasDefinition>
+        <oboInOwl:hasExactSynonym>PCR primer prediction</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>Primer design</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (based on gene structure)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for conserved primers)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for gene transcription profiling)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for genotyping polymorphisms)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for large scale sequencing)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>PCR primer design (for methylation PCRs)</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:hasNarrowSynonym>Primer quality estimation</oboInOwl:hasNarrowSynonym>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#operations"/>
+        <rdfs:comment>Primer design involves predicting or selecting primers that are specific to a provided PCR template. Primers can be designed with certain properties such as size of product desired, primer size etc. The output might be a minimal or overlapping primer set.</rdfs:comment>
+        <rdfs:comment>This includes predicting primers based on gene structure, promoters, exon-exon junctions, predicting primers that are conserved across multiple genomes or species, primers for for gene transcription profiling, for genotyping polymorphisms, for example single nucleotide polymorphisms (SNPs), for large scale sequencing, or for methylation PCRs.</rdfs:comment>
+        <rdfs:label>PCR primer design</rdfs:label>
+        <rdfs:seeAlso rdf:resource="https://en.wikipedia.org/wiki/Primer_(molecular_biology)#PCR_primer_design"/>
+    </owl:Class>
+
+</rdf:RDF>

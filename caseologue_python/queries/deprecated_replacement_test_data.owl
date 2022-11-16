@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://edamontology.org/"
+     xml:base="http://edamontology.org/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:doap="http://usefulinc.com/ns/doap#"
+     xmlns:edam="http://purl.obolibrary.org/obo/edam#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:oboOther="http://purl.obolibrary.org/obo/">
+
+<!-- http://edamontology.org/topic_0608 -->
+
+<owl:Class rdf:about="http://edamontology.org/topic_0608">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#DeprecatedClass"/>
+    <created_in>beta12orEarlier</created_in>
+    <obsolete_since>1.3</obsolete_since>
+    <oldParent rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <oboInOwl:hasDefinition>General cell culture or data on a specific cell lines.</oboInOwl:hasDefinition>
+    <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#obsolete"/>
+    <rdfs:label>Cell and tissue culture</rdfs:label>
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+</owl:Class>
+
+</rdf:RDF>

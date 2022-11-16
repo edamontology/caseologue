@@ -1,0 +1,38 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX edam:<http://edamontology.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    
+SELECT DISTINCT ?entity ?property ?label ?value WHERE {
+    VALUES ?property {
+                    <http://edamontology.org/citation>
+                    <http://edamontology.org/documentation>
+                    <http://edamontology.org/information_standard>
+                    <http://edamontology.org/oldParent>
+                    <http://edamontology.org/ontology_used>
+                    <http://edamontology.org/organisation>
+                    <http://www.geneontology.org/formats/oboInOwl#consider>
+                    <http://www.geneontology.org/formats/oboInOwl#inSubset>
+                    <http://www.geneontology.org/formats/oboInOwl#replacedBy>
+                    <http://www.w3.org/2000/01/rdf-schema#seeAlso>
+                    <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+                    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf>
+                    <http://www.w3.org/2002/07/owl#annotatedProperty>
+                    <http://www.w3.org/2002/07/owl#inverseOf>
+                    <http://www.w3.org/2002/07/owl#disjointWith>
+                    <http://www.w3.org/2000/01/rdf-schema#domain>
+                    <http://www.w3.org/2000/01/rdf-schema#range>
+
+
+}
+
+?entity ?property ?value .
+
+FILTER isLiteral(?value) 
+?entity rdfs:label ?label .
+
+}
+ORDER BY ?entity

@@ -1,0 +1,13 @@
+ERROR	file:./multiple_definition.rq
+ERROR	file:./boolean_datatype.rq
+WARN	file:./misused_replaced_by.rq
+ERROR	deprecated_class_reference
+ERROR	deprecated_property_reference
+ERROR	illegal_use_of_built_in_vocabulary
+INFO	missing_ontology_description
+INFO	missing_ontology_license
+INFO	missing_ontology_title
+WARN	missing_subset_declaration
+WARN	multiple_equivalent_classes
+WARN	multiple_equivalent_class_definitions 
+ERROR	multiple_labels

@@ -1,0 +1,27 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX edam:<http://edamontology.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?entity ?label ?property WHERE
+{
+  
+    ?entity rdfs:subClassOf+ edam:format_1915 .
+    ?entity rdfs:label ?label .
+    {
+        VALUES ?property { edam:documentation }
+        FILTER NOT EXISTS {?entity ?property ?value .}
+    }
+    UNION
+    {
+        VALUES ?property { edam:is_format_of }
+        FILTER NOT EXISTS {    
+            ?entity rdfs:subClassOf ?restriction . 
+            ?restriction rdf:type owl:Restriction ; 
+                owl:onProperty ?property  ; 
+                owl:someValuesFrom ?data.}
+    }
+}ORDER BY ?entity

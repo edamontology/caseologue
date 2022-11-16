@@ -1,0 +1,6 @@
+rdflib
+pandas
+argparse
+tabulate
+lxml
+codespell
