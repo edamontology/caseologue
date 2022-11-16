@@ -4,7 +4,7 @@ ERROR	file:./concept_id_inferior_to_next_id.rq
 ERROR	file:./duplicate_definition.rq
 ERROR	file:./missing_superclass.rq
 WARN	file:./misused_replaced_by.rq
-WARN	file:./formating.rq
+WARN	file:./formatting.rq
 WARN	annotation_whitespace
 ERROR	deprecated_class_reference
 ERROR	deprecated_property_reference

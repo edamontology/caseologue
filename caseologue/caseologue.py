@@ -59,7 +59,7 @@ def suite():
 
     if run_curation == True:
         suite.addTest(EdamQueryTest("test_deprecated_replacement_obsolete"))
-        suite.addTest(EdamQueryTest("test_formating"))
+        suite.addTest(EdamQueryTest("test_formatting"))
         suite.addTest(EdamQueryTest("test_check_wikipedia_link"))
         suite.addTest(EdamQueryTest("test_identifier_property_missing"))
         suite.addTest(EdamQueryTest("test_relation_too_broad"))
@@ -256,12 +256,12 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
-    ################# FORMATING ###########################
+    ################# FORMATTING ###########################
 
-    def test_formating(self):
+    def test_formatting(self):
 
         """
-        Checks the formating of the properties. Properties should not have a space neither at the start nor the end, no tab and no end of line.
+        Checks the formatting of the properties. Properties should not have a space neither at the start nor the end, no tab and no end of line.
         Checks that label have no dot at the end and that definition do have a dot at the end.
 
             > SPARQL query available here:
@@ -647,7 +647,7 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that the numerical part of the URI is not duplicated.
 
-        Uses a small pyhton script to retreive all duplicated id available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/edamxpath_id_unique.py>`_
+        Uses a small python script to retrieve all duplicated id available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/edamxpath_id_unique.py>`_
         """
 
         duplicate_id = check_unique_id(os.environ.get("EDAM_PATH"))
@@ -693,7 +693,7 @@ class EdamQueryTest(unittest.TestCase):
     def test_relation_too_broad(self):
 
         """
-        Checks that a concept is not in relation (restriction) with a concept "not recommanded for annotation".
+        Checks that a concept is not in relation (restriction) with a concept "not recommended for annotation".
 
             > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/relation_too_broad.rq>`_
         """
@@ -1061,7 +1061,7 @@ class EdamQueryTest(unittest.TestCase):
     def test_spelling_check(self):
 
         """
-        Uses unix codespell command and custom spelling dictionnary to check spelling errors in EDAM.
+        Uses unix codespell command and custom spelling dictionary to check spelling errors in EDAM.
 
             > GitHub page of codespell available `here  <https://github.com/codespell-project/codespell>`_
         """
@@ -1084,7 +1084,7 @@ class EdamQueryTest(unittest.TestCase):
                         "Unknown",
                         "Unknown",
                         (
-                            f'in your EDAM file, line {line}, "{err}" is suspected to be a spelling error. Could it be "{suggest}" instead? (if exeption needed comment in PR ... )'
+                            f'in your EDAM file, line {line}, "{err}" is suspected to be a spelling error. Could it be "{suggest}" instead? (if exception needed comment in PR ... )'
                         ),
                     ]
                 ],

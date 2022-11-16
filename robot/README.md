@@ -30,4 +30,4 @@ http://robot.obolibrary.org/report_queries/
 
  - report_queries_old.txt = initial configuration file with all tests available in robot useful for EDAM (some bein quickly modified to fit EDAM property deifnitions)
  - report_queries_no_redundancy.txt = configuration file where only the tests that are not redundant with caseologue.py custom tool are kept. 
- - report_queries.txt = curent used file (as of 18th may 2022) with some redundancy with caseologue.py (while some of the tests are still in "curation" mode due to too many raised errors). 
+ - report_queries.txt = current used file (as of 18th may 2022) with some redundancy with caseologue.py (while some of the tests are still in "curation" mode due to too many raised errors). 
