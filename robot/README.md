@@ -1,4 +1,4 @@
-## dowlload .jar file 
+## download .jar file 
 wget https://github.com/ontodev/robot/releases/download/v1.8.1/robot.jar
 -P /usr/local/bin
 ## download shell script wrapper 
@@ -22,7 +22,7 @@ or
 ```
 java -jar robot.jar report --input <_path to EDAM_> --output report_profile.tsv --profile report_queries.txt
 ```
-## Queries ducumentation 
+## Queries documentation 
 
 http://robot.obolibrary.org/report_queries/ 
 
