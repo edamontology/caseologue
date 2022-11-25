@@ -1097,14 +1097,14 @@ class EdamQueryTest(unittest.TestCase):
         nb_err = len(spelling_err)
         self.assertEqual(nb_err, 0)
 
-    # ################# TEMPLATE TO COPY-PASTE ###########################
+    # ################# XXXXXTEMPLATE TO COPY-PASTEXXXXX ###########################
 
-    # def test_empty_property(self):
+    # def XXXtest_nameXXX(self):
 
     #     """
-    #     Docstring documentation.
+    #     XXXXDocstring documentation.XXXX
 
-    #         > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/xxxxxx.rq>`_
+    #         > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/XXXXXX.rq>`_
     #     """
 
     #     query = "queries/XXXQUERY_FILEXXX.rq"
