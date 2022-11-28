@@ -1,0 +1,21 @@
+
+name: cseologue test
+
+on: 
+  push:
+
+jobs:
+  
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - uses: actions/checkout@v2
+
+    - name: run bash
+      if: always()
+      run: |
+        cd ./caseologue_python
+        ./script.sh bad_uri
