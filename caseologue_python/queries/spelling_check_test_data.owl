@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://edamontology.org/"
+     xml:base="http://edamontology.org/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:doap="http://usefulinc.com/ns/doap#"
+     xmlns:edam="http://purl.obolibrary.org/obo/edam#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:oboOther="http://purl.obolibrary.org/obo/">
+
+    <!-- http://edamontology.org/data_0914 -->
+
+    <owl:Class rdf:about="http://edamontology.org/data_0914">
+        <rdfs:subClassOf rdf:resource="http://edamontology.org/data_0914"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://edamontology.org/has_topic"/>
+                <owl:someValuesFrom rdf:resource="http://edamontology.org/topic_0203"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <created_in>beta12orEarlier</created_in>
+        <oboInOwl:hasDefinition>Data derived from analisis of codon usage (typicaly a codon usage table) of DNA sequences.</oboInOwl:hasDefinition>
+        <oboInOwl:hasExactSynonym>Codon usage report</oboInOwl:hasExactSynonym>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#data"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/edam#edam"/>
+        <rdfs:comment>This is a broad data type and is used a placeholder for other, more specific types.</rdfs:comment>
+        <rdfs:label>Codon usage data</rdfs:label>
+    </owl:Class>
+    
+</rdf:RDF>
