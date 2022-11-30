@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'EDAM Continuous Interagtion custom tool'
+project = 'EDAM Continuous Integration custom tool'
 copyright = '2022, Lucie Lamothe, Alban Gaignard, Hervé Ménager, Matúš Kalaš'
 author = 'Lucie Lamothe, Alban Gaignard, Matúš Kalaš, Hervé Ménager'
 
