@@ -21,10 +21,7 @@ jobs:
     - name: run bash
       if: always()
       run: |
-        cd ./caseologue_python
-        while read line; do 
-                ./script.sh $line;
-        done < test_name_list.txt
+
 
 
 # duplicate all not tested, too long to run
