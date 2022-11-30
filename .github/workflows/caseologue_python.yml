@@ -35,6 +35,7 @@ jobs:
     - name: run 
       run: |
         cd caseologue_python/
+        printf "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________"
         EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
      
     # - name: Print output
