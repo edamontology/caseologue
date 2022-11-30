@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>caseologue &mdash; EDAM Continuous Integration custom tool  documentation</title>
+  <title>caseologue &mdash; EDAM Continuous Interagtion custom tool  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -26,7 +26,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> EDAM Continuous Integration custom tool
+            <a href="../index.html" class="icon icon-home"> EDAM Continuous Interagtion custom tool
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -49,7 +49,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">EDAM Continuous Integration custom tool</a>
+          <a href="../index.html">EDAM Continuous Interagtion custom tool</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -182,7 +182,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the suggested replacement (replacedBy/consider) for a deprecated term is not obsolete.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/deprecated_replacement_obsolete.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/deprecated_replacement_obsolete.rq&gt;`_</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -221,7 +221,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks if a given concept doesn&#39;t refers to itself as superclass.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/super_class_refers_to_self.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/super_class_refers_to_self.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/super_class_refers_to_self.rq&quot;</span>
@@ -258,7 +258,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the concepts URI matches the regex ^http://edamontology.org/(data|topic|operation|format)_[0-9]{4}$.</span>
 
-<span class="sd">           &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/bad_uri.rq&gt;`_</span>
+<span class="sd">           &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/bad_uri.rq&gt;`_</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -296,7 +296,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that no mandatory property for all concepts are missing (oboInOwl:hasDefinition, rdfs:subClassOf, created_in, oboInOwl:inSubset, rdfs:label).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/mandatory_property_missing.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/mandatory_property_missing.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/mandatory_property_missing.rq&quot;</span>
@@ -336,12 +336,12 @@
 
 <span class="sd">            &gt; SPARQL query available here:</span>
 
-<span class="sd">                * `Definition dot  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_dot_def_missing.rq.rq&gt;`_</span>
-<span class="sd">                * `Lable dot  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_dot_label.rq&gt;`_</span>
-<span class="sd">                * `End space  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_space_annotation.rq&gt;`_</span>
-<span class="sd">                * `Start space  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/start_space_annotation.rq&gt;`_</span>
-<span class="sd">                * `Tab  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/tab_in_annotation.rq&gt;`_</span>
-<span class="sd">                * `End of line  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/eol_in_annotation.rq&gt;`_</span>
+<span class="sd">                * `Definition dot  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_dot_def_missing.rq.rq&gt;`_</span>
+<span class="sd">                * `Lable dot  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_dot_label.rq&gt;`_</span>
+<span class="sd">                * `End space  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_space_annotation.rq&gt;`_</span>
+<span class="sd">                * `Start space  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/start_space_annotation.rq&gt;`_</span>
+<span class="sd">                * `Tab  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/tab_in_annotation.rq&gt;`_</span>
+<span class="sd">                * `End of line  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/eol_in_annotation.rq&gt;`_</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -512,7 +512,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that every deprecated concept has a replacement suggested (replaced_by or consider).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/deprecated_replacement.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/deprecated_replacement.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/deprecated_replacement.rq&quot;</span>
@@ -553,8 +553,8 @@
 
 <span class="sd">            &gt; SPARQL query available here :</span>
 
-<span class="sd">                * `get uri  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/get_uri.rq&gt;`_</span>
-<span class="sd">                * `uri reference &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/uri_reference.rq&gt;`_</span>
+<span class="sd">                * `get uri  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/get_uri.rq&gt;`_</span>
+<span class="sd">                * `uri reference &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/uri_reference.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/get_uri.rq&quot;</span>
@@ -606,7 +606,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that no mandatory property for deprecated concept are missing (edam:obsolete_since, edam:oldParent, oboInOwl:inSubset &lt;http://purl.obolibrary.org/obo/edam#obsolete&gt;, rdfs:subClassOf &lt;http://www.w3.org/2002/07/owl#DeprecatedClass&gt;).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/missing_deprecated_property.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/missing_deprecated_property.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/missing_deprecated_property.rq&quot;</span>
@@ -643,7 +643,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that every topic has a wikipedia link filled in the seeAlso property.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/check_wikipedia_link.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/check_wikipedia_link.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/check_wikipedia_link.rq&quot;</span>
@@ -680,7 +680,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the no mandatory property for identifier (subclass of accession) are missing (regex).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/identifier_property_missing.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/identifier_property_missing.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/identifier_property_missing.rq&quot;</span>
@@ -717,7 +717,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the numerical part of the URI is not duplicated.</span>
 
-<span class="sd">        Uses a small python script to retrieve all duplicated id available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/edamxpath_id_unique.py&gt;`_</span>
+<span class="sd">        Uses a small python script to retrieve all duplicated id available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/edamxpath_id_unique.py&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">duplicate_id</span> <span class="o">=</span> <span class="n">check_unique_id</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EDAM_PATH&quot;</span><span class="p">))</span>
@@ -765,7 +765,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that a concept is not in relation (restriction) with a concept &quot;not recommended for annotation&quot;.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/relation_too_broad.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/relation_too_broad.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/relation_too_broad.rq&quot;</span>
@@ -804,7 +804,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that there is no duplicate content (case insensitive) within a concept on given properties.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/duplicate_in_concept.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/duplicate_in_concept.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/duplicate_in_concept.rq&quot;</span>
@@ -845,7 +845,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/duplicate_all.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/duplicate_all.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># this is case sensitive for computational time reasons</span>
 
@@ -887,7 +887,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that all webpage and doi are declared as literal links.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/literal_links.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/literal_links.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/literal_links.rq&quot;</span>
@@ -926,7 +926,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the &quot;next id&quot; property is equal to &quot;the maximal concept id numerical part&quot; +1.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/get_id_and_next_id.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/get_id_and_next_id.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/get_id_and_next_id.rq&quot;</span>
@@ -970,7 +970,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the &quot;subset&quot; part of a concept id is the same as its superclass (e.g. data concept only subclass of another data concept).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/subset_id.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/subset_id.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/subset_id.rq&quot;</span>
@@ -1009,7 +1009,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that a relation between concepts is not pointing towards obsolete concepts (is_format_of, has_input, has_output, is_identifier_of, has_topic ...)</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/object_relation_obsolete.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/object_relation_obsolete.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/object_relation_obsolete.rq&quot;</span>
@@ -1048,7 +1048,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inhereted &quot;is_format_of&quot; property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph. </span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/format_property_missing.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/format_property_missing.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">construct</span> <span class="o">=</span> <span class="s2">&quot;queries/is_format_of_construct.rq&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">construct</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -1096,7 +1096,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that no property is empty.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/empty_property.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/empty_property.rq&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/empty_property.rq&quot;</span>
@@ -1174,7 +1174,7 @@
     <span class="c1">#     &quot;&quot;&quot;</span>
     <span class="c1">#     XXXXDocstring documentation.XXXX</span>
 
-    <span class="c1">#         &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/XXXXXX.rq&gt;`_</span>
+    <span class="c1">#         &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/XXXXXX.rq&gt;`_</span>
     <span class="c1">#     &quot;&quot;&quot;</span>
 
     <span class="c1">#     query = &quot;queries/XXXQUERY_FILEXXX.rq&quot;</span>
