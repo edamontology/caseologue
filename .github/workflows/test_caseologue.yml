@@ -22,7 +22,7 @@ jobs:
       if: always()
       run: |
         cd caseologue_python/test/
-        pyhton3 test_caseologue.py
+        python3 test_caseologue.py
 
 
 # duplicate all not tested, too long to run
