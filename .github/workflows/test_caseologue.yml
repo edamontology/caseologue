@@ -21,7 +21,8 @@ jobs:
     - name: run bash
       if: always()
       run: |
-
+        cd caseologue_pyhton/test/
+        pyhton3 test_caseologue.py
 
 
 # duplicate all not tested, too long to run

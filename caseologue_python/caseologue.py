@@ -646,13 +646,15 @@ class EdamQueryTest(unittest.TestCase):
         """
 
         duplicate_id = check_unique_id(os.environ.get("EDAM_PATH"))
-        nb_err = len(duplicate_id)
+        nb_err = len(duplicate_id)*2
+
 
         with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
         f.close()
+
 
         for id in duplicate_id:
             for r in results:
@@ -1137,9 +1139,6 @@ class EdamQueryTest(unittest.TestCase):
 
         # output = cls.report.sort('Level',)
         if cls.report.empty == False:
-            print(
-                "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________"
-            )
             pd.set_option(
                 "display.max_rows",
                 None,
