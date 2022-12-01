@@ -22,6 +22,8 @@ jobs:
       if: always()
       run: |
         cd caseologue_python/test/
+        pwd
+        export PYTHONPATH="${PYTHONPATH}:/caseologue/caseologue_python"
         python3 test_caseologue.py
 
 
