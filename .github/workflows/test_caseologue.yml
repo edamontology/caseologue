@@ -1,5 +1,5 @@
 
-name: cseologue test
+name: test caseologue
 
 on: 
   push:
@@ -18,10 +18,10 @@ jobs:
       run: |
         pip install -r caseologue_python/requirements.txt
 
-    - name: run bash
+    - name: run test_caseologue
       if: always()
       run: |
-        cd caseologue_pyhton/test/
+        cd caseologue_python/test/
         pyhton3 test_caseologue.py
 
 
