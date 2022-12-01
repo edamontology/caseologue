@@ -21,9 +21,9 @@ jobs:
     - name: run test_caseologue
       if: always()
       run: |
-        cd caseologue_python/test/
+        cd caseologue_python
         export PYTHONPATH="${PYTHONPATH}:/home/runner/work/caseologue/caseologue_python"
-        python3 test_caseologue.py
+        python3 ./test/test_caseologue.py
 
 
 # duplicate all not tested, too long to run
