@@ -17,14 +17,14 @@ jobs:
     - name: Install requirements
       run: |
         pip install -r caseologue_python/requirements.txt
-
     - name: run test_caseologue
       if: always()
       run: |
-        cd caseologue_python/test
-      # export PYTHONPATH="${PYTHONPATH}:/home/runner/work/caseologue/caseologue_python"
+        cd caseologue_python
         echo "::set-env name=PYTHONPATH::home/runner/work/caseologue/caseologue_python"
-        python3 test_caseologue.py
+        python3 ./test/test_caseologue.py
+
 
 
 # duplicate all not tested, too long to run
+# export PYTHONPATH="${PYTHONPATH}:/home/runner/work/caseologue/caseologue_python"
