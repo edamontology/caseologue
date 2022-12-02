@@ -21,7 +21,7 @@ jobs:
       if: always()
       run: |
         cd caseologue_python/test/
-        echo "PYTHONPATH=${PYTHONPATH}:/home/runner/work/caseologue/caseologue_python" >> $GITHUB_ENV
+        echo "PYTHONPATH='${PYTHONPATH}:/home/runner/work/caseologue/caseologue_python'" >> $GITHUB_ENV
         python3 test_caseologue.py
 
 
