@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. Caseologue custom python script &mdash; EDAM Continuous Interagtion custom tool  documentation</title>
+  <title>1. Caseologue custom python script &mdash; Caséologue - a validation tool for the EDAM ontology  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> EDAM Continuous Interagtion custom tool
+            <a href="index.html" class="icon icon-home"> Caséologue - a validation tool for the EDAM ontology
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -86,7 +86,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">EDAM Continuous Interagtion custom tool</a>
+          <a href="index.html">Caséologue - a validation tool for the EDAM ontology</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -124,7 +124,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="o">-</span><span class="n">c</span><span class="p">,</span> <span class="o">--</span><span class="n">curation</span>   <span class="n">runs</span> <span class="nb">all</span> <span class="n">curation</span> <span class="n">tests</span>
 </pre></div>
 </div>
-<p>Repartition of tests can be seen in the source code <a class="reference external" href="https://edamontology.github.io/caseologue/_modules/caseologue.html#suite">here</a>.</p>
+<p>Repartition of tests can be seen in the source code <a class="reference external" href="file:///home/llamothe/work/edam-validation/caseologue/doc/_build/html/_modules/caseologue.html#suite">here</a>.</p>
 <section id="options">
 <h3><span class="section-number">1.1.1. </span>Options<a class="headerlink" href="#options" title="Permalink to this heading"></a></h3>
 <ul class="simple">
@@ -146,7 +146,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="sig-name descname"><span class="pre">test_bad_uri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_bad_uri"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_bad_uri" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that the concepts URI matches the regex ^http://edamontology.org/(data|topic|operation|format)_[0-9]{4}$.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/bad_uri.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/bad_uri.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -159,8 +159,8 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <div><p>&gt; SPARQL query available here :</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/get_uri.rq">get uri</a></p></li>
-<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/uri_reference.rq">uri reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/get_uri.rq">get uri</a></p></li>
+<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/uri_reference.rq">uri reference</a></p></li>
 </ul>
 </div></blockquote>
 </div></blockquote>
@@ -171,7 +171,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="sig-name descname"><span class="pre">test_check_wikipedia_link</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_check_wikipedia_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_check_wikipedia_link" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that every topic has a wikipedia link filled in the seeAlso property.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/check_wikipedia_link.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/check_wikipedia_link.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -180,7 +180,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="sig-name descname"><span class="pre">test_deprecated_replacement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_deprecated_replacement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_deprecated_replacement" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that every deprecated concept has a replacement suggested (replaced_by or consider).</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/deprecated_replacement.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/deprecated_replacement.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -189,7 +189,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="sig-name descname"><span class="pre">test_deprecated_replacement_obsolete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_deprecated_replacement_obsolete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_deprecated_replacement_obsolete" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that the suggested replacement (replacedBy/consider) for a deprecated term is not obsolete.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/deprecated_replacement_obsolete.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/deprecated_replacement_obsolete.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -198,7 +198,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="sig-name descname"><span class="pre">test_duplicate_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_duplicate_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_duplicate_all" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/duplicate_all.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/duplicate_all.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -207,7 +207,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="sig-name descname"><span class="pre">test_duplicate_in_concept</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_duplicate_in_concept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_duplicate_in_concept" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that there is no duplicate content (case insensitive) within a concept on given properties.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/duplicate_in_concept.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/duplicate_in_concept.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -216,7 +216,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="sig-name descname"><span class="pre">test_empty_property</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_empty_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_empty_property" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that no property is empty.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/empty_property.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/empty_property.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -225,7 +225,7 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <span class="sig-name descname"><span class="pre">test_format_property_missing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_format_property_missing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_format_property_missing" title="Permalink to this definition"></a></dt>
 <dd><p>Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inhereted &quot;is_format_of&quot; property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/format_property_missing.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/format_property_missing.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -238,12 +238,12 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <div><p>&gt; SPARQL query available here:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_dot_def_missing.rq.rq">Definition dot</a></p></li>
-<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_dot_label.rq">Lable dot</a></p></li>
-<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_space_annotation.rq">End space</a></p></li>
-<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/start_space_annotation.rq">Start space</a></p></li>
-<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/tab_in_annotation.rq">Tab</a></p></li>
-<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/eol_in_annotation.rq">End of line</a></p></li>
+<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_dot_def_missing.rq.rq">Definition dot</a></p></li>
+<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_dot_label.rq">Lable dot</a></p></li>
+<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/end_space_annotation.rq">End space</a></p></li>
+<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/start_space_annotation.rq">Start space</a></p></li>
+<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/tab_in_annotation.rq">Tab</a></p></li>
+<li><p><a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/eol_in_annotation.rq">End of line</a></p></li>
 </ul>
 </div></blockquote>
 </div></blockquote>
@@ -253,7 +253,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <dt class="sig sig-object py" id="caseologue.EdamQueryTest.test_id_unique">
 <span class="sig-name descname"><span class="pre">test_id_unique</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_id_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_id_unique" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that the numerical part of the URI is not duplicated.</p>
-<p>Uses a small python script to retrieve all duplicated id available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/edamxpath_id_unique.py">here</a></p>
+<p>Uses a small python script to retrieve all duplicated id available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/edamxpath_id_unique.py">here</a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -261,7 +261,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_identifier_property_missing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_identifier_property_missing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_identifier_property_missing" title="Permalink to this definition"></a></dt>
 <dd><p>Checks the no mandatory property for identifier (subclass of accession) are missing (regex).</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/identifier_property_missing.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/identifier_property_missing.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -270,7 +270,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_literal_links</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_literal_links"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_literal_links" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that all webpage and doi are declared as literal links.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/literal_links.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/literal_links.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -279,7 +279,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_mandatory_property_missing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_mandatory_property_missing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_mandatory_property_missing" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that no mandatory property for all concepts are missing (oboInOwl:hasDefinition, rdfs:subClassOf, created_in, oboInOwl:inSubset, rdfs:label).</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/mandatory_property_missing.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/mandatory_property_missing.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -288,7 +288,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_missing_deprecated_property</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_missing_deprecated_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_missing_deprecated_property" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that no mandatory property for deprecated concept are missing (edam:obsolete_since, edam:oldParent, oboInOwl:inSubset &lt;http://purl.obolibrary.org/obo/edam#obsolete&gt;, rdfs:subClassOf &lt;http://www.w3.org/2002/07/owl#DeprecatedClass&gt;).</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/missing_deprecated_property.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/missing_deprecated_property.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -297,7 +297,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_next_id_modif</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_next_id_modif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_next_id_modif" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that the &quot;next id&quot; property is equal to &quot;the maximal concept id numerical part&quot; +1.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/get_id_and_next_id.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/get_id_and_next_id.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -306,7 +306,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_object_relation_obsolete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_object_relation_obsolete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_object_relation_obsolete" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that a relation between concepts is not pointing towards obsolete concepts (is_format_of, has_input, has_output, is_identifier_of, has_topic ...)</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/object_relation_obsolete.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/object_relation_obsolete.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -315,7 +315,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_relation_too_broad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_relation_too_broad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_relation_too_broad" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that a concept is not in relation (restriction) with a concept &quot;not recommended for annotation&quot;.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/relation_too_broad.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/relation_too_broad.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -333,7 +333,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_subset_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_subset_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_subset_id" title="Permalink to this definition"></a></dt>
 <dd><p>Checks that the &quot;subset&quot; part of a concept id is the same as its superclass (e.g. data concept only subclass of another data concept).</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/subset_id.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/subset_id.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -342,7 +342,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
 <span class="sig-name descname"><span class="pre">test_super_class_refers_to_self</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/caseologue.html#EdamQueryTest.test_super_class_refers_to_self"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caseologue.EdamQueryTest.test_super_class_refers_to_self" title="Permalink to this definition"></a></dt>
 <dd><p>Checks if a given concept doesn't refers to itself as superclass.</p>
 <blockquote>
-<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/super_class_refers_to_self.rq">here</a></p>
+<div><p>&gt; SPARQL query available <a class="reference external" href="https://github.com/edamontology/edam-validation/blob/main/caseologue/queries/super_class_refers_to_self.rq">here</a></p>
 </div></blockquote>
 </dd></dl>
 
@@ -368,7 +368,7 @@ Checks that label have no dot at the end and that definition do have a dot at th
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Lucie Lamothe, Alban Gaignard, Hervé Ménager, Matúš Kalaš.</p>
+    <p>&#169; Copyright 2022, Lucie Lamothe, Alban Gaignard, Bryan Brancotte, Matúš Kalaš, Hervé Ménager.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

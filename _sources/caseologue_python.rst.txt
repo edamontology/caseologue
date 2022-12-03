@@ -25,7 +25,7 @@ By default the script will run all tests. You can filter the tests on error leve
   -E, --essential  runs all essential tests
   -c, --curation   runs all curation tests
 
-Repartition of tests can be seen in the source code `here <https://edamontology.github.io/caseologue/_modules/caseologue.html#suite>`_.
+Repartition of tests can be seen in the source code `here <file:///home/llamothe/work/edam-validation/caseologue/doc/_build/html/_modules/caseologue.html#suite>`_.
 
 Options
 ~~~~~~~~~~
