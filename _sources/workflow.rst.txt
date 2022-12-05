@@ -8,9 +8,9 @@ Workflows
    :width: 300
    :align: right
 
-The caselogue suite is implemented in **GitHub Actions** to run quality checks at **each Pull Requests merge** into the main EDAM Ontology repository. It can also be **run manually** when needed from the caseologue and the main edamontology repositories.
+The caseologue suite is implemented in **GitHub Actions** to run quality checks at **each Pull Requests merge** into the main EDAM Ontology repository. It can also be **run manually** when needed from the caseologue and the main edamontology repositories.
 
-You can test it yourself on the current development version of EDAM clicking this `link <https://github.com/edamontology/caseologue/actions/workflows/caseologue.yml>`_ and click on "Run workflow". 
+You can test it yourself on the current development version of EDAM clicking this `link <https://github.com/edamontology/caseologue/actions/workflows/caseologue_all_tests.yml>`_ and click on "Run workflow". 
 
 .. image:: _static/run_wf.png
   :width: 800
@@ -22,7 +22,7 @@ The ``caseologue_robot_report``, ``caseologue_robot_reason`` and ``caseologue_py
 
 These reusable workflows can't run on their own, they need to be **called** by another GitHub Actions yaml file. This "caller" workflow will need to **upload** the tested EDAM.owl file as an `artifact <https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts>`_ so it can be **downloaded** and used by the "called" workflow (i.e. *caseologue_robot_report*, *caseologue_robot_reason* or *caseologue_python*).
 
-You can find is an **example** of a script calling the caseologue suite of tool to run it on the current dev version on EDAM `here <https://github.com/edamontology/caseologue/blob/main/.github/workflows/caseologue.yml>`_.
+You can find is an **example** of a script calling the caseologue suite of tool to run it on the current dev version on EDAM `here <https://github.com/edamontology/caseologue/blob/main/.github/workflows/caseologue_error_essential.yml>`_.
 
 .. image:: _static/caseologue_wf.png
   :width: 800
