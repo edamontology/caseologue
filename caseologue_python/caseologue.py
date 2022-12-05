@@ -89,14 +89,7 @@ def suite():
 
 
 class EdamQueryTest(unittest.TestCase):
-    
-    # def setUp(self):
-    #     print(f"parsing {os.environ.get('EDAM_PATH')}")
-    #     self.edam_graph = ConjunctiveGraph()
-    #     self.edam_graph.parse(os.environ.get("EDAM_PATH"), format="xml")
-    #     print(f"done parsing {os.environ.get('EDAM_PATH')}")
-    #     return super().setUp()
-    
+
     @classmethod
     def setUpClass(cls):
 

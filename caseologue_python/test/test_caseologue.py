@@ -17,7 +17,7 @@ class NoErrorFound(Exception):
         self.message = message + str(nb_expected_error)
         super().__init__(self.message)
 
-class UncorrectNumberError(Exception):
+class IncorrectNumberError(Exception):
     """Raised when the test_test function doesn't catch the errors in the test data or the test data is not right.
 
     Attributes:
@@ -36,13 +36,13 @@ class UncorrectNumberError(Exception):
 
 def test_test_deprecated_replacement_obsolete():
     
-    os.environ['EDAM_PATH'] = "data/deprecated_replacement_obsolete_test_data.owl"
+    os.environ['EDAM_PATH'] = "data/deprecated_replacement_obsolete_test_data.owl" 
 
     nb_expected_error = 1
 
     test_object=EdamQueryTest()
 
-    test_object.setUpClass()
+    test_object.setUpClass()  #run setupclass before calling each test, load edam_graph and the report data frame
 
     try:
         
@@ -53,7 +53,7 @@ def test_test_deprecated_replacement_obsolete():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_deprecated_replacement_obsolete caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -81,7 +81,7 @@ def test_test_super_class_refers_to_self():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_class_refers_to_self caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -110,7 +110,7 @@ def test_test_bad_uri():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_bad_uri caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -138,7 +138,7 @@ def test_test_mandatory_property_missing():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_mandatory_property_missing caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -166,7 +166,7 @@ def test_test_formatting():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_formatting caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -194,7 +194,7 @@ def test_test_deprecated_replacement():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_deprecated_replacement caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -222,7 +222,7 @@ def test_test_bad_uri_reference():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_bad_uri_reference caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -250,7 +250,7 @@ def test_test_missing_deprecated_property():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_missing_deprecated_property caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -278,7 +278,7 @@ def test_test_check_wikipedia_link():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_check_wikipedia_link caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -306,7 +306,7 @@ def test_test_identifier_property_missing():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_identifier_property_missing caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -334,7 +334,7 @@ def test_test_id_unique():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_id_unique caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -362,7 +362,7 @@ def test_test_relation_too_broad():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_relation_too_broad caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -390,7 +390,7 @@ def test_test_duplicate_in_concept():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_duplicate_in_concept caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -418,7 +418,7 @@ def test_test_duplicate_all():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_duplicate_all caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -446,7 +446,7 @@ def test_test_literal_links():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_literal_links caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -474,7 +474,7 @@ def test_test_next_id_modif():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_next_id_modif caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -502,7 +502,7 @@ def test_test_subset_id():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_subset_id caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -530,7 +530,7 @@ def test_test_object_relation_obsolete():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_object_relation_obsolete caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -558,7 +558,7 @@ def test_test_format_property_missing():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_format_property_missing caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -586,7 +586,7 @@ def test_test_empty_property():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_empty_property caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -614,7 +614,7 @@ def test_test_spelling_check():
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_spelling_check caught {nb_detected_errors} errors in the test data {os.environ['EDAM_PATH']}\n")
         else:
-            raise UncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
 
     else: 
         raise NoErrorFound(nb_expected_error)
@@ -626,23 +626,23 @@ def test_test_spelling_check():
 if __name__ == "__main__":
     
     test_test_deprecated_replacement_obsolete()
-    test_test_super_class_refers_to_self()
-    test_test_bad_uri()
-    test_test_mandatory_property_missing()
-    test_test_formatting()
-    test_test_deprecated_replacement()
-    test_test_bad_uri_reference()
-    test_test_missing_deprecated_property()
-    test_test_check_wikipedia_link()
-    test_test_identifier_property_missing()
-    test_test_id_unique()
-    test_test_relation_too_broad()
-    test_test_duplicate_in_concept()
-    test_test_duplicate_all()
-    test_test_literal_links()
-    test_test_next_id_modif()
-    test_test_subset_id()
-    test_test_object_relation_obsolete()
-    test_test_format_property_missing()
-    test_test_empty_property()
-    test_test_spelling_check()
+    # test_test_super_class_refers_to_self()
+    # test_test_bad_uri()
+    # test_test_mandatory_property_missing()
+    # test_test_formatting()
+    # test_test_deprecated_replacement()
+    # test_test_bad_uri_reference()
+    # test_test_missing_deprecated_property()
+    # test_test_check_wikipedia_link()
+    # test_test_identifier_property_missing()
+    # test_test_id_unique()
+    # test_test_relation_too_broad()
+    # test_test_duplicate_in_concept()
+    # test_test_duplicate_all()
+    # test_test_literal_links()
+    # test_test_next_id_modif()
+    # test_test_subset_id()
+    # test_test_object_relation_obsolete()
+    # test_test_format_property_missing()
+    # test_test_empty_property()
+    # test_test_spelling_check()
