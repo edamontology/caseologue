@@ -43,6 +43,11 @@ _____________________________________
 
       3.3. Update the suite() function at the top of the script. According to the error level you chose you will add after the "if curation/error/essential == True" line, a "suite.addTest(EdamQueryTest("XXXXtest_function_nameXXX"))" line. Warning: the test function name should be the same as the one defined in the function you defined just before. 
 
-4) **Run the test**
+
+4) **Add test to test_caseologue**
+
+  In the main function of test_caseologue.py, add a call of the "test_caseologue" function with the name of your newly added test and the number of expected error from your test data.
+
+5) **Run the test**
 
     First run it with its test data, see README.md in the ./caseologue_python/queries folder. Then test it with the whole EDAM, see README in the ./caseologue_python folder.

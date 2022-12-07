@@ -49,11 +49,11 @@ def test_caseologue(name,nb_expected_error):
         function()
 
     except AssertionError as e:
-        nb_detected_errors=int(str(e).rsplit('!')[0])
+        nb_detected_errors=int(str(e).rsplit('!')[0]) # checks that the number or found error is the expected one
         if nb_detected_errors == nb_expected_error : 
             print(f"\n=====================\n\ntest_{name} caught {nb_detected_errors} errors in the test data {name}_test_data.owl\n")
         else:
-            raise IncorrectNumberError(nb_expected_error,nb_detected_errors)
+            raise IncorrectNumberError(nb_expected_error,nb_detected_errors) 
 
     else: 
         raise NoErrorFound(nb_expected_error)
