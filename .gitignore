@@ -5,3 +5,4 @@ caseologue_python/test/output_caseologue.tsv
 **/__pycache__/
 docs/_build/
 robot_config/robot.jar
+.vscode/
