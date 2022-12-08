@@ -8,7 +8,7 @@ Workflows
    :width: 300
    :align: right
 
-The caseologue suite is implemented in **GitHub Actions** to run quality checks at **each Pull Requests merge** into the main EDAM Ontology repository. It can also be **run manually** when needed from the caseologue and the main edamontology repositories.
+The caseologue suite is implemented in **GitHub Actions** to run quality checks at **each Pull Requests created** into the main EDAM Ontology repository. It can also be **run manually** when needed from the caseologue and the main edamontology repositories.
 
 You can test it yourself on the current development version of EDAM clicking this `link <https://github.com/edamontology/caseologue/actions/workflows/caseologue_all_tests.yml>`_ and click on "Run workflow". 
 
