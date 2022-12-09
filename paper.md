@@ -76,6 +76,8 @@ All tests can easily be changed from severety level if needed depending on strat
 
 This custom caseologue python script will, by default, run all tests but can optionnaly only run the test with the needed severity level. 
 
+Almost all tests are calling a custom SPARQL query are query the input EDAM ontology owl file using the RDFlib library (ref) and return the results in a user friendly table.
+
 Description of all tests is available in our documentation (link ref)
 
 ### Continous Integration
@@ -90,7 +92,7 @@ These reusable workflows can't run on their own, they need to be called by anoth
 
 All together these tools ensure the syntactic and semantic consistency of the ontology and allow contributions to be merge much faster and more easily to the EDAM ontology.
 
-Perpective (will be adding more tools in the future)
+For now the custom caseologue python script can run up to 20 tests and more test will be added in the future. 
 
 # Acknowledgements
 
