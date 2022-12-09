@@ -40,7 +40,7 @@ bibliography: paper_resources/paper.bib
 EDAM is a domain ontology of data analysis and data management in life sciences. It comprises concepts related to analysis, modeling, optimization, and data life-cycle, and is divided into 4 main sections: topics, operations, data, and formats. 
 Thanks to the annotations with EDAM, tools, workflows, standards, data, and learning materials are easier to find, compare, choose, and integrate. EDAM contributes to open science by allowing semantic annotation of research products, thus making them more understandable, findable, and comparable. 
 
-EDAM is developed in a participatory and transparent fashion, within a broad and growing community of contributors. This development model, based on the contribution of a large number of scientific experts, therefore comes with its own set of challenges. 
+EDAM is developed in a participatory and transparent fashion, within a broad and growing community of contributors. This development model, based on the contribution of a large number of scientific experts, therefore comes with its own set of challenges [usesDataFrom:lamothe_2022_7040439]. 
 
 To streamline and accelerate the evolution of EDAM, we have developed and integrated a set of tools that automate the quality control and release process for the ontology, Caseologue. In addition to ensuring the global consistency of EDAM, it enforces edition best practices both at the syntactic and semantic levels. These tools have been integrated in a continuous integration (CI) pipeline, automated using GitHub Actions in the source-code repository. 
 
@@ -50,8 +50,8 @@ To streamline and accelerate the evolution of EDAM, we have developed and integr
 
 Caseologue is a tool suite that comprises: 
 
-  - A custom version of the ROBOT (ref robot) report query tool.
-  - ELK ontology reasoner (ref elk) called using the robot reason command.
+  - A custom version of the ROBOT [@usesDataFrom:jackson2019robot] report query tool.
+  - ELK ontology reasoner [usesDataFrom:kazakovincredible] called using the robot reason command.
   - A in house developed python script to complement the above tools and further test the EDAM ontology with tailored quality checks.
 
 ### Robot report
@@ -76,7 +76,7 @@ All tests can easily be changed from severety level if needed depending on strat
 
 This custom caseologue python script will, by default, run all tests but can optionnaly only run the test with the needed severity level. 
 
-Almost all tests are calling a custom SPARQL query are query the input EDAM ontology owl file using the RDFlib library (ref) and return the results in a user friendly table.
+Almost all tests are calling a custom SPARQL query are query the input EDAM ontology owl file using the RDFlib library [@usesDataFrom:gunnar_aastrand_grimnes_2022_6845246] and return the results in a user friendly table.
 
 Description of all tests is available in our documentation (link ref)
 
