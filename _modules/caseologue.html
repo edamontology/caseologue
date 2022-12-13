@@ -68,11 +68,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for caseologue</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">unittest</span>
+<span></span><span class="kn">import</span> <span class="nn">unittest</span>
 <span class="kn">from</span> <span class="nn">rdflib</span> <span class="kn">import</span> <span class="n">OWL</span><span class="p">,</span> <span class="n">ConjunctiveGraph</span><span class="p">,</span> <span class="n">Namespace</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -135,7 +133,7 @@
         <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_relation_too_broad&quot;</span><span class="p">))</span>
         <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_duplicate_in_concept&quot;</span><span class="p">))</span>
         <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_literal_links&quot;</span><span class="p">))</span>
-        <span class="c1">#        suite.addTest(EdamQueryTest(&#39;test_duplicate_all&#39;))</span>
+        <span class="c1">#        suite.addTest(EdamQueryTest(&#39;test_duplicate_all&#39;))   too long computing time for now </span>
         <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">EdamQueryTest</span><span class="p">(</span><span class="s2">&quot;test_format_property_missing&quot;</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">run_essential</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
@@ -161,13 +159,15 @@
 
 
 <div class="viewcode-block" id="EdamQueryTest"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest">[docs]</a><span class="k">class</span> <span class="nc">EdamQueryTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :meta private:</span>
-<span class="sd">        doctring set to private to avoid automatic default docstring in documentation</span>
+<span class="sd">        docstring set to private to avoid automatic default docstring in documentation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">dir_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">edam_graph</span> <span class="o">=</span> <span class="n">ConjunctiveGraph</span><span class="p">()</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EDAM_PATH&quot;</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;xml&quot;</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
@@ -182,11 +182,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the suggested replacement (replacedBy/consider) for a deprecated term is not obsolete.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/deprecated_replacement_obsolete.rq&gt;`_</span>
+<span class="sd">        &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/deprecated_replacement_obsolete.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">query</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/deprecated_replacement_obsolete.rq&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/deprecated_replacement_obsolete.rq&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -221,10 +224,13 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks if a given concept doesn&#39;t refers to itself as superclass.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/super_class_refers_to_self.rq&gt;`_</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/super_class_refers_to_self.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: essential</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/super_class_refers_to_self.rq&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/super_class_refers_to_self.rq&quot;</span>
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -258,11 +264,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the concepts URI matches the regex ^http://edamontology.org/(data|topic|operation|format)_[0-9]{4}$.</span>
 
-<span class="sd">           &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/bad_uri.rq&gt;`_</span>
+<span class="sd">           &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/bad_uri.rq&gt;`_</span>
+
+<span class="sd">        </span>
+<span class="sd">        Severity level: essential</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/bad_uri.rq&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/bad_uri.rq&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -296,10 +305,13 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that no mandatory property for all concepts are missing (oboInOwl:hasDefinition, rdfs:subClassOf, created_in, oboInOwl:inSubset, rdfs:label).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/mandatory_property_missing.rq&gt;`_</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/mandatory_property_missing.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: error</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/mandatory_property_missing.rq&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/mandatory_property_missing.rq&quot;</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -336,17 +348,25 @@
 
 <span class="sd">            &gt; SPARQL query available here:</span>
 
-<span class="sd">                * `Definition dot  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_dot_def_missing.rq.rq&gt;`_</span>
-<span class="sd">                * `Lable dot  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_dot_label.rq&gt;`_</span>
-<span class="sd">                * `End space  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_space_annotation.rq&gt;`_</span>
-<span class="sd">                * `Start space  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/start_space_annotation.rq&gt;`_</span>
-<span class="sd">                * `Tab  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/tab_in_annotation.rq&gt;`_</span>
-<span class="sd">                * `End of line  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/eol_in_annotation.rq&gt;`_</span>
+<span class="sd">                * `Definition dot  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/end_dot_def_missing.rq.rq&gt;`_</span>
+<span class="sd">                * `Label dot  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/end_dot_label.rq&gt;`_</span>
+<span class="sd">                * `End space  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/end_space_annotation.rq&gt;`_</span>
+<span class="sd">                * `Start space  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/start_space_annotation.rq&gt;`_</span>
+<span class="sd">                * `Tab  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/tab_in_annotation.rq&gt;`_</span>
+<span class="sd">                * `End of line  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/eol_in_annotation.rq&gt;`_</span>
+
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query_dot_def</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/end_dot_def_missing.rq&quot;</span>
+        <span class="n">query_dot_label</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/end_dot_label.rq&quot;</span>
+        <span class="n">query_end_space</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/end_space_annotation.rq&quot;</span>
+        <span class="n">query_eol</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/eol_in_annotation.rq&quot;</span>
+        <span class="n">query_start_space</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/start_space_annotation.rq&quot;</span>
+        <span class="n">query_tab</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/tab_in_annotation.rq&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/end_dot_def_missing.rq&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query_dot_def</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -370,8 +390,7 @@
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/end_dot_label.rq&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query_dot_label</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -395,8 +414,7 @@
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/end_space_annotation.rq&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query_end_space</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -422,8 +440,7 @@
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/eol_in_annotation.rq&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query_eol</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -449,8 +466,7 @@
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/start_space_annotation.rq&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query_start_space</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -476,8 +492,7 @@
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/tab_in_annotation.rq&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query_tab</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -512,10 +527,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that every deprecated concept has a replacement suggested (replaced_by or consider).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/deprecated_replacement.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/deprecated_replacement.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: error</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/deprecated_replacement.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/deprecated_replacement.rq&quot;</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -553,13 +572,19 @@
 
 <span class="sd">            &gt; SPARQL query available here :</span>
 
-<span class="sd">                * `get uri  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/get_uri.rq&gt;`_</span>
-<span class="sd">                * `uri reference &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/uri_reference.rq&gt;`_</span>
+<span class="sd">                * `get uri  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/get_uri.rq&gt;`_</span>
+<span class="sd">                * `uri reference &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/uri_reference.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: essential</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/get_uri.rq&quot;</span>
+        <span class="n">query_get_uri</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/get_uri.rq&quot;</span>
+        <span class="n">query_uri_reference</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/uri_reference.rq&quot;</span>
+
+        
         <span class="n">uri</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query_get_uri</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -568,8 +593,8 @@
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
             <span class="n">uri</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">])</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/uri_reference.rq&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query_uri_reference</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
@@ -606,10 +631,15 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that no mandatory property for deprecated concept are missing (edam:obsolete_since, edam:oldParent, oboInOwl:inSubset &lt;http://purl.obolibrary.org/obo/edam#obsolete&gt;, rdfs:subClassOf &lt;http://www.w3.org/2002/07/owl#DeprecatedClass&gt;).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/missing_deprecated_property.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/missing_deprecated_property.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: error </span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/missing_deprecated_property.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/missing_deprecated_property.rq&quot;</span>
+
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -636,17 +666,21 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
-    <span class="c1">################# MISSING WIKIPEDIA LINK ###########################</span>
+    <span class="c1">################# CHECK WIKIPEDIA LINK ###########################</span>
 
 <div class="viewcode-block" id="EdamQueryTest.test_check_wikipedia_link"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_check_wikipedia_link">[docs]</a>    <span class="k">def</span> <span class="nf">test_check_wikipedia_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that every topic has a wikipedia link filled in the seeAlso property.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/check_wikipedia_link.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/check_wikipedia_link.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/check_wikipedia_link.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/check_wikipedia_link.rq&quot;</span>
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -680,10 +714,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the no mandatory property for identifier (subclass of accession) are missing (regex).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/identifier_property_missing.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/identifier_property_missing.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/identifier_property_missing.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/identifier_property_missing.rq&quot;</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -717,19 +755,24 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the numerical part of the URI is not duplicated.</span>
 
-<span class="sd">        Uses a small python script to retrieve all duplicated id available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/edamxpath_id_unique.py&gt;`_</span>
+<span class="sd">        Uses a small python script to retrieve all duplicated id available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/edamxpath_id_unique.py&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: error</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">duplicate_id</span> <span class="o">=</span> <span class="n">check_unique_id</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EDAM_PATH&quot;</span><span class="p">))</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/get_uri.rq&quot;</span>
+
+        <span class="n">duplicate_id</span> <span class="o">=</span> <span class="n">check_unique_id</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EDAM_PATH&quot;</span><span class="p">))</span>  <span class="c1">#  this function only returns the second of the duplicated id. If the id are not strictly identical and their subontology is different, only one line will be visible in the report table for this error (ex format_1234 is duplicate of data_1234).</span>
         <span class="n">nb_err</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicate_id</span><span class="p">)</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/get_uri.rq&quot;</span>
-        <span class="n">uri</span> <span class="o">=</span> <span class="p">[]</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_term</span><span class="p">)</span>
         <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
 
         <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">duplicate_id</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
@@ -765,10 +808,15 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that a concept is not in relation (restriction) with a concept &quot;not recommended for annotation&quot;.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/relation_too_broad.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/relation_too_broad.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/relation_too_broad.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/relation_too_broad.rq&quot;</span>
+
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -785,7 +833,7 @@
                         <span class="n">r</span><span class="p">[</span><span class="s2">&quot;entity&quot;</span><span class="p">],</span>
                         <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">),</span>
                         <span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;linked (</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) with a concept not recomanded for annotation : &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;linked (</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) with a concept not recommended for annotation : &#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
                         <span class="p">),</span>
                     <span class="p">]</span>
                 <span class="p">],</span>
@@ -804,10 +852,15 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that there is no duplicate content (case insensitive) within a concept on given properties.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/duplicate_in_concept.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/duplicate_in_concept.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/duplicate_in_concept.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/duplicate_in_concept.rq&quot;</span>
+
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -834,7 +887,7 @@
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
 
-        <span class="c1"># here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.</span>
+        <span class="c1"># here for each duplicate there will be 2 line in the table but this is mandatory if there is 3 time the same content.</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
@@ -845,11 +898,15 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/duplicate_all.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/duplicate_all.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># this is case sensitive for computational time reasons</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/duplicate_all.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/duplicate_all.rq&quot;</span>
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -876,7 +933,7 @@
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span> <span class="n">new_error</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
 
-        <span class="c1"># here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.</span>
+        <span class="c1"># here for each duplicate there will be 2 line in the table but this is mandatory if there is 3 time the same content.</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">nb_err</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
@@ -887,10 +944,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that all webpage and doi are declared as literal links.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/literal_links.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/literal_links.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/literal_links.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/literal_links.rq&quot;</span>
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -926,10 +987,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the &quot;next id&quot; property is equal to &quot;the maximal concept id numerical part&quot; +1.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/get_id_and_next_id.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/get_id_and_next_id.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: error</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/get_id_and_next_id.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/get_id_and_next_id.rq&quot;</span>
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -970,10 +1035,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that the &quot;subset&quot; part of a concept id is the same as its superclass (e.g. data concept only subclass of another data concept).</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/subset_id.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/subset_id.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: error</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/subset_id.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/subset_id.rq&quot;</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -1009,10 +1078,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that a relation between concepts is not pointing towards obsolete concepts (is_format_of, has_input, has_output, is_identifier_of, has_topic ...)</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/object_relation_obsolete.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue/queries_python/object_relation_obsolete.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: error</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/object_relation_obsolete.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/object_relation_obsolete.rq&quot;</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -1046,11 +1119,17 @@
 <div class="viewcode-block" id="EdamQueryTest.test_format_property_missing"><a class="viewcode-back" href="../caseologue_python.html#caseologue.EdamQueryTest.test_format_property_missing">[docs]</a>    <span class="k">def</span> <span class="nf">test_format_property_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inhereted &quot;is_format_of&quot; property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph. </span>
+<span class="sd">        Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inherited &quot;is_format_of&quot; property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph. </span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/format_property_missing.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/format_property_missing.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">construct</span> <span class="o">=</span> <span class="s2">&quot;queries/is_format_of_construct.rq&quot;</span>
+
+        <span class="n">construct</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/is_format_of_construct.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/format_property_missing.rq&quot;</span>
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">construct</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">construct_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         
@@ -1059,7 +1138,7 @@
             <span class="n">update_edam</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">edam_graph</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
 
         <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/format_property_missing.rq&quot;</span>
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results_update</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
@@ -1096,10 +1175,15 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks that no property is empty.</span>
 
-<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/empty_property.rq&gt;`_</span>
+<span class="sd">            &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/empty_property.rq&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: error</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;queries/empty_property.rq&quot;</span>
+        <span class="n">query</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/queries/empty_property.rq&quot;</span>
+
+        
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">query_term</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -1134,9 +1218,13 @@
 <span class="sd">        Uses unix codespell command and custom spelling dictionary to check spelling errors in EDAM.</span>
 
 <span class="sd">            &gt; GitHub page of codespell available `here  &lt;https://github.com/codespell-project/codespell&gt;`_</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: curation</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">spelling_ignore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s2">&quot;/spelling_ignore.txt&quot;</span>
         <span class="n">edam_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EDAM_PATH&quot;</span><span class="p">))</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;codespell -I spelling_ignore.txt &quot;</span> <span class="o">+</span> <span class="n">edam_path</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;codespell -I &quot;</span> <span class="o">+</span> <span class="n">spelling_ignore</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">edam_path</span>
 
         <span class="n">output</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">spelling_err</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1169,15 +1257,15 @@
 
     <span class="c1"># ################# XXXXXTEMPLATE TO COPY-PASTEXXXXX ###########################</span>
 
-    <span class="c1"># def XXXtest_nameXXX(self):</span>
+    <span class="c1"># def XXXtest_nameXXX(self, query =self.dir_path + &quot;/queries/XXXQUERY_FILEXXX.rq&quot;):</span>
 
     <span class="c1">#     &quot;&quot;&quot;</span>
     <span class="c1">#     XXXXDocstring documentation.XXXX</span>
 
-    <span class="c1">#         &gt; SPARQL query available `here  &lt;https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/XXXXXX.rq&gt;`_</span>
+    <span class="c1">#         &gt; SPARQL query available `here  &lt;https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/XXXXXX.rq&gt;`_</span>
     <span class="c1">#     &quot;&quot;&quot;</span>
 
-    <span class="c1">#     query = &quot;queries/XXXQUERY_FILEXXX.rq&quot;</span>
+    <span class="c1">#     </span>
     <span class="c1">#     with open(query, &quot;r&quot;) as f:</span>
     <span class="c1">#         query_term = f.read()</span>
 
@@ -1209,14 +1297,14 @@
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :meta private:</span>
-<span class="sd">        doctring set to private to avoid automatic default docstring in documentation</span>
+<span class="sd">        docstring set to private to avoid automatic default docstring in documentation</span>
+<span class="sd">        </span>
+<span class="sd">        Severity level: XXXX</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># output = cls.report.sort(&#39;Level&#39;,)</span>
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">empty</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">_____________________________________________________________________________________________</span><span class="se">\n\n</span><span class="s2">Following debug table can be found as a tsv file at the bottom of the summary of this job</span><span class="se">\n</span><span class="s2">_____________________________________________________________________________________________&quot;</span>
-            <span class="p">)</span>
             <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span>
                 <span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
