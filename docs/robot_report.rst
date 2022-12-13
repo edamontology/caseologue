@@ -9,7 +9,7 @@ Some of these queries were modified to fit the EDAM properties declaration.
 
 You can check out our custom selection of the robot SPARQL queries in our caseologue repository  `here <https://github.com/edamontology/caseologue/tree/main/robot_config/report_queries.txt>`_.
 
-Installation & Usage
+Get started
 ---------------------
 
 You can access the ROBOT installation documentation  `here <http://robot.obolibrary.org/>`_. 
