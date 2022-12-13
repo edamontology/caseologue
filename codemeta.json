@@ -1,0 +1,14 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "identifier": "",
+  "codeRepository": "https://github.com/edamontology/caseologue",
+  "datePublished": "2022-12-13",
+  "dateModified": "2022-12-13",
+  "dateCreated": "2022-12-13",
+  "description": "Caseologue is a set of tools used to ensure the consistency, coherence and stability of the EDAM ontology and its extensions.",
+  "keywords": "Ontology, Standards, Continuous integration, FAIR research outputs, Quality control",
+  "license": "MIT",
+  "title": "Caseologue",
+  "version": "v1.0.0"
+}

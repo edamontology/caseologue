@@ -7,7 +7,7 @@ A **reasoner** is run on EDAM using the ROBOT `reason command <http://robot.obol
 
 By running ELK we validate the **semantic consistency** of the EDAM ontology by inferring logical consequences from the ontology axioms. 
 
-Installation & Usage
+Get started
 ---------------------
 
 You can check out robot installation documentation  `here <http://robot.obolibrary.org/>`_. 
