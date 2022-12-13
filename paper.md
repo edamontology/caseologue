@@ -60,7 +60,7 @@ Robot report function is a generic ontology quality control tool. This tool is c
 
 ### ELK
 
-ELK is an reasonner that validate the semantic consistency of the EDAM ontology by inferring logical consequences from the ontology axioms.
+ELK is an reasonner that validate the semantic consistency of the EDAM ontology by inferring logical consequences from the ontology axioms. I it run on EDAM using the ROBOT reason tool. 
 
 ### Caseologue custom pyhton script
 
@@ -82,11 +82,13 @@ Description of all tests is available in our documentation (link ref)
 
 ### Continous Integration
 
-The caseologue suite is implemented in GitHub Actions to run quality checks at each Pull Requests created into the main EDAM Ontology repository. It can also be run manually when needed from the caseologue and the main edamontology repositories.
+The caseologue suite is implemented in GitHub Actions to run quality checks at each Pull Requests created into the main EDAM Ontology repository. Github Actions workflows can also be run manually when needed from the caseologue and the main edamontology repositories going into the "Actions" tab, selecting the wanted workflow on the left panel, clicking on "Run workflow" above the runs list.
 
 A reusable workflow is available for each test in the caseologue repository. The caseologue_robot_report, caseologue_robot_reason and caseologue_python workflows all take as input a path to an EDAM.owl file. caseologue_python can also take as input the error level options chosen to run the tool (see above).
 
 These reusable workflows can't run on their own, they need to be called by another GitHub Actions yaml file. This "caller" workflow will need to upload the tested EDAM.owl file as an artifact so it can be downloaded and used by the "called" workflow (i.e. caseologue_robot_report, caseologue_robot_reason or caseologue_python).
+
+All tools (ROBOT report, ELK, Caseologue pyhton script) can be run locally using command line. See "Get started" paragraph in our documentation (link ref).
 
 # Conclusion
 
@@ -95,5 +97,7 @@ All together these tools ensure the syntactic and semantic consistency of the on
 For now the custom caseologue python script can run up to 20 tests and more test will be added in the future. 
 
 # Acknowledgements
+
+Alban, Johan? Veit? 
 
 # References
