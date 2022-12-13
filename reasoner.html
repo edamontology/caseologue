@@ -42,7 +42,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="caseologue_python.html">1. Caseologue custom python script</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. Reasoner - ELK</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation-usage">2.1. Installation &amp; Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-started">2.1. Get started</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="robot_report.html">3. ROBOT report</a></li>
@@ -77,8 +77,8 @@
 <span id="reasoner"></span><h1><span class="section-number">2. </span>Reasoner - ELK<a class="headerlink" href="#reasoner-elk" title="Permalink to this heading"></a></h1>
 <p>A <strong>reasoner</strong> is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/reason">reason command</a>, which calls the <a class="reference external" href="http://liveontologies.github.io/elk-reasoner/">ELK reasoner</a>.</p>
 <p>By running ELK we validate the <strong>semantic consistency</strong> of the EDAM ontology by inferring logical consequences from the ontology axioms.</p>
-<section id="installation-usage">
-<h2><span class="section-number">2.1. </span>Installation &amp; Usage<a class="headerlink" href="#installation-usage" title="Permalink to this heading"></a></h2>
+<section id="get-started">
+<h2><span class="section-number">2.1. </span>Get started<a class="headerlink" href="#get-started" title="Permalink to this heading"></a></h2>
 <p>You can check out robot installation documentation  <a class="reference external" href="http://robot.obolibrary.org/">here</a>.</p>
 <p>Once robot is installed you can run ELK with robot reason on EDAM using this command</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">robot</span> <span class="n">reason</span> <span class="o">--</span><span class="n">reasoner</span> <span class="n">ELK</span>  <span class="o">--</span><span class="nb">input</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">EDAM</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">v</span>

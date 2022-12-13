@@ -43,7 +43,7 @@
 <li class="toctree-l1"><a class="reference internal" href="caseologue_python.html">1. Caseologue custom python script</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reasoner.html">2. Reasoner - ELK</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3. ROBOT report</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation-usage">3.1. Installation &amp; Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-started">3.1. Get started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test-and-output-documentation">3.2. Test and output documentation</a></li>
 </ul>
 </li>
@@ -80,8 +80,8 @@
 ROBOT report is a <strong>command line tool</strong> calling a <strong>customizable list</strong> of <a class="reference external" href="http://robot.obolibrary.org/report_queries/">SPARQL queries</a>  that ensure <strong>basic requirements</strong> for all ontologies following the OBO guidelines (e.g. presence of a licence, no more than one label in a entity)
 Some of these queries were modified to fit the EDAM properties declaration.</p>
 <p>You can check out our custom selection of the robot SPARQL queries in our caseologue repository  <a class="reference external" href="https://github.com/edamontology/caseologue/tree/main/robot_config/report_queries.txt">here</a>.</p>
-<section id="installation-usage">
-<h2><span class="section-number">3.1. </span>Installation &amp; Usage<a class="headerlink" href="#installation-usage" title="Permalink to this heading"></a></h2>
+<section id="get-started">
+<h2><span class="section-number">3.1. </span>Get started<a class="headerlink" href="#get-started" title="Permalink to this heading"></a></h2>
 <p>You can access the ROBOT installation documentation  <a class="reference external" href="http://robot.obolibrary.org/">here</a>.</p>
 <p>Once ROBOT is installed, you can run ROBOT report on EDAM using this command</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ROBOT</span> <span class="n">report</span> <span class="o">--</span><span class="nb">input</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">EDAM</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">output</span> <span class="o">&lt;</span><span class="n">output</span> <span class="n">tsv</span> <span class="n">file</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">profile</span> <span class="n">report_queries</span><span class="o">.</span><span class="n">txt</span>

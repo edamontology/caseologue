@@ -8,7 +8,7 @@ Caseologue custom python script
 This custom python script **complements** the tests performed by the ELK reasoner and the ROBOT report tool.
 It allows us to test for **specific features** of the EDAM ontology (e.g. check for wikipedia links or for mandatory properties)
 
-Installation & Usage
+Get started
 ---------------------
 
 This tool is not yet available as a python or a conda package. To use it on your owl file, you will need to clone the public GitHub repository: 
