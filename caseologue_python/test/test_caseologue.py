@@ -75,7 +75,7 @@ if __name__ == "__main__":
     test_caseologue(name= "missing_deprecated_property", nb_expected_error=3)
     test_caseologue(name= "check_wikipedia_link", nb_expected_error=2)
     test_caseologue(name= "identifier_property_missing", nb_expected_error=1)
-    test_caseologue(name= "id_unique", nb_expected_error=4)
+    test_caseologue(name= "id_unique", nb_expected_error=2)
     test_caseologue(name= "relation_too_broad", nb_expected_error=1)
     test_caseologue(name= "duplicate_in_concept", nb_expected_error=2)
     test_caseologue(name= "duplicate_all", nb_expected_error=1)
