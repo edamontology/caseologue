@@ -15,7 +15,7 @@ This tool is not yet available as a python or a conda package. To use it on your
 ::
    git clone git@github.com:edamontology/edam-validation.git
 
-Move to the caseologue directory and run:
+Move to the caseologue_python directory and run:
 :: 
    EDAM_PATH=<path to test data> python3  caseologue.py --options  
 
