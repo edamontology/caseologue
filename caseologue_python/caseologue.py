@@ -1,8 +1,6 @@
-import inspect
 import unittest
 from rdflib import OWL, ConjunctiveGraph, Namespace
 import os
-import subprocess
 import pandas as pd
 import argparse
 import sys
@@ -65,7 +63,7 @@ def suite():
         suite.addTest(EdamQueryTest("test_relation_too_broad"))
         suite.addTest(EdamQueryTest("test_duplicate_in_concept"))
         suite.addTest(EdamQueryTest("test_literal_links"))
-        #        suite.addTest(EdamQueryTest('test_duplicate_all'))
+        #        suite.addTest(EdamQueryTest('test_duplicate_all'))   too long computing time for now 
         suite.addTest(EdamQueryTest("test_format_property_missing"))
 
     if run_essential == True:
@@ -91,13 +89,15 @@ def suite():
 
 
 class EdamQueryTest(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
 
         """
         :meta private:
-        doctring set to private to avoid automatic default docstring in documentation
+        docstring set to private to avoid automatic default docstring in documentation
         """
+        cls.dir_path=os.path.dirname(os.path.realpath(__file__))
         cls.edam_graph = ConjunctiveGraph()
         cls.edam_graph.parse(os.environ.get("EDAM_PATH"), format="xml")
         cls.report = pd.DataFrame(
@@ -112,11 +112,14 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that the suggested replacement (replacedBy/consider) for a deprecated term is not obsolete.
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/deprecated_replacement_obsolete.rq>`_
+        > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/deprecated_replacement_obsolete.rq>`_
+        
+        Severity level: curation
 
         """
+        
+        query=self.dir_path + "/queries/deprecated_replacement_obsolete.rq"
 
-        query = "queries/deprecated_replacement_obsolete.rq"
         with open(query, "r") as f:
             query_term = f.read()
         results = self.edam_graph.query(query_term)
@@ -151,10 +154,13 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks if a given concept doesn't refers to itself as superclass.
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/super_class_refers_to_self.rq>`_
-        """
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/super_class_refers_to_self.rq>`_
+        
+        Severity level: essential
 
-        query = "queries/super_class_refers_to_self.rq"
+        """
+        query =self.dir_path + "/queries/super_class_refers_to_self.rq"
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -188,11 +194,14 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that the concepts URI matches the regex ^http://edamontology.org/(data|topic|operation|format)_[0-9]{4}$.
 
-           > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/bad_uri.rq>`_
+           > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/bad_uri.rq>`_
+
+        
+        Severity level: essential
 
         """
+        query =self.dir_path + "/queries/bad_uri.rq"
 
-        query = "queries/bad_uri.rq"
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -226,10 +235,13 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that no mandatory property for all concepts are missing (oboInOwl:hasDefinition, rdfs:subClassOf, created_in, oboInOwl:inSubset, rdfs:label).
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/mandatory_property_missing.rq>`_
-        """
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/mandatory_property_missing.rq>`_
+        
+        Severity level: error
 
-        query = "queries/mandatory_property_missing.rq"
+        """
+        query =self.dir_path + "/queries/mandatory_property_missing.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -266,17 +278,25 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available here:
 
-                * `Definition dot  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_dot_def_missing.rq.rq>`_
-                * `Lable dot  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_dot_label.rq>`_
-                * `End space  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/end_space_annotation.rq>`_
-                * `Start space  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/start_space_annotation.rq>`_
-                * `Tab  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/tab_in_annotation.rq>`_
-                * `End of line  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/eol_in_annotation.rq>`_
+                * `Definition dot  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/end_dot_def_missing.rq.rq>`_
+                * `Label dot  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/end_dot_label.rq>`_
+                * `End space  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/end_space_annotation.rq>`_
+                * `Start space  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/start_space_annotation.rq>`_
+                * `Tab  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/tab_in_annotation.rq>`_
+                * `End of line  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/eol_in_annotation.rq>`_
+
+        
+        Severity level: curation
 
         """
+        query_dot_def =self.dir_path + "/queries/end_dot_def_missing.rq"
+        query_dot_label =self.dir_path + "/queries/end_dot_label.rq"
+        query_end_space =self.dir_path + "/queries/end_space_annotation.rq"
+        query_eol =self.dir_path + "/queries/eol_in_annotation.rq"
+        query_start_space =self.dir_path + "/queries/start_space_annotation.rq"
+        query_tab =self.dir_path + "/queries/tab_in_annotation.rq"
 
-        query = "queries/end_dot_def_missing.rq"
-        with open(query, "r") as f:
+        with open(query_dot_def, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -300,8 +320,7 @@ class EdamQueryTest(unittest.TestCase):
                 [self.report, new_error], ignore_index=True
             )
 
-        query = "queries/end_dot_label.rq"
-        with open(query, "r") as f:
+        with open(query_dot_label, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -325,8 +344,7 @@ class EdamQueryTest(unittest.TestCase):
                 [self.report, new_error], ignore_index=True
             )
 
-        query = "queries/end_space_annotation.rq"
-        with open(query, "r") as f:
+        with open(query_end_space, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -352,8 +370,7 @@ class EdamQueryTest(unittest.TestCase):
                 [self.report, new_error], ignore_index=True
             )
 
-        query = "queries/eol_in_annotation.rq"
-        with open(query, "r") as f:
+        with open(query_eol, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -379,8 +396,7 @@ class EdamQueryTest(unittest.TestCase):
                 [self.report, new_error], ignore_index=True
             )
 
-        query = "queries/start_space_annotation.rq"
-        with open(query, "r") as f:
+        with open(query_start_space, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -406,8 +422,7 @@ class EdamQueryTest(unittest.TestCase):
                 [self.report, new_error], ignore_index=True
             )
 
-        query = "queries/tab_in_annotation.rq"
-        with open(query, "r") as f:
+        with open(query_tab, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -442,10 +457,14 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that every deprecated concept has a replacement suggested (replaced_by or consider).
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/deprecated_replacement.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/deprecated_replacement.rq>`_
+        
+        Severity level: error
+
         """
 
-        query = "queries/deprecated_replacement.rq"
+        query =self.dir_path + "/queries/deprecated_replacement.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -483,13 +502,19 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available here :
 
-                * `get uri  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/get_uri.rq>`_
-                * `uri reference <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/uri_reference.rq>`_
+                * `get uri  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/get_uri.rq>`_
+                * `uri reference <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/uri_reference.rq>`_
+        
+        Severity level: essential
+
         """
 
-        query = "queries/get_uri.rq"
+        query_get_uri =self.dir_path + "/queries/get_uri.rq"
+        query_uri_reference =self.dir_path + "/queries/uri_reference.rq"
+
+        
         uri = []
-        with open(query, "r") as f:
+        with open(query_get_uri, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -498,8 +523,8 @@ class EdamQueryTest(unittest.TestCase):
         for r in results:
             uri.append(r["entity"])
 
-        query = "queries/uri_reference.rq"
-        with open(query, "r") as f:
+        
+        with open(query_uri_reference, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
@@ -536,10 +561,15 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that no mandatory property for deprecated concept are missing (edam:obsolete_since, edam:oldParent, oboInOwl:inSubset <http://purl.obolibrary.org/obo/edam#obsolete>, rdfs:subClassOf <http://www.w3.org/2002/07/owl#DeprecatedClass>).
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/missing_deprecated_property.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/missing_deprecated_property.rq>`_
+        
+        Severity level: error 
+
         """
 
-        query = "queries/missing_deprecated_property.rq"
+        query =self.dir_path + "/queries/missing_deprecated_property.rq"
+
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -566,17 +596,21 @@ class EdamQueryTest(unittest.TestCase):
 
         self.assertEqual(nb_err, 0)
 
-    ################# MISSING WIKIPEDIA LINK ###########################
+    ################# CHECK WIKIPEDIA LINK ###########################
 
     def test_check_wikipedia_link(self):
 
         """
         Checks that every topic has a wikipedia link filled in the seeAlso property.
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/check_wikipedia_link.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/check_wikipedia_link.rq>`_
+        
+        Severity level: curation
+
         """
 
-        query = "queries/check_wikipedia_link.rq"
+        query =self.dir_path + "/queries/check_wikipedia_link.rq"
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -610,10 +644,14 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks the no mandatory property for identifier (subclass of accession) are missing (regex).
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/identifier_property_missing.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/identifier_property_missing.rq>`_
+        
+        Severity level: curation
+
         """
 
-        query = "queries/identifier_property_missing.rq"
+        query =self.dir_path + "/queries/identifier_property_missing.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -647,19 +685,24 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that the numerical part of the URI is not duplicated.
 
-        Uses a small python script to retrieve all duplicated id available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/edamxpath_id_unique.py>`_
+        Uses a small python script to retrieve all duplicated id available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/edamxpath_id_unique.py>`_
+        
+        Severity level: error
+
         """
 
-        duplicate_id = check_unique_id(os.environ.get("EDAM_PATH"))
+        query =self.dir_path + "/queries/get_uri.rq"
+
+        duplicate_id = check_unique_id(os.environ.get("EDAM_PATH"))  #  this function only returns the second of the duplicated id. If the id are not strictly identical and their subontology is different, only one line will be visible in the report table for this error (ex format_1234 is duplicate of data_1234).
         nb_err = len(duplicate_id)
 
-        query = "queries/get_uri.rq"
-        uri = []
+
         with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
         f.close()
+
 
         for id in duplicate_id:
             for r in results:
@@ -695,10 +738,15 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that a concept is not in relation (restriction) with a concept "not recommended for annotation".
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/relation_too_broad.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/relation_too_broad.rq>`_
+        
+        Severity level: curation
+
         """
 
-        query = "queries/relation_too_broad.rq"
+        query =self.dir_path + "/queries/relation_too_broad.rq"
+
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -715,7 +763,7 @@ class EdamQueryTest(unittest.TestCase):
                         r["entity"],
                         (f"'{r['label']}'"),
                         (
-                            f"linked ({r['property']}) with a concept not recomanded for annotation : '{r['value']}'"
+                            f"linked ({r['property']}) with a concept not recommended for annotation : '{r['value']}'"
                         ),
                     ]
                 ],
@@ -734,10 +782,15 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that there is no duplicate content (case insensitive) within a concept on given properties.
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/duplicate_in_concept.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/duplicate_in_concept.rq>`_
+        
+        Severity level: curation
+
         """
 
-        query = "queries/duplicate_in_concept.rq"
+        query =self.dir_path + "/queries/duplicate_in_concept.rq"
+
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -764,7 +817,7 @@ class EdamQueryTest(unittest.TestCase):
                 [self.report, new_error], ignore_index=True
             )
 
-        # here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
+        # here for each duplicate there will be 2 line in the table but this is mandatory if there is 3 time the same content.
 
         self.assertEqual(nb_err, 0)
 
@@ -775,11 +828,15 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/duplicate_all.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/duplicate_all.rq>`_
+        
+        Severity level: curation
+
         """
         # this is case sensitive for computational time reasons
 
-        query = "queries/duplicate_all.rq"
+        query =self.dir_path + "/queries/duplicate_all.rq"
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -806,7 +863,7 @@ class EdamQueryTest(unittest.TestCase):
                 [self.report, new_error], ignore_index=True
             )
 
-        # here for each duplicate there will be 2 line in the table but this is mandaotry if there is 3 time the same content.
+        # here for each duplicate there will be 2 line in the table but this is mandatory if there is 3 time the same content.
 
         self.assertEqual(nb_err, 0)
 
@@ -817,10 +874,14 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that all webpage and doi are declared as literal links.
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/literal_links.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/literal_links.rq>`_
+        
+        Severity level: curation
+
         """
 
-        query = "queries/literal_links.rq"
+        query =self.dir_path + "/queries/literal_links.rq"
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -856,10 +917,14 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that the "next id" property is equal to "the maximal concept id numerical part" +1.
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/get_id_and_next_id.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/get_id_and_next_id.rq>`_
+        
+        Severity level: error
+
         """
 
-        query = "queries/get_id_and_next_id.rq"
+        query =self.dir_path + "/queries/get_id_and_next_id.rq"
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -900,10 +965,14 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that the "subset" part of a concept id is the same as its superclass (e.g. data concept only subclass of another data concept).
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/subset_id.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/subset_id.rq>`_
+        
+        Severity level: error
+
         """
 
-        query = "queries/subset_id.rq"
+        query =self.dir_path + "/queries/subset_id.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -939,10 +1008,14 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that a relation between concepts is not pointing towards obsolete concepts (is_format_of, has_input, has_output, is_identifier_of, has_topic ...)
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/object_relation_obsolete.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue/queries_python/object_relation_obsolete.rq>`_
+        
+        Severity level: error
+
         """
 
-        query = "queries/object_relation_obsolete.rq"
+        query =self.dir_path + "/queries/object_relation_obsolete.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -976,11 +1049,17 @@ class EdamQueryTest(unittest.TestCase):
     def test_format_property_missing(self):
 
         """
-        Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inhereted "is_format_of" property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph. 
+        Checks the no mandatory property for format are missing (documentation,is_format_of). To make sure not to miss the inherited "is_format_of" property from parent concept, a CONSTRUCT query is used to add the missing triplets to the graph. 
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/format_property_missing.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/format_property_missing.rq>`_
+        
+        Severity level: curation
+
         """
-        construct = "queries/is_format_of_construct.rq"
+
+        construct =self.dir_path + "/queries/is_format_of_construct.rq"
+        query =self.dir_path + "/queries/format_property_missing.rq"
+        
         with open(construct, "r") as f:
             construct_term = f.read()
         
@@ -989,7 +1068,7 @@ class EdamQueryTest(unittest.TestCase):
             update_edam=self.edam_graph.add((r[0],r[1],r[2]))
 
         f.close()
-        query = "queries/format_property_missing.rq"
+        
         with open(query, "r") as f:
             query_term = f.read()
         if len(results_update)!=0:
@@ -1026,10 +1105,15 @@ class EdamQueryTest(unittest.TestCase):
         """
         Checks that no property is empty.
 
-            > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/empty_property.rq>`_
+            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/empty_property.rq>`_
+        
+        Severity level: error
+
         """
 
-        query = "queries/empty_property.rq"
+        query =self.dir_path + "/queries/empty_property.rq"
+
+        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -1064,9 +1148,13 @@ class EdamQueryTest(unittest.TestCase):
         Uses unix codespell command and custom spelling dictionary to check spelling errors in EDAM.
 
             > GitHub page of codespell available `here  <https://github.com/codespell-project/codespell>`_
+        
+        Severity level: curation
+
         """
+        spelling_ignore = self.dir_path + "/spelling_ignore.txt"
         edam_path = str(os.environ.get("EDAM_PATH"))
-        cmd = "codespell -I spelling_ignore.txt " + edam_path
+        cmd = "codespell -I " + spelling_ignore + " " + edam_path
 
         output = os.popen(cmd).read()
         spelling_err = output.rsplit("\n")
@@ -1099,15 +1187,15 @@ class EdamQueryTest(unittest.TestCase):
 
     # ################# XXXXXTEMPLATE TO COPY-PASTEXXXXX ###########################
 
-    # def XXXtest_nameXXX(self):
+    # def XXXtest_nameXXX(self, query =self.dir_path + "/queries/XXXQUERY_FILEXXX.rq"):
 
     #     """
     #     XXXXDocstring documentation.XXXX
 
-    #         > SPARQL query available `here  <https://github.com/edamontology/edam-validation/blob/main/caseologue_python/queries/XXXXXX.rq>`_
+    #         > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/XXXXXX.rq>`_
     #     """
 
-    #     query = "queries/XXXQUERY_FILEXXX.rq"
+    #     
     #     with open(query, "r") as f:
     #         query_term = f.read()
 
@@ -1139,14 +1227,14 @@ class EdamQueryTest(unittest.TestCase):
 
         """
         :meta private:
-        doctring set to private to avoid automatic default docstring in documentation
+        docstring set to private to avoid automatic default docstring in documentation
+        
+        Severity level: XXXX
+
         """
 
         # output = cls.report.sort('Level',)
         if cls.report.empty == False:
-            print(
-                "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________"
-            )
             pd.set_option(
                 "display.max_rows",
                 None,

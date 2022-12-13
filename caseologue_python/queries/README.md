@@ -5,6 +5,6 @@ EDAM_PATH=<_path to test data_> python3 -m unittest caseologue.EdamQueryTest.<_n
 
 
 example:\
-EDAM_PATH=bad_uri_test_data.owl python3 -m unittest caseologue.EdamQueryTest.test_bad_uri
+EDAM_PATH=test/data/bad_uri_test_data.owl python3 -m unittest caseologue.EdamQueryTest.test_bad_uri
 
 For description of queries, see linked tests in the documentation of caseologue.py

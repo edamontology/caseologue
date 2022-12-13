@@ -1,0 +1,31 @@
+
+name: test caseologue
+
+on: 
+  workflow_dispatch:
+  push:
+    paths: 
+      - 'caseologue_python/**'
+
+jobs:
+  
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - uses: actions/checkout@v2
+
+    - name: Install requirements
+      run: |
+        pip install -r caseologue_python/requirements.txt
+    - name: run test_caseologue
+      if: always()
+      run: |
+        cd caseologue_python/test/
+        python3 test_caseologue.py
+
+
+
+# duplicate all not tested, too long to run
