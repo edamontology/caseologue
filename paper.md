@@ -44,14 +44,14 @@ EDAM is developed in a participatory and transparent fashion, within a broad and
 
 To streamline and accelerate the evolution of EDAM, we have developed and integrated a set of tools that automate the quality control and release process for the ontology, Caseologue. In addition to ensuring the global consistency of EDAM, it enforces edition best practices both at the syntactic and semantic levels. These tools have been integrated in a continuous integration (CI) pipeline, automated using GitHub Actions in the source-code repository. 
 
-![](./paper_ressources/Figure_front_page.png)
+![](./paper_resources/Figure_front_page.png)
 
-# Architecture and workflows
+# Technical components
 
 Caseologue is a tool suite that comprises: 
 
-  - A custom version of the ROBOT [@usesDataFrom:jackson2019robot] report query tool.
-  - ELK ontology reasoner [usesDataFrom:kazakovincredible] called using the robot reason command.
+  - A custom version of the ROBOT [@jackson2019robot] report query tool.
+  - ELK ontology reasoner [@kazakovincredible] called using the robot reason command.
   - A in house developed python script to complement the above tools and further test the EDAM ontology with tailored quality checks.
 
 ### Robot report
@@ -68,7 +68,7 @@ This custom python script complements the tests performed by the ELK reasoner an
 
 **Error**: tests validating the semantic and syntactic consistency of the ontology, that are mandatory to pass for a pull request to be merged on the GitHub repository.
 
-**Essential**: tests that can be applicable to other side of the EDAM ontology such as EDAM geo [usesDataFrom:lamothe_2022_7040439] of EDAM bioimaging [usesDataFrom:kalavs2020edam], also mandatory for pull request merge.
+**Essential**: tests that can be applicable to other side of the EDAM ontology such as EDAM geo [@lamothe_2022_7040439] of EDAM bioimaging [@kalavs2020edam], also mandatory for pull request merge.
 
 **Curation**: unmandatory tests, ran by maintainers, that, if failed, do not compromise the integrity or the logical structure of the ontology. The error level is also a staging area for tests that should be error or essential but still raise errors needing to be fixed.
 
@@ -76,9 +76,9 @@ All tests can easily be changed from severety level if needed depending on strat
 
 This custom caseologue python script will, by default, run all tests but can optionnaly only run the test with the needed severity level. 
 
-Almost all tests are calling a custom SPARQL query are query the input EDAM ontology owl file using the RDFlib library [@usesDataFrom:gunnar_aastrand_grimnes_2022_6845246] and return the results in a user friendly table.
+Almost all tests are calling a custom SPARQL query are query the input EDAM ontology owl file using the RDFlib library [@gunnar_aastrand_grimnes_2022_6845246] and return the results in a user friendly table.
 
-Description of all tests is available in our documentation (link ref)
+Description of all tests is available in our [documentation](https://edamontology.github.io/caseologue/).
 
 ### Continous Integration
 
@@ -88,7 +88,7 @@ A reusable workflow is available for each test in the caseologue repository. The
 
 These reusable workflows can't run on their own, they need to be called by another GitHub Actions yaml file. This "caller" workflow will need to upload the tested EDAM.owl file as an artifact so it can be downloaded and used by the "called" workflow (i.e. caseologue_robot_report, caseologue_robot_reason or caseologue_python).
 
-All tools (ROBOT report, ELK, Caseologue pyhton script) can be run locally using command line. See "Get started" paragraph in our documentation (link ref).
+All tools (ROBOT report, ELK, Caseologue pyhton script) can be run locally using command line. See "Get started" paragraph in our [documentation](https://edamontology.github.io/caseologue/).
 
 # Conclusion
 
