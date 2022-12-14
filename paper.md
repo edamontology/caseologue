@@ -50,8 +50,8 @@ To streamline and accelerate the evolution of EDAM, we have developed and integr
 
 Caseologue is a tool suite that comprises: 
 
-  - A custom version of the ROBOT [@jackson2019robot] report query tool.
-  - ELK ontology reasoner [@kazakovincredible] called using the robot reason command.
+  - ROBOT [@jackson2019robot] report query tool, a general ontology qulity control tool.
+  - ELK ontology reasoner [@kazakovincredible] called using the ROBOT reason command.
   - A in house developed python script to complement the above tools and further test the EDAM ontology with tailored quality checks.
 
 ### Robot report
