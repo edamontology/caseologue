@@ -1,6 +1,7 @@
 .env
 robot/report_profile.tsv
-caseologue/output_caseologue.tsv
+caseologue_python/output_caseologue.tsv
 **/__pycache__/
 docs/_build/
 robot/robot.jar*
+.vscode
