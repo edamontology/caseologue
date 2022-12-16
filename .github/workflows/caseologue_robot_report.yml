@@ -29,15 +29,14 @@ jobs:
     - name: run report 
       if: always()
       run: |
-        cd robot/
-        wget https://github.com/ontodev/robot/releases/download/v1.8.1/robot.jar
-        export PATH=:/home/runner/work/edamontology/edamontology/edam-validation/robot:$PATH
+        cd robot_config/
+        wget https://github.com/ontodev/robot/releases/download/v1.9.1/robot.jar
         java -jar robot.jar report --input ${{inputs.edam_path}} --output report_profile.tsv --profile report_queries.txt
 
     - name: Print report output
       if: always()
       run: |
-        more ./robot/report_profile.tsv
+        more ./robot_config/report_profile.tsv
 
 
     - name: Archive Robot report tests
@@ -45,4 +44,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: robot_report_profile
-        path: ./robot/report_profile.tsv
+        path: ./robot_config/report_profile.tsv

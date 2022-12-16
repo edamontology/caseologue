@@ -30,21 +30,21 @@ jobs:
   
     - name: Install requirements
       run: |
-        pip install -r caseologue/requirements.txt
+        pip install -r caseologue_python/requirements.txt
 
     - name: run 
       run: |
-        cd caseologue/
+        cd caseologue_python/
         EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
      
     # - name: Print output
     #   if: always()
     #   run: |
-    #     cat output_caseologue.tsv 
+    #     cat caseologue_python/output_caseologue.tsv 
 
     - name: Archive tests output
       if: always()
       uses: actions/upload-artifact@v2
       with:
         name: output_caseologue
-        path: caseologue/output_caseologue.tsv
+        path: caseologue_python/output_caseologue.tsv
