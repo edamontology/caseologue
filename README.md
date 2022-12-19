@@ -1,6 +1,6 @@
 # caseologue
 
-![](./logo_caseologue/Logo_Caseologue_Couleur.png)
+![](./logo_caseologue/Logo_Caseologue_Couleur.png){width=50%}
 
 **caseologue** is a set of tools used to ensure the consistency, coherence and stability of the EDAM ontology and its extensions.
 
