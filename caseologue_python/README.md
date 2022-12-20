@@ -10,14 +10,16 @@ pip install -r requirements.txt
 
 In the following, replace the edampath and use your python. (On Windows you might need to replace `python3` with `python`.)
 ```
-EDAM_PATH=../../edamontology/EDAM_dev.owl python3 caseologue.py 
+EDAM_PATH=../../edamontology/EDAM_dev.owl python3 caseologue.py -E
 ```
 
-Options:\
-  -e, --error      runs all error tests\
-  -E, --essential  runs all essential tests\
-  -c, --curation   runs all curation tests
-
+```shell
+Options:
+  -E, --essential  run only "essential" tests
+  -e, --error      run only "error" tests
+  -c, --curation   run only "curation" tests
+  default          run all tests
+```
 
 > Documentation using docstring for each tests: TO COMPLETE
 
