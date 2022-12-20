@@ -1195,7 +1195,7 @@ class EdamQueryTest(unittest.TestCase):
     #         > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/XXXXXX.rq>`_
     #     """
 
-    #     
+    #     query=self.dir_path + "/queries/xxxqueryxxx.rq"
     #     with open(query, "r") as f:
     #         query_term = f.read()
 
