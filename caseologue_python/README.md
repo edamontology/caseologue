@@ -1,12 +1,14 @@
 # caseologue
 caseologue is a CI python tool for the EDAM Ontology, grouping a set of tests (mostly using SPARQL queries) to validate the ontology. 
 
-Clone the repository and install requirements from the caseologue_python folder:
+## Run Caséologue
+
+Clone the repository, navigate to the `caseologue_python` folder, and install requirements:
 ```
 pip install -r requirements.txt
 ```
 
-run caseologue (replace the edampath and use your python version) from the caseologue_python folder:
+In the following, replace the edampath and use your python. (On Windows you might need to replace `python3` with `python`.)
 ```
 EDAM_PATH=../../edamontology/EDAM_dev.owl python3 caseologue.py 
 ```
