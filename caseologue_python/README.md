@@ -50,6 +50,9 @@ _____________________________________
 
   In the main function of test_caseologue.py, add a call of the "test_caseologue" function with the name of your newly added test and the number of expected error from your test data.
 
-5) **Run the test**
+5) **Run the test with test data**
 
-    First run it with its test data, see README.md in the ./caseologue_python/queries folder. Then test it with the whole EDAM, see README in the ./caseologue_python folder.
+ First run it with its test data, by running ``` python3 test_caseologue.py``` from the caseologue_python/test/ folder.
+
+6) **Run caseologue on EDAM**
+    Then test caseologue with the whole EDAM, see top of this file.
