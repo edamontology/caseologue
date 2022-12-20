@@ -29,13 +29,13 @@ _____________________________________
   
   The query file is written in SPARQL and should (as much as possible) return the problematic concept URI, their label, the faulting property. 
   
-  Add the query file to the ./caseologue_pyhton/queries directory. The name of the file is the name of the test. Words should be separated with "_". The name will be consistent across all caseologue. Extension should be ".rq"
+  Add the query file to the ./caseologue_python/queries directory. The name of the file is the name of the test. Words should be separated with "_". The name will be consistent across all caseologue. Extension should be ".rq"
 
 2) **Test data**
 
   The test data is a small owl code reusing existing EDAM concept and adding specific errors to test the added query. Use other example as template (for the name spaces).
   
-  Add the test data file to the ./caseologue_pyhton/queries directory. The name of the file should be the same as the query file it is testing + "_test_data". Extension should be ".owl"
+  Add the test data file to the ./caseologue_python/test/data directory. The name of the file should be the same as the query file it is testing + "_test_data". Extension should be ".owl"
 
 3) **Add the test in caseologue python script**
 
