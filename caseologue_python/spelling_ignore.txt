@@ -7,3 +7,5 @@ bu
 parm
 namd
 noe
+caf
+blosum
