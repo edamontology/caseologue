@@ -9,3 +9,6 @@ namd
 noe
 caf
 blosum
+preferrably
+focussed
+targetting
