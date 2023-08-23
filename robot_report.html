@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="python" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>3. ROBOT report &mdash; EDAM Continuous Interagtion custom tool  documentation</title>
@@ -11,12 +11,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d048f138"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> EDAM Continuous Interagtion custom tool
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EDAM Continuous Interagtion custom tool
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,7 +66,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active"><span class="section-number">3. </span>ROBOT report</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/edamontology/caseologue/blob/main/docs/robot_report.rst" class="fa fa-github"> Edit on GitHub</a>
@@ -75,13 +78,13 @@
            <div itemprop="articleBody">
              
   <section id="robot-report">
-<span id="id1"></span><h1><span class="section-number">3. </span>ROBOT report<a class="headerlink" href="#robot-report" title="Permalink to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">3. </span>ROBOT report<a class="headerlink" href="#robot-report" title="Link to this heading"></a></h1>
 <p><strong>A generic ontology quality control</strong> is run on EDAM using the ROBOT <a class="reference external" href="http://robot.obolibrary.org/report">report command</a>.
 ROBOT report is a <strong>command line tool</strong> calling a <strong>customizable list</strong> of <a class="reference external" href="http://robot.obolibrary.org/report_queries/">SPARQL queries</a>  that ensure <strong>basic requirements</strong> for all ontologies following the OBO guidelines (e.g. presence of a licence, no more than one label in a entity)
 Some of these queries were modified to fit the EDAM properties declaration.</p>
 <p>You can check out our custom selection of the robot SPARQL queries in our caseologue repository  <a class="reference external" href="https://github.com/edamontology/caseologue/tree/main/robot_config/report_queries.txt">here</a>.</p>
 <section id="get-started">
-<h2><span class="section-number">3.1. </span>Get started<a class="headerlink" href="#get-started" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">3.1. </span>Get started<a class="headerlink" href="#get-started" title="Link to this heading"></a></h2>
 <p>You can access the ROBOT installation documentation  <a class="reference external" href="http://robot.obolibrary.org/">here</a>.</p>
 <p>Once ROBOT is installed, you can run ROBOT report on EDAM using this command</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ROBOT</span> <span class="n">report</span> <span class="o">--</span><span class="nb">input</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">EDAM</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">output</span> <span class="o">&lt;</span><span class="n">output</span> <span class="n">tsv</span> <span class="n">file</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">profile</span> <span class="n">report_queries</span><span class="o">.</span><span class="n">txt</span>
@@ -90,7 +93,7 @@ Some of these queries were modified to fit the EDAM properties declaration.</p>
 <p>This tool returns in the output tsv file a table of all the detected errors.</p>
 </section>
 <section id="test-and-output-documentation">
-<h2><span class="section-number">3.2. </span>Test and output documentation<a class="headerlink" href="#test-and-output-documentation" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">3.2. </span>Test and output documentation<a class="headerlink" href="#test-and-output-documentation" title="Link to this heading"></a></h2>
 <dl class="simple">
 <dt>The output of the robot report tool is a tsv file compiling the detected error, warning and info. This tsv file has 5 columns.</dt><dd><ul class="simple">
 <li><p><strong>Level</strong>: can be ERROR, WARNING or INFO depending on the settings in the report_queries.txt file.</p></li>
