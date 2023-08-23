@@ -117,13 +117,18 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">edamontology</span><span class="o">/</span><span class="n">caseologue</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<p>Move to the caseologue_python directory and run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EDAM_PATH</span><span class="o">=&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">test</span> <span class="n">data</span><span class="o">&gt;</span> <span class="n">python3</span>  <span class="n">caseologue</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">options</span>
+<p>Move to the <cite>caseologue/caseologue_python</cite> directory and install requirements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
+<p>Then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EDAM_PATH</span><span class="o">=&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">test</span> <span class="n">data</span><span class="o">&gt;</span> <span class="n">python3</span> <span class="n">caseologue</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> On Windows you will need to write <cite>python</cite> instead of <cite>python3</cite>, which also works on Mac.</p>
 <p>By default the script will run all tests. You can filter the tests on error level using these options:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">e</span><span class="p">,</span> <span class="o">--</span><span class="n">error</span>      <span class="n">runs</span> <span class="nb">all</span> <span class="n">error</span> <span class="n">tests</span>
-<span class="o">-</span><span class="n">E</span><span class="p">,</span> <span class="o">--</span><span class="n">essential</span>  <span class="n">runs</span> <span class="nb">all</span> <span class="n">essential</span> <span class="n">tests</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">E</span><span class="p">,</span> <span class="o">--</span><span class="n">essential</span>  <span class="n">runs</span> <span class="nb">all</span> <span class="n">essential</span> <span class="n">tests</span>
+<span class="o">-</span><span class="n">e</span><span class="p">,</span> <span class="o">--</span><span class="n">error</span>      <span class="n">runs</span> <span class="nb">all</span> <span class="n">error</span> <span class="n">tests</span>
 <span class="o">-</span><span class="n">c</span><span class="p">,</span> <span class="o">--</span><span class="n">curation</span>   <span class="n">runs</span> <span class="nb">all</span> <span class="n">curation</span> <span class="n">tests</span>
 </pre></div>
 </div>
@@ -131,8 +136,8 @@ It allows us to test for <strong>specific features</strong> of the EDAM ontology
 <section id="options">
 <h3><span class="section-number">1.1.1. </span>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>Error</strong>: tests validating the semantic and syntactic consistency of the ontology, that are mandatory to pass for a pull request to be merged on the GitHub repository.</p></li>
 <li><p><strong>Essential</strong>: tests that can be applicable to other side of the EDAM ontology such as EDAM geo of EDAM bioimaging, , also mandatory for pull request merge.</p></li>
+<li><p><strong>Error</strong>: tests validating the semantic and syntactic consistency of the ontology, that are mandatory to pass for a pull request to be merged on the GitHub repository.</p></li>
 <li><p><strong>Curation</strong>: unmandatory tests, ran by maintainers, that, if failed, do not compromise the integrity or the logical structure of the ontology. The error level is also a staging area for tests that should be error or essential but still raise errors needing to be fixed.</p></li>
 </ul>
 </section>
