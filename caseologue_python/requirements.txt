@@ -1,6 +1,6 @@
-rdflib
-pandas
-argparse
-tabulate
-lxml
-codespell
+rdflib==7.0.0
+pandas==2.0.3
+argparse==1.4.0
+tabulate==0.9.0
+lxml==4.9.3
+codespell==2.2.5
