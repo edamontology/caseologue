@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'EDAM Continuous Interagtion custom tool'
-copyright = '2022, Lucie Lamothe, Alban Gaignard, Hervé Ménager, Matúš Kalaš'
-author = 'Lucie Lamothe, Alban Gaignard, Matúš Kalaš, Hervé Ménager'
+project = 'Caséologue - a validation tool for the EDAM ontology'
+copyright = '2022, Lucie Lamothe, Alban Gaignard, Bryan Brancotte, Matúš Kalaš, Hervé Ménager'
+author = 'Lucie Lamothe, Alban Gaignard, Bryan Brancotte, Matúš Kalaš, Hervé Ménager'
 
 import os
 import sys
