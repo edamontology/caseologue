@@ -13,7 +13,7 @@ Get started
 
 This tool is not yet available as a python or a conda package. To use it on your owl file, you will need to clone the public GitHub repository: 
 ::
-   git clone git@github.com:edamontology/edam-validation.git
+   git clone git@github.com:edamontology/caseologue.git
 
 Move to the caseologue_python directory and run:
 :: 
