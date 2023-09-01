@@ -6,6 +6,9 @@ on:
   push:
     paths: 
       - 'caseologue_python/**'
+  pull_request:
+    paths: 
+      - 'caseologue_python/**'
 
 jobs:
   
