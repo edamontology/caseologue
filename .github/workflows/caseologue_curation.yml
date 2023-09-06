@@ -1,0 +1,36 @@
+name: caseologue curation
+
+on: [workflow_dispatch]
+
+jobs:
+
+  upload_edam: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: download edam
+      run: wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
+    - name: upload edam
+      uses: actions/upload-artifact@v2
+      with:
+        name: input_ontology 
+        path: EDAM_dev.owl
+  
+  caseologue:
+    needs: upload_edam
+    uses: ./.github/workflows/caseologue_python.yml
+    with: 
+      edam_path: '../EDAM_dev.owl'
+      caseologue_options: '-c'
+
+  report:
+    needs: upload_edam
+    uses: ./.github/workflows/caseologue_robot_report.yml
+    with: 
+      edam_path: '../EDAM_dev.owl'
+
+  reason:
+    needs: upload_edam
+    uses: ./.github/workflows/caseologue_robot_reason.yml
+    with: 
+      edam_path: '../EDAM_dev.owl'
