@@ -1290,8 +1290,6 @@ if __name__ == "__main__":
     )
 
     runner = unittest.TextTestRunner()
-    snapshot = tracemalloc.take_snapshot()
-    top_stats = snapshot.statistics('lineno')
     # sys.exit(runner.run(suite()))
     cmd = runner.run(suite())
     print(cmd)
