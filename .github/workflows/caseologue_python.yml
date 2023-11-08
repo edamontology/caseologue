@@ -35,13 +35,18 @@ jobs:
     - name: run 
       run: |
         cd caseologue_python/
-        printf "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________"
+        printf "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________\n"
         EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
      
     # - name: Print output
     #   if: always()
     #   run: |
-    #     cat caseologue_python/output_caseologue.tsv 
+    #     cat caseologue_python/output_caseologue.tsv
+
+    - name: make_file
+      run: |
+        cd caseologue_python/
+        touch output_caseologue_timing.tsv
 
     - name: Archive test outputs
       if: always()
@@ -49,6 +54,7 @@ jobs:
       with:
         name: test-outputs
         path: |
-          caseologue_python/output_caseologue.tsv
           caseologue_python/output_caseologue_timing.tsv
+          caseologue_python/output_caseologue.tsv
+          
 
