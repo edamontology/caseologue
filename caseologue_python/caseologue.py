@@ -1257,6 +1257,24 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
+        if cls.timing.empty == False:
+            pd.set_option(
+                "display.max_rows",
+                None,
+                "display.max_colwidth",
+                5000,
+                "display.width",
+                5000,
+            )
+            print(
+                tabulate(
+                    cls.report[["Test Name", "Time"]],
+                    headers=["Test Name", "Time"],
+                )
+            )
+
+        cls.timing.to_csv("./output_caseologue_timing.tsv", sep="\t")
+
         # output = cls.report.sort('Level',)
         if cls.report.empty == False:
             pd.set_option(
@@ -1275,9 +1293,6 @@ class EdamQueryTest(unittest.TestCase):
             )
             # prettify(cls.report[['Entity','Label','Debug Message']])
         cls.report.to_csv("./output_caseologue.tsv", sep="\t")
-
-        if not cls.timing.empty:
-            cls.timing.to_csv("./output_caseologue_timing.tsv", sep="\t")
 
         return super().tearDownClass()
 
