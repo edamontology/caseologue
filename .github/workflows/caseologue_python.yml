@@ -48,11 +48,6 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: output_caseologue
-        path: caseologue_python/output_caseologue.tsv
-
-    - name: Archive test timing
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: output_caseologue_timing
-        path: caseologue_python/output_caseologue_timing.tsv
+        path:
+          - caseologue_python/output_caseologue.tsv
+          - caseologue_python/output_caseologue_timing.tsv
