@@ -1268,7 +1268,7 @@ class EdamQueryTest(unittest.TestCase):
             )
             print(
                 tabulate(
-                    cls.report[["Test Name", "Time"]],
+                    cls.timing[["Test Name", "Time"]],
                     headers=["Test Name", "Time"],
                 )
             )
@@ -1294,7 +1294,7 @@ class EdamQueryTest(unittest.TestCase):
             # prettify(cls.report[['Entity','Label','Debug Message']])
         cls.report.to_csv("./output_caseologue.tsv", sep="\t")
 
-        return super().tearDownClass()
+        super().tearDownClass()
 
 
 if __name__ == "__main__":
