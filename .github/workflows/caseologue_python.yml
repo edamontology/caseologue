@@ -43,11 +43,12 @@ jobs:
     #   run: |
     #     cat caseologue_python/output_caseologue.tsv 
 
-    - name: Archive tests output
+    - name: Archive test outputs
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: output_caseologue
-        path:
-          - caseologue_python/output_caseologue.tsv
-          - caseologue_python/output_caseologue_timing.tsv
+        name: test-outputs
+        path: |
+          caseologue_python/output_caseologue.tsv
+          caseologue_python/output_caseologue_timing.tsv
+
