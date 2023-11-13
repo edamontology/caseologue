@@ -43,7 +43,7 @@ jobs:
 
     - name: Archive test outputs
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: output_caseologue
         path: caseologue_python/output_caseologue.tsv
