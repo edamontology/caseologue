@@ -19,7 +19,7 @@ jobs:
       
     - uses: actions/checkout@v2
       with: 
-        repository: edamontology/caseologue
+        repository: maanst/caseologue
     
     - name: download artifacts
       uses: actions/download-artifact@v3
@@ -43,11 +43,19 @@ jobs:
     #   run: |
     #     cat caseologue_python/output_caseologue.tsv
 
+    - name: Display structure of files
+      run: ls -R
+
     - name: Archive test outputs
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: test-outputs
+        name: output_caseologue
         path: caseologue_python/output_caseologue.tsv
-          
 
+    - name: Archive tests timing
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: output_caseologue_timing
+        path: caseologue_python/output_caseologue_timing.tsv
