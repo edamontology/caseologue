@@ -1262,8 +1262,6 @@ class EdamQueryTest(unittest.TestCase):
                 )
             )
 
-        # cls.timing.to_csv("./output_caseologue_timing.tsv", sep="\t")
-
         # output = cls.report.sort('Level',)
         if cls.report.empty == False:
             pd.set_option(
