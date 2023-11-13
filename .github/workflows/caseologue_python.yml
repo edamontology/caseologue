@@ -18,8 +18,11 @@ jobs:
     steps:
       
     - uses: actions/checkout@v2
-      with: 
-        repository: maanst/caseologue
+      with:
+        # This will automatically check out the branch that triggered the workflow
+        # within the current repository.
+        repository: ${{ github.repository }}
+        ref: ${{ github.ref }}
     
     - name: download artifacts
       uses: actions/download-artifact@v3
