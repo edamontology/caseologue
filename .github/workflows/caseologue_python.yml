@@ -38,24 +38,9 @@ jobs:
         printf "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________\n\n"
         EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
 
-    # - name: Print output
-    #   if: always()
-    #   run: |
-    #     cat caseologue_python/output_caseologue.tsv
-
-    - name: Display structure of files
-      run: ls -R
-
     - name: Archive test outputs
       if: always()
       uses: actions/upload-artifact@v2
       with:
         name: output_caseologue
         path: caseologue_python/output_caseologue.tsv
-
-    - name: Archive tests timing
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: output_caseologue_timing
-        path: caseologue_python/output_caseologue_timing.tsv

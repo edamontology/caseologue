@@ -1298,14 +1298,12 @@ if __name__ == "__main__":
 
     run_error, run_essential, run_curation = parsing()
     print(
-        f"error = {run_error}, essential = {run_essential}, curation = {run_curation}"
-        f"before start"
+        f"error = {run_error}, essential = {run_essential}, curation = {run_curation}\n"
     )
 
     runner = unittest.TextTestRunner()
     # sys.exit(runner.run(suite()))
     cmd = runner.run(suite())
     print(cmd)
-    print(f"after cmd")
     if (len(cmd.failures) != 0) or (len(cmd.errors) != 0):
         exit(1)
