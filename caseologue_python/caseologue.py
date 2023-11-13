@@ -59,20 +59,20 @@ def suite():
 
     if run_essential == True:
         suite.addTest(EdamQueryTest("test_super_class_refers_to_self"))
-        # suite.addTest(EdamQueryTest("test_bad_uri_reference")) # t -> x
+        suite.addTest(EdamQueryTest("test_bad_uri_reference"))
         suite.addTest(EdamQueryTest("test_empty_property"))
         suite.addTest(EdamQueryTest("test_id_unique"))
         suite.addTest(EdamQueryTest("test_spelling_check"))
 
     if run_error == True:
-        # suite.addTest(EdamQueryTest("test_mandatory_property_missing")) # t -> x
+        suite.addTest(EdamQueryTest("test_mandatory_property_missing"))
         suite.addTest(EdamQueryTest("test_deprecated_replacement"))
         suite.addTest(EdamQueryTest("test_missing_deprecated_property"))
         suite.addTest(EdamQueryTest("test_next_id_modif"))
         suite.addTest(EdamQueryTest("test_subset_id"))
         suite.addTest(EdamQueryTest("test_object_relation_obsolete"))
         suite.addTest(EdamQueryTest("test_bad_uri"))
-        # suite.addTest(EdamQueryTest("test_duplicate_in_concept")) # t -> x
+        suite.addTest(EdamQueryTest("test_duplicate_in_concept"))
 
     return suite
 
