@@ -118,9 +118,6 @@ class EdamQueryTest(unittest.TestCase):
         elapsed_time = end_time - self.start_time
         # Append the timing to the class's timing DataFrame
         test_name = self.id().split('.')[-1]  # This gets the name of the current test method
-        #print(type(self.__class__.timing))
-        #print(type(self.timing))
-        print({"Test Name": test_name, "Time": elapsed_time})
         timing_info_df = pd.DataFrame([{
             "Test Name": test_name,
             "Time": elapsed_time
@@ -1273,7 +1270,7 @@ class EdamQueryTest(unittest.TestCase):
                 )
             )
 
-        cls.timing.to_csv("./output_caseologue_timing.tsv", sep="\t")
+        #cls.timing.to_csv("./output_caseologue_timing.tsv", sep="\t")
 
         # output = cls.report.sort('Level',)
         if cls.report.empty == False:
@@ -1302,11 +1299,13 @@ if __name__ == "__main__":
     run_error, run_essential, run_curation = parsing()
     print(
         f"error = {run_error}, essential = {run_essential}, curation = {run_curation}"
+        f"before start"
     )
 
     runner = unittest.TextTestRunner()
     # sys.exit(runner.run(suite()))
     cmd = runner.run(suite())
     print(cmd)
+    print(f"after cmd")
     if (len(cmd.failures) != 0) or (len(cmd.errors) != 0):
         exit(1)
