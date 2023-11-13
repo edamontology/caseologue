@@ -96,7 +96,7 @@ class EdamQueryTest(unittest.TestCase):
             columns=["Level", "Test Name", "Entity", "Label", "Debug Message"]
         )
         cls.timing = pd.DataFrame(
-            columns=["Test Name", "Time"]
+            columns=["Test Name", "Time in seconds"]
         )
         # print(cls.report)
 
@@ -1257,8 +1257,8 @@ class EdamQueryTest(unittest.TestCase):
             )
             print(
                 tabulate(
-                    cls.timing[["Test Name", "Time"]],
-                    headers=["Test Name", "Time"],
+                    cls.timing[["Test Name", "Time in seconds"]],
+                    headers=["Test Name", "Time in seconds"],
                 )
             )
 
