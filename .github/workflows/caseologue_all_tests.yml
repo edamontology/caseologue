@@ -7,7 +7,7 @@ jobs:
   upload_edam: 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: download edam
       run: wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
     - name: upload edam

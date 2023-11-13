@@ -17,7 +17,7 @@ jobs:
 
     steps:
       
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       # with:
         # This will automatically check out the branch that triggered the workflow
         # within the current repository.
