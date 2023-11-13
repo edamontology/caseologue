@@ -22,7 +22,7 @@ jobs:
         # This will automatically check out the branch that triggered the workflow
         # within the current repository.
         repository: ${{ github.repository }}
-        ref: ${{ github.ref }}
+        # ref: ${{ github.ref }}
     
     - name: download artifacts
       uses: actions/download-artifact@v3
