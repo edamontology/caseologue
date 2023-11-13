@@ -112,7 +112,7 @@ class EdamQueryTest(unittest.TestCase):
         test_name = self.id().split('.')[-1]  # This gets the name of the current test method
         timing_info_df = pd.DataFrame([{
             "Test Name": test_name,
-            "Time": elapsed_time
+            "Time in seconds": elapsed_time
         }])
         self.__class__.timing = pd.concat(
             [self.__class__.timing, timing_info_df], ignore_index=True
