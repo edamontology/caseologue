@@ -243,7 +243,7 @@ class EdamQueryTest(unittest.TestCase):
 
     ################# MANDATORY PROPERTY MISSING ###########################
 
-    def xest_mandatory_property_missing(self):
+    def test_mandatory_property_missing(self):
 
         """
         Checks that no mandatory property for all concepts are missing (oboInOwl:hasDefinition, rdfs:subClassOf, created_in, oboInOwl:inSubset, rdfs:label).
@@ -506,7 +506,7 @@ class EdamQueryTest(unittest.TestCase):
 
     ################# BAD URI REFERENCE ###########################
 
-    def xest_bad_uri_reference(self):
+    def test_bad_uri_reference(self):
 
         """
         Check that a reference (e.g. superclass) to another concept is actually declared in EDAM.
@@ -790,7 +790,7 @@ class EdamQueryTest(unittest.TestCase):
 
     ################# DUPLICATE IN CONCEPT ###########################
 
-    def xest_duplicate_in_concept(self):
+    def test_duplicate_in_concept(self):
 
         """
         Checks that there is no duplicate content (case insensitive) within a concept on given properties.
@@ -836,7 +836,7 @@ class EdamQueryTest(unittest.TestCase):
 
     ################# DUPLICATE ALL ###########################
 
-    def xest_duplicate_all(self):
+    def test_duplicate_all(self):
 
         """
         Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.
