@@ -35,17 +35,19 @@ jobs:
     - name: run 
       run: |
         cd caseologue_python/
-        printf "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________"
+        printf "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________\n\n"
         EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
-     
+
     # - name: Print output
     #   if: always()
     #   run: |
-    #     cat caseologue_python/output_caseologue.tsv 
+    #     cat caseologue_python/output_caseologue.tsv
 
-    - name: Archive tests output
+    - name: Archive test outputs
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: output_caseologue
+        name: test-outputs
         path: caseologue_python/output_caseologue.tsv
+          
+

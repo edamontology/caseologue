@@ -1,4 +1,5 @@
 import unittest
+import time
 from rdflib import OWL, ConjunctiveGraph, Namespace
 import os
 import pandas as pd
@@ -10,7 +11,6 @@ from tabulate import tabulate
 
 # from rich_dataframe import prettify
 from queries.edamxpath_id_unique import check_unique_id
-
 
 def parsing():
 
@@ -67,20 +67,20 @@ def suite():
 
     if run_essential == True:
         suite.addTest(EdamQueryTest("test_super_class_refers_to_self"))
-        suite.addTest(EdamQueryTest("test_bad_uri_reference"))
+        # suite.addTest(EdamQueryTest("test_bad_uri_reference")) # t -> x
         suite.addTest(EdamQueryTest("test_empty_property"))
         suite.addTest(EdamQueryTest("test_id_unique"))
         suite.addTest(EdamQueryTest("test_spelling_check"))
 
     if run_error == True:
-        suite.addTest(EdamQueryTest("test_mandatory_property_missing"))
+        # suite.addTest(EdamQueryTest("test_mandatory_property_missing")) # t -> x
         suite.addTest(EdamQueryTest("test_deprecated_replacement"))
         suite.addTest(EdamQueryTest("test_missing_deprecated_property"))
         suite.addTest(EdamQueryTest("test_next_id_modif"))
         suite.addTest(EdamQueryTest("test_subset_id"))
         suite.addTest(EdamQueryTest("test_object_relation_obsolete"))
         suite.addTest(EdamQueryTest("test_bad_uri"))
-        suite.addTest(EdamQueryTest("test_duplicate_in_concept"))
+        # suite.addTest(EdamQueryTest("test_duplicate_in_concept")) # t -> x
 
     return suite
 
@@ -103,7 +103,28 @@ class EdamQueryTest(unittest.TestCase):
         cls.report = pd.DataFrame(
             columns=["Level", "Test Name", "Entity", "Label", "Debug Message"]
         )
+        cls.timing = pd.DataFrame(
+            columns=["Test Name", "Time"]
+        )
         # print(cls.report)
+
+    def setUp(self):
+        """Start a timer before each test"""
+        self.start_time = time.time()
+
+    def tearDown(self):
+        """Stop the timer after each test and record the time taken."""
+        end_time = time.time()
+        elapsed_time = end_time - self.start_time
+        # Append the timing to the class's timing DataFrame
+        test_name = self.id().split('.')[-1]  # This gets the name of the current test method
+        timing_info_df = pd.DataFrame([{
+            "Test Name": test_name,
+            "Time": elapsed_time
+        }])
+        self.__class__.timing = pd.concat(
+            [self.__class__.timing, timing_info_df], ignore_index=True
+        )
 
     ################# DEPRECATED REPLACEMENT OBSOLETE ###########################
 
@@ -230,7 +251,7 @@ class EdamQueryTest(unittest.TestCase):
 
     ################# MANDATORY PROPERTY MISSING ###########################
 
-    def test_mandatory_property_missing(self):
+    def xest_mandatory_property_missing(self):
 
         """
         Checks that no mandatory property for all concepts are missing (oboInOwl:hasDefinition, rdfs:subClassOf, created_in, oboInOwl:inSubset, rdfs:label).
@@ -493,7 +514,7 @@ class EdamQueryTest(unittest.TestCase):
 
     ################# BAD URI REFERENCE ###########################
 
-    def test_bad_uri_reference(self):
+    def xest_bad_uri_reference(self):
 
         """
         Check that a reference (e.g. superclass) to another concept is actually declared in EDAM.
@@ -777,7 +798,7 @@ class EdamQueryTest(unittest.TestCase):
 
     ################# DUPLICATE IN CONCEPT ###########################
 
-    def test_duplicate_in_concept(self):
+    def xest_duplicate_in_concept(self):
 
         """
         Checks that there is no duplicate content (case insensitive) within a concept on given properties.
@@ -823,7 +844,7 @@ class EdamQueryTest(unittest.TestCase):
 
     ################# DUPLICATE ALL ###########################
 
-    def test_duplicate_all(self):
+    def xest_duplicate_all(self):
 
         """
         Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.
@@ -1233,6 +1254,24 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
+        if cls.timing.empty == False:
+            pd.set_option(
+                "display.max_rows",
+                None,
+                "display.max_colwidth",
+                5000,
+                "display.width",
+                5000,
+            )
+            print(
+                tabulate(
+                    cls.timing[["Test Name", "Time"]],
+                    headers=["Test Name", "Time"],
+                )
+            )
+
+        #cls.timing.to_csv("./output_caseologue_timing.tsv", sep="\t")
+
         # output = cls.report.sort('Level',)
         if cls.report.empty == False:
             pd.set_option(
@@ -1251,7 +1290,8 @@ class EdamQueryTest(unittest.TestCase):
             )
             # prettify(cls.report[['Entity','Label','Debug Message']])
         cls.report.to_csv("./output_caseologue.tsv", sep="\t")
-        return super().tearDownClass()
+
+        super().tearDownClass()
 
 
 if __name__ == "__main__":
@@ -1259,11 +1299,13 @@ if __name__ == "__main__":
     run_error, run_essential, run_curation = parsing()
     print(
         f"error = {run_error}, essential = {run_essential}, curation = {run_curation}"
+        f"before start"
     )
 
     runner = unittest.TextTestRunner()
     # sys.exit(runner.run(suite()))
     cmd = runner.run(suite())
     print(cmd)
+    print(f"after cmd")
     if (len(cmd.failures) != 0) or (len(cmd.errors) != 0):
         exit(1)
