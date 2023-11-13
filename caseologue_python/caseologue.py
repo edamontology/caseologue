@@ -1,15 +1,11 @@
 import unittest
 import time
-from rdflib import OWL, ConjunctiveGraph, Namespace
+from rdflib import ConjunctiveGraph
 import os
 import pandas as pd
 import argparse
 import sys
-from collections import Counter
-from rdflib.namespace import RDF, RDFS, _OWL
 from tabulate import tabulate
-
-# from rich_dataframe import prettify
 from queries.edamxpath_id_unique import check_unique_id
 
 def parsing():
@@ -30,8 +26,6 @@ def parsing():
 
     args = parser.parse_args()
 
-    # print("args argparse",args.error,args.essential,args.curation)
-
     if args.error != False or args.essential != False or args.curation != False:
         run_error = args.error
         run_essential = args.essential
@@ -41,8 +35,6 @@ def parsing():
         run_error = True
         run_essential = True
         run_curation = True
-
-    # print("def parsing",run_error,run_essential,run_curation)
 
     sys.argv[1:] = args.unittest_args
 
@@ -1270,7 +1262,7 @@ class EdamQueryTest(unittest.TestCase):
                 )
             )
 
-        cls.timing.to_csv("./output_caseologue_timing.tsv", sep="\t")
+        # cls.timing.to_csv("./output_caseologue_timing.tsv", sep="\t")
 
         # output = cls.report.sort('Level',)
         if cls.report.empty == False:
@@ -1288,7 +1280,7 @@ class EdamQueryTest(unittest.TestCase):
                     headers=["Test Name", "Entity", "Label", "Debug Message"],
                 )
             )
-            # prettify(cls.report[['Entity','Label','Debug Message']])
+
         cls.report.to_csv("./output_caseologue.tsv", sep="\t")
 
         super().tearDownClass()
@@ -1302,7 +1294,6 @@ if __name__ == "__main__":
     )
 
     runner = unittest.TextTestRunner()
-    # sys.exit(runner.run(suite()))
     cmd = runner.run(suite())
     print(cmd)
     if (len(cmd.failures) != 0) or (len(cmd.errors) != 0):

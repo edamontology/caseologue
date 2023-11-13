@@ -35,7 +35,7 @@ jobs:
     - name: run 
       run: |
         cd caseologue_python/
-        printf "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________\n\n"
+        printf "\n_____________________________________________________________________________________________\n\nThe following debug table is archived as an artifact called 'output_caseologue'\n_____________________________________________________________________________________________\n\n"
         EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
 
     - name: Archive test outputs
