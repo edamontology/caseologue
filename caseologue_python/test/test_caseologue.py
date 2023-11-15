@@ -78,7 +78,7 @@ if __name__ == "__main__":
     test_caseologue(name= "id_unique", nb_expected_error=2)
     test_caseologue(name= "relation_too_broad", nb_expected_error=1)
     test_caseologue(name= "duplicate_in_concept", nb_expected_error=2)
-    # test_caseologue(name= "duplicate_all", nb_expected_error=1)
+    test_caseologue(name= "duplicate_all", nb_expected_error=1)
     test_caseologue(name= "literal_links", nb_expected_error=1)
     test_caseologue(name= "next_id_modif", nb_expected_error=1)
     test_caseologue(name= "subset_id", nb_expected_error=1)
