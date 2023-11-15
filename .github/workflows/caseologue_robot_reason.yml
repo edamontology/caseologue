@@ -15,9 +15,9 @@ jobs:
 
     steps:
       
-    - uses: actions/checkout@v2
-      with: 
-        repository: edamontology/caseologue
+    - uses: actions/checkout@v3
+      # with:
+      #   repository: edamontology/caseologue
     - name: download artifacts
       uses: actions/download-artifact@v3
       with:

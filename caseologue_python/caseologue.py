@@ -1,19 +1,15 @@
 import unittest
-from rdflib import OWL, ConjunctiveGraph, Namespace
+import time
+from rdflib import ConjunctiveGraph
 import os
 import pandas as pd
 import argparse
 import sys
-from collections import Counter
-from rdflib.namespace import RDF, RDFS, _OWL
 from tabulate import tabulate
-
-# from rich_dataframe import prettify
 from queries.edamxpath_id_unique import check_unique_id
 
 
 def parsing():
-
     parser = argparse.ArgumentParser(
         description="Level of tests, by default all levels are ran"
     )
@@ -30,8 +26,6 @@ def parsing():
 
     args = parser.parse_args()
 
-    # print("args argparse",args.error,args.essential,args.curation)
-
     if args.error != False or args.essential != False or args.curation != False:
         run_error = args.error
         run_essential = args.essential
@@ -42,11 +36,9 @@ def parsing():
         run_essential = True
         run_curation = True
 
-    # print("def parsing",run_error,run_essential,run_curation)
-
     sys.argv[1:] = args.unittest_args
 
-    return (run_error, run_essential, run_curation)
+    return run_error, run_essential, run_curation
 
 
 def suite():
@@ -55,7 +47,7 @@ def suite():
     """
     suite = unittest.TestSuite()
 
-    if run_curation == True:
+    if run_curation:
         suite.addTest(EdamQueryTest("test_deprecated_replacement_obsolete"))
         suite.addTest(EdamQueryTest("test_formatting"))
         suite.addTest(EdamQueryTest("test_check_wikipedia_link"))
@@ -65,14 +57,14 @@ def suite():
         #        suite.addTest(EdamQueryTest('test_duplicate_all'))   too long computing time for now 
         suite.addTest(EdamQueryTest("test_format_property_missing"))
 
-    if run_essential == True:
+    if run_essential:
         suite.addTest(EdamQueryTest("test_super_class_refers_to_self"))
         suite.addTest(EdamQueryTest("test_bad_uri_reference"))
         suite.addTest(EdamQueryTest("test_empty_property"))
         suite.addTest(EdamQueryTest("test_id_unique"))
         suite.addTest(EdamQueryTest("test_spelling_check"))
 
-    if run_error == True:
+    if run_error:
         suite.addTest(EdamQueryTest("test_mandatory_property_missing"))
         suite.addTest(EdamQueryTest("test_deprecated_replacement"))
         suite.addTest(EdamQueryTest("test_missing_deprecated_property"))
@@ -97,13 +89,34 @@ class EdamQueryTest(unittest.TestCase):
         :meta private:
         docstring set to private to avoid automatic default docstring in documentation
         """
-        cls.dir_path=os.path.dirname(os.path.realpath(__file__))
+        cls.dir_path = os.path.dirname(os.path.realpath(__file__))
         cls.edam_graph = ConjunctiveGraph()
         cls.edam_graph.parse(os.environ.get("EDAM_PATH"), format="xml")
         cls.report = pd.DataFrame(
             columns=["Level", "Test Name", "Entity", "Label", "Debug Message"]
         )
+        cls.timing = pd.DataFrame(
+            columns=["Test Name", "Time in seconds"]
+        )
         # print(cls.report)
+
+    def setUp(self):
+        """Start a timer before each test"""
+        self.start_time = time.time()
+
+    def tearDown(self):
+        """Stop the timer after each test and record the time taken."""
+        end_time = time.time()
+        elapsed_time = end_time - self.start_time
+        # Append the timing to the class's timing DataFrame
+        test_name = self.id().split('.')[-1]  # This gets the name of the current test method
+        timing_info_df = pd.DataFrame([{
+            "Test Name": test_name,
+            "Time in seconds": elapsed_time
+        }])
+        self.__class__.timing = pd.concat(
+            [self.__class__.timing, timing_info_df], ignore_index=True
+        )
 
     ################# DEPRECATED REPLACEMENT OBSOLETE ###########################
 
@@ -117,8 +130,8 @@ class EdamQueryTest(unittest.TestCase):
         Severity level: curation
 
         """
-        
-        query=self.dir_path + "/queries/deprecated_replacement_obsolete.rq"
+
+        query = self.dir_path + "/queries/deprecated_replacement_obsolete.rq"
 
         with open(query, "r") as f:
             query_term = f.read()
@@ -133,10 +146,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "deprecated_replacement_obsolete",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"concept is replaced by ({r['property']}) an obsolete concept: {r['replacement']}"
-                        ),
+                        f"'{r['label']}'",
+                        f"concept is replaced by ({r['property']}) an obsolete concept: {r['replacement']}",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -159,8 +170,8 @@ class EdamQueryTest(unittest.TestCase):
         Severity level: essential
 
         """
-        query =self.dir_path + "/queries/super_class_refers_to_self.rq"
-        
+        query = self.dir_path + "/queries/super_class_refers_to_self.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -175,7 +186,7 @@ class EdamQueryTest(unittest.TestCase):
                         "ESSENTIAL",
                         "super_class_refers_to_self",
                         r["entity"],
-                        (f"'{r['label']}'"),
+                        f"'{r['label']}'",
                         "concept declared as superclass of itself",
                     ]
                 ],
@@ -200,7 +211,7 @@ class EdamQueryTest(unittest.TestCase):
         Severity level: essential
 
         """
-        query =self.dir_path + "/queries/bad_uri.rq"
+        query = self.dir_path + "/queries/bad_uri.rq"
 
         with open(query, "r") as f:
             query_term = f.read()
@@ -216,7 +227,7 @@ class EdamQueryTest(unittest.TestCase):
                         "ESSENTIAL",
                         "bad_rui",
                         r["entity"],
-                        (f"'{r['label']}'"),
+                        f"'{r['label']}'",
                         "has a bad URI (entity) (regex :^http://edamontology.org/(data|topic|operation|format)_[0-9]\{4\}$)",
                     ]
                 ],
@@ -240,7 +251,7 @@ class EdamQueryTest(unittest.TestCase):
         Severity level: error
 
         """
-        query =self.dir_path + "/queries/mandatory_property_missing.rq"
+        query = self.dir_path + "/queries/mandatory_property_missing.rq"
 
         with open(query, "r") as f:
             query_term = f.read()
@@ -256,8 +267,8 @@ class EdamQueryTest(unittest.TestCase):
                         "ERROR",
                         "mandatory_property_missing",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (f"is missing mandatory property: {r['property']} "),
+                        f"'{r['label']}'",
+                        f"is missing mandatory property: {r['property']} ",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -289,12 +300,12 @@ class EdamQueryTest(unittest.TestCase):
         Severity level: curation
 
         """
-        query_dot_def =self.dir_path + "/queries/end_dot_def_missing.rq"
-        query_dot_label =self.dir_path + "/queries/end_dot_label.rq"
-        query_end_space =self.dir_path + "/queries/end_space_annotation.rq"
-        query_eol =self.dir_path + "/queries/eol_in_annotation.rq"
-        query_start_space =self.dir_path + "/queries/start_space_annotation.rq"
-        query_tab =self.dir_path + "/queries/tab_in_annotation.rq"
+        query_dot_def = self.dir_path + "/queries/end_dot_def_missing.rq"
+        query_dot_label = self.dir_path + "/queries/end_dot_label.rq"
+        query_end_space = self.dir_path + "/queries/end_space_annotation.rq"
+        query_eol = self.dir_path + "/queries/eol_in_annotation.rq"
+        query_start_space = self.dir_path + "/queries/start_space_annotation.rq"
+        query_tab = self.dir_path + "/queries/tab_in_annotation.rq"
 
         with open(query_dot_def, "r") as f:
             query_term = f.read()
@@ -310,7 +321,7 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "end_dot_def_missing",
                         r["entity"],
-                        (f"'{r['label']}'"),
+                        f"'{r['label']}'",
                         "A dot is missing at the end of the definition.",
                     ]
                 ],
@@ -334,7 +345,7 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "end_dot_label",
                         r["entity"],
-                        (f"'{r['label']}'"),
+                        f"'{r['label']}'",
                         "There is an unwanted dot at the end of the label.",
                     ]
                 ],
@@ -358,10 +369,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "end_space_annotation",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"There is an unwanted space at the end of {r['property']} : {r['value']}."
-                        ),
+                        f"'{r['label']}'",
+                        f"There is an unwanted space at the end of {r['property']} : {r['value']}.",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -384,10 +393,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "eol_in_annotation",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"There is an unwanted end-of-line in {r['property']} : {r['value']}."
-                        ),
+                        f"'{r['label']}'",
+                        f"There is an unwanted end-of-line in {r['property']} : {r['value']}.",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -410,10 +417,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "start_space_annotation",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"There is an unwanted space at the start of {r['property']} : {r['value']}."
-                        ),
+                        f"'{r['label']}'",
+                        f"There is an unwanted space at the start of {r['property']} : {r['value']}.",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -436,10 +441,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "tab_in_annotation",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"There is an unwanted tabulation in {r['property']} : {r['value']}."
-                        ),
+                        f"'{r['label']}'",
+                        f"There is an unwanted tabulation in {r['property']} : {r['value']}.",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -463,7 +466,7 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/deprecated_replacement.rq"
+        query = self.dir_path + "/queries/deprecated_replacement.rq"
 
         with open(query, "r") as f:
             query_term = f.read()
@@ -479,7 +482,7 @@ class EdamQueryTest(unittest.TestCase):
                         "ERROR",
                         "deprecated_replacement",
                         r["entity"],
-                        (f"'{r['label']}'"),
+                        f"'{r['label']}'",
                         "is deprecated and is missing either a replacedBy property or a consider property",
                     ]
                 ],
@@ -509,10 +512,9 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query_get_uri =self.dir_path + "/queries/get_uri.rq"
-        query_uri_reference =self.dir_path + "/queries/uri_reference.rq"
+        query_get_uri = self.dir_path + "/queries/get_uri.rq"
+        query_uri_reference = self.dir_path + "/queries/uri_reference.rq"
 
-        
         uri = []
         with open(query_get_uri, "r") as f:
             query_term = f.read()
@@ -523,7 +525,6 @@ class EdamQueryTest(unittest.TestCase):
         for r in results:
             uri.append(r["entity"])
 
-        
         with open(query_uri_reference, "r") as f:
             query_term = f.read()
 
@@ -540,10 +541,8 @@ class EdamQueryTest(unittest.TestCase):
                             "ESSENTIAL",
                             "bad_uri_reference",
                             r["entity"],
-                            (f"'{r['label']}'"),
-                            (
-                                f"The property {r['property']} refers not an undeclared URI: '{r['reference']}'"
-                            ),
+                            f"'{r['label']}'",
+                            f"The property {r['property']} refers not an undeclared URI: '{r['reference']}'",
                         ]
                     ],
                     columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -567,9 +566,8 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/missing_deprecated_property.rq"
+        query = self.dir_path + "/queries/missing_deprecated_property.rq"
 
-        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -584,8 +582,8 @@ class EdamQueryTest(unittest.TestCase):
                         "ERROR",
                         "missing_deprecated_property",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (f"is missing mandatory deprecated property: {r['property']}"),
+                        f"'{r['label']}'",
+                        f"is missing mandatory deprecated property: {r['property']}",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -609,8 +607,8 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/check_wikipedia_link.rq"
-        
+        query = self.dir_path + "/queries/check_wikipedia_link.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -625,7 +623,7 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "check_wikipedia_link",
                         r["entity"],
-                        (f"'{r['label']}'"),
+                        f"'{r['label']}'",
                         "Topic concept missing a wikipedia link",
                     ]
                 ],
@@ -650,7 +648,7 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/identifier_property_missing.rq"
+        query = self.dir_path + "/queries/identifier_property_missing.rq"
 
         with open(query, "r") as f:
             query_term = f.read()
@@ -666,7 +664,7 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "identifier_property_missing",
                         r["entity"],
-                        (f"'{r['label']}'"),
+                        f"'{r['label']}'",
                         "is missing regex property",
                     ]
                 ],
@@ -691,18 +689,17 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/get_uri.rq"
+        query = self.dir_path + "/queries/get_uri.rq"
 
-        duplicate_id = check_unique_id(os.environ.get("EDAM_PATH"))  #  this function only returns the second of the duplicated id. If the id are not strictly identical and their subontology is different, only one line will be visible in the report table for this error (ex format_1234 is duplicate of data_1234).
+        duplicate_id = check_unique_id(os.environ.get(
+            "EDAM_PATH"))  # this function only returns the second of the duplicated id. If the id are not strictly identical and their subontology is different, only one line will be visible in the report table for this error (ex format_1234 is duplicate of data_1234).
         nb_err = len(duplicate_id)
-
 
         with open(query, "r") as f:
             query_term = f.read()
 
         results = self.edam_graph.query(query_term)
         f.close()
-
 
         for id in duplicate_id:
             for r in results:
@@ -713,8 +710,8 @@ class EdamQueryTest(unittest.TestCase):
                                 "ERROR",
                                 "id_unique",
                                 r["entity"],
-                                (f"'{r['label']}'"),
-                                (f"numerical id is used several times"),
+                                f"'{r['label']}'",
+                                f"numerical id is used several times",
                             ]
                         ],
                         columns=[
@@ -744,9 +741,8 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/relation_too_broad.rq"
+        query = self.dir_path + "/queries/relation_too_broad.rq"
 
-        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -761,10 +757,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "relation_too_broad",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"linked ({r['property']}) with a concept not recommended for annotation : '{r['value']}'"
-                        ),
+                        f"'{r['label']}'",
+                        f"linked ({r['property']}) with a concept not recommended for annotation : '{r['value']}'",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -780,7 +774,7 @@ class EdamQueryTest(unittest.TestCase):
     def test_duplicate_in_concept(self):
 
         """
-        Checks that there is no duplicate content (case insensitive) within a concept on given properties.
+        Checks that there is no duplicate content (case-insensitive) within a concept on given properties.
 
             > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/duplicate_in_concept.rq>`_
         
@@ -788,9 +782,8 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/duplicate_in_concept.rq"
+        query = self.dir_path + "/queries/duplicate_in_concept.rq"
 
-        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -805,10 +798,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "duplicate_in_concept",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"{r['property']} and {r['property2']} have the same content: '{r['value']}'"
-                        ),
+                        f"'{r['label']}'",
+                        f"{r['property']} and {r['property2']} have the same content: '{r['value']}'",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -826,7 +817,7 @@ class EdamQueryTest(unittest.TestCase):
     def test_duplicate_all(self):
 
         """
-        Checks that there is no duplicate content (case sensitive, for computational reasons) across all the ontology on given properties.
+        Checks that there is no duplicate content (case-sensitive, for computational reasons) across all the ontology on given properties.
 
             > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/duplicate_all.rq>`_
         
@@ -835,8 +826,8 @@ class EdamQueryTest(unittest.TestCase):
         """
         # this is case sensitive for computational time reasons
 
-        query =self.dir_path + "/queries/duplicate_all.rq"
-        
+        query = self.dir_path + "/queries/duplicate_all.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -851,10 +842,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "duplicate_all",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"have the same content on {r['property']} as {r['entity2']} '{r['label2']}' on {r['property2']}: '{r['value']}'"
-                        ),
+                        f"'{r['label']}'",
+                        f"have the same content on {r['property']} as {r['entity2']} '{r['label2']}' on {r['property2']}: '{r['value']}'",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -880,8 +869,8 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/literal_links.rq"
-        
+        query = self.dir_path + "/queries/literal_links.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -896,10 +885,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "literal_links",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"{r['property']} value is not declared as a literal: '{r['value']}'"
-                        ),
+                        f"'{r['label']}'",
+                        f"{r['property']} value is not declared as a literal: '{r['value']}'",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -923,8 +910,8 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/get_id_and_next_id.rq"
-        
+        query = self.dir_path + "/queries/get_id_and_next_id.rq"
+
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -971,7 +958,7 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/subset_id.rq"
+        query = self.dir_path + "/queries/subset_id.rq"
 
         with open(query, "r") as f:
             query_term = f.read()
@@ -987,10 +974,8 @@ class EdamQueryTest(unittest.TestCase):
                         "ERROR",
                         "subset_id",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"Concept subset id ({r['subset']}) is different from its subclass {r['superclass']} '{r['label_sc']}'"
-                        ),
+                        f"'{r['label']}'",
+                        f"Concept subset id ({r['subset']}) is different from its subclass {r['superclass']} '{r['label_sc']}'",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -1014,7 +999,7 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/object_relation_obsolete.rq"
+        query = self.dir_path + "/queries/object_relation_obsolete.rq"
 
         with open(query, "r") as f:
             query_term = f.read()
@@ -1030,10 +1015,8 @@ class EdamQueryTest(unittest.TestCase):
                         "ERROR",
                         "object_relation_obsolete",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (
-                            f"is related ({r['property']}) with {r['target']}, which is a deprecated concept"
-                        ),
+                        f"'{r['label']}'",
+                        f"is related ({r['property']}) with {r['target']}, which is a deprecated concept",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -1057,21 +1040,21 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        construct =self.dir_path + "/queries/is_format_of_construct.rq"
-        query =self.dir_path + "/queries/format_property_missing.rq"
-        
+        construct = self.dir_path + "/queries/is_format_of_construct.rq"
+        query = self.dir_path + "/queries/format_property_missing.rq"
+
         with open(construct, "r") as f:
             construct_term = f.read()
-        
+
         results_update = self.edam_graph.query(construct_term)
         for r in results_update:
-            update_edam=self.edam_graph.add((r[0],r[1],r[2]))
+            update_edam = self.edam_graph.add((r[0], r[1], r[2]))
 
         f.close()
-        
+
         with open(query, "r") as f:
             query_term = f.read()
-        if len(results_update)!=0:
+        if len(results_update) != 0:
             results = update_edam.query(query_term)
         else:
             results = self.edam_graph.query(query_term)
@@ -1086,8 +1069,8 @@ class EdamQueryTest(unittest.TestCase):
                         "CURATION",
                         "format_property_missing",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (f"is missing mandatory format property: {r['property']}"),
+                        f"'{r['label']}'",
+                        f"is missing mandatory format property: {r['property']}",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -1111,9 +1094,8 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
-        query =self.dir_path + "/queries/empty_property.rq"
+        query = self.dir_path + "/queries/empty_property.rq"
 
-        
         with open(query, "r") as f:
             query_term = f.read()
 
@@ -1128,8 +1110,8 @@ class EdamQueryTest(unittest.TestCase):
                         "ERROR",
                         "empty_property",
                         r["entity"],
-                        (f"'{r['label']}'"),
-                        (f"{r['property']} is empty"),
+                        f"'{r['label']}'",
+                        f"{r['property']} is empty",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
@@ -1233,8 +1215,24 @@ class EdamQueryTest(unittest.TestCase):
 
         """
 
+        if not cls.timing.empty:
+            pd.set_option(
+                "display.max_rows",
+                None,
+                "display.max_colwidth",
+                5000,
+                "display.width",
+                5000,
+            )
+            print(
+                tabulate(
+                    cls.timing[["Test Name", "Time in seconds"]],
+                    headers=["Test Name", "Time in seconds"],
+                )
+            )
+
         # output = cls.report.sort('Level',)
-        if cls.report.empty == False:
+        if not cls.report.empty:
             pd.set_option(
                 "display.max_rows",
                 None,
@@ -1249,20 +1247,20 @@ class EdamQueryTest(unittest.TestCase):
                     headers=["Test Name", "Entity", "Label", "Debug Message"],
                 )
             )
-            # prettify(cls.report[['Entity','Label','Debug Message']])
+
         cls.report.to_csv("./output_caseologue.tsv", sep="\t")
-        return super().tearDownClass()
+
+        super().tearDownClass()
 
 
 if __name__ == "__main__":
 
     run_error, run_essential, run_curation = parsing()
     print(
-        f"error = {run_error}, essential = {run_essential}, curation = {run_curation}"
+        f"error = {run_error}, essential = {run_essential}, curation = {run_curation}\n"
     )
 
     runner = unittest.TextTestRunner()
-    # sys.exit(runner.run(suite()))
     cmd = runner.run(suite())
     print(cmd)
     if (len(cmd.failures) != 0) or (len(cmd.errors) != 0):

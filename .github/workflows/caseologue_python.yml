@@ -17,9 +17,12 @@ jobs:
 
     steps:
       
-    - uses: actions/checkout@v2
-      with: 
-        repository: edamontology/caseologue
+    - uses: actions/checkout@v3
+      # with:
+        # This will automatically check out the branch that triggered the workflow
+        # within the current repository.
+        # repository: ${{ github.repository }}
+        # ref: ${{ github.ref }}
     
     - name: download artifacts
       uses: actions/download-artifact@v3
@@ -35,17 +38,12 @@ jobs:
     - name: run 
       run: |
         cd caseologue_python/
-        printf "\n_____________________________________________________________________________________________\n\nFollowing debug table can be found as a tsv file at the bottom of the summary of this job\n_____________________________________________________________________________________________"
+        printf "\n_____________________________________________________________________________________________\n\nThe following debug table is archived as an artifact called 'output_caseologue'\n_____________________________________________________________________________________________\n\n"
         EDAM_PATH=${{inputs.edam_path}} python3 caseologue.py ${{inputs.caseologue_options}}
-     
-    # - name: Print output
-    #   if: always()
-    #   run: |
-    #     cat caseologue_python/output_caseologue.tsv 
 
-    - name: Archive tests output
+    - name: Archive test outputs
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: output_caseologue
         path: caseologue_python/output_caseologue.tsv
