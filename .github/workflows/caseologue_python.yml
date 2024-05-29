@@ -18,6 +18,8 @@ jobs:
     steps:
       
     - uses: actions/checkout@v3
+      with:
+        repository: edamontology/caseologue
       # with:
         # This will automatically check out the branch that triggered the workflow
         # within the current repository.
