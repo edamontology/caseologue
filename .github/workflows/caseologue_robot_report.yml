@@ -30,7 +30,7 @@ jobs:
       if: always()
       run: |
         cd robot_config/
-        wget https://github.com/ontodev/robot/releases/download/v1.8.1/robot.jar
+        wget https://github.com/ontodev/robot/releases/download/v1.9.1/robot.jar
         java -jar robot.jar report --input ${{inputs.edam_path}} --output report_profile.tsv --profile report_queries.txt
 
     - name: Print report output
