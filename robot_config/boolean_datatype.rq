@@ -1,3 +1,8 @@
+# rule: the EDAM or OWL properties edam:is_deprecation_candidate, edam:is_refactor_candidate, 
+# edam:isdebtag, edam:notRecommendedForAnnotation, owl:deprecated should only be defined if 
+# they are booleans, and have the value 'true'
+# implementation: this query returns all of the above mentioned properties with a value that is
+# not of type xsd:boolean with a value set to 'true'
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
