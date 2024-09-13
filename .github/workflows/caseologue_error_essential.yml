@@ -11,7 +11,7 @@ jobs:
     - name: download edam
       run: wget https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM_dev.owl
     - name: upload edam
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: input_ontology 
         path: EDAM_dev.owl

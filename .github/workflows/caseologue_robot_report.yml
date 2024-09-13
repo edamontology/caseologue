@@ -20,7 +20,7 @@ jobs:
         repository: edamontology/caseologue
     
     - name: download artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: input_ontology 
     - name: Display structure of files
