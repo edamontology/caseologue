@@ -225,10 +225,10 @@ class EdamQueryTest(unittest.TestCase):
                 [
                     [
                         "ESSENTIAL",
-                        "bad_rui",
+                        "bad_uri",
                         r["entity"],
                         f"'{r['label']}'",
-                        r"has a bad URI (entity) (regex :^http://edamontology.org/(data|topic|operation|format)_[0-9]\{4\}$)",
+                        "has a bad URI (entity) (regex :^http://edamontology.org/(data|topic|operation|format)_[0-9]{4}$)",
                     ]
                 ],
                 columns=["Level", "Test Name", "Entity", "Label", "Debug Message"],
