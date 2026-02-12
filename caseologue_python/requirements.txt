@@ -1,7 +1,7 @@
-rdflib==7.0.0
-pandas==2.0.3
-numpy==1.26.4
-argparse==1.4.0
-tabulate==0.9.0
-lxml==4.9.3
-codespell==2.2.5
+rdflib>=7.0.0
+pandas>=2.0.3
+numpy>=1.26.4
+argparse>=1.4.0
+tabulate>=0.9.0
+lxml>=4.9.3
+codespell>=2.2.5
