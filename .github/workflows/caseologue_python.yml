@@ -35,6 +35,8 @@ jobs:
   
     - name: Install requirements
       run: |
+        pip install --force-reinstall --no-cache-dir setuptools wheel pip
+        pip install --force-reinstall importlib-metadata
         pip install -r caseologue_python/requirements.txt
 
     - name: run 
