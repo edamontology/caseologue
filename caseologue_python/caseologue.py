@@ -48,8 +48,6 @@ def suite():
     suite = unittest.TestSuite()
 
     if run_curation:
-        suite.addTest(EdamQueryTest("test_deprecated_replacement_obsolete"))
-        suite.addTest(EdamQueryTest("test_formatting"))
         suite.addTest(EdamQueryTest("test_check_wikipedia_link"))
         suite.addTest(EdamQueryTest("test_identifier_property_missing"))
         suite.addTest(EdamQueryTest("test_relation_too_broad"))
@@ -73,6 +71,8 @@ def suite():
         suite.addTest(EdamQueryTest("test_object_relation_obsolete"))
         suite.addTest(EdamQueryTest("test_bad_uri"))
         suite.addTest(EdamQueryTest("test_duplicate_in_concept"))
+        suite.addTest(EdamQueryTest("test_deprecated_replacement_obsolete"))
+        suite.addTest(EdamQueryTest("test_formatting"))
 
     return suite
 
