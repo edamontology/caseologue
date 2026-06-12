@@ -208,7 +208,7 @@ class EdamQueryTest(unittest.TestCase):
            > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/bad_uri.rq>`_
 
         
-        Severity level: essential
+        Severity level: error
 
         """
         query = self.dir_path + "/queries/bad_uri.rq"
@@ -224,7 +224,7 @@ class EdamQueryTest(unittest.TestCase):
             new_error = pd.DataFrame(
                 [
                     [
-                        "ESSENTIAL",
+                        "ERROR",
                         "bad_uri",
                         r["entity"],
                         f"'{r['label']}'",
@@ -685,7 +685,7 @@ class EdamQueryTest(unittest.TestCase):
 
         Uses a small python script to retrieve all duplicated id available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/edamxpath_id_unique.py>`_
         
-        Severity level: error
+        Severity level: essential
 
         """
 
@@ -707,7 +707,7 @@ class EdamQueryTest(unittest.TestCase):
                     new_error = pd.DataFrame(
                         [
                             [
-                                "ERROR",
+                                "ESSENTIAL",
                                 "id_unique",
                                 r["entity"],
                                 f"'{r['label']}'",
@@ -778,7 +778,7 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/duplicate_in_concept.rq>`_
         
-        Severity level: curation
+        Severity level: error
 
         """
 
@@ -795,7 +795,7 @@ class EdamQueryTest(unittest.TestCase):
             new_error = pd.DataFrame(
                 [
                     [
-                        "CURATION",
+                        "ERROR",
                         "duplicate_in_concept",
                         r["entity"],
                         f"'{r['label']}'",
@@ -821,7 +821,7 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/duplicate_all.rq>`_
         
-        Severity level: curation
+        Severity level: curation (DISABLED, TAKES TOO LONG)
 
         """
         # this is case sensitive for computational time reasons
@@ -1090,7 +1090,7 @@ class EdamQueryTest(unittest.TestCase):
 
             > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/empty_property.rq>`_
         
-        Severity level: error
+        Severity level: essential
 
         """
 
@@ -1107,7 +1107,7 @@ class EdamQueryTest(unittest.TestCase):
             new_error = pd.DataFrame(
                 [
                     [
-                        "ERROR",
+                        "ESSENTIAL",
                         "empty_property",
                         r["entity"],
                         f"'{r['label']}'",
@@ -1131,7 +1131,7 @@ class EdamQueryTest(unittest.TestCase):
 
             > GitHub page of codespell available `here  <https://github.com/codespell-project/codespell>`_
         
-        Severity level: curation
+        Severity level: essential
 
         """
         spelling_ignore = self.dir_path + "/spelling_ignore.txt"
@@ -1149,7 +1149,7 @@ class EdamQueryTest(unittest.TestCase):
             new_error = pd.DataFrame(
                 [
                     [
-                        "CURATION",
+                        "ESSENTIAL",
                         "spelling_check",
                         "Unknown",
                         "Unknown",
