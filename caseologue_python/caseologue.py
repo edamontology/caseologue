@@ -127,7 +127,7 @@ class EdamQueryTest(unittest.TestCase):
 
         > SPARQL query available `here  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/deprecated_replacement_obsolete.rq>`_
         
-        Severity level: curation
+        Severity level: error
 
         """
 
@@ -143,7 +143,7 @@ class EdamQueryTest(unittest.TestCase):
             new_error = pd.DataFrame(
                 [
                     [
-                        "CURATION",
+                        "ERROR",
                         "deprecated_replacement_obsolete",
                         r["entity"],
                         f"'{r['label']}'",
@@ -297,7 +297,7 @@ class EdamQueryTest(unittest.TestCase):
                 * `End of line  <https://github.com/edamontology/caseologue/blob/main/caseologue_python/queries/eol_in_annotation.rq>`_
 
         
-        Severity level: curation
+        Severity level: error
 
         """
         query_dot_def = self.dir_path + "/queries/end_dot_def_missing.rq"
@@ -318,7 +318,7 @@ class EdamQueryTest(unittest.TestCase):
             new_error = pd.DataFrame(
                 [
                     [
-                        "CURATION",
+                        "ERROR",
                         "end_dot_def_missing",
                         r["entity"],
                         f"'{r['label']}'",
