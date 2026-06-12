@@ -47,14 +47,6 @@ def suite():
     """
     suite = unittest.TestSuite()
 
-    if run_curation:
-        suite.addTest(EdamQueryTest("test_check_wikipedia_link"))
-        suite.addTest(EdamQueryTest("test_identifier_property_missing"))
-        suite.addTest(EdamQueryTest("test_relation_too_broad"))
-        suite.addTest(EdamQueryTest("test_literal_links"))
-        #        suite.addTest(EdamQueryTest('test_duplicate_all'))   too long computing time for now 
-        suite.addTest(EdamQueryTest("test_format_property_missing"))
-
     if run_essential:
         suite.addTest(EdamQueryTest("test_super_class_refers_to_self"))
         suite.addTest(EdamQueryTest("test_bad_uri_reference"))
@@ -73,6 +65,14 @@ def suite():
         suite.addTest(EdamQueryTest("test_duplicate_in_concept"))
         suite.addTest(EdamQueryTest("test_deprecated_replacement_obsolete"))
         suite.addTest(EdamQueryTest("test_formatting"))
+
+    if run_curation:
+        suite.addTest(EdamQueryTest("test_check_wikipedia_link"))
+        suite.addTest(EdamQueryTest("test_identifier_property_missing"))
+        suite.addTest(EdamQueryTest("test_relation_too_broad"))
+        suite.addTest(EdamQueryTest("test_literal_links"))
+        #        suite.addTest(EdamQueryTest('test_duplicate_all'))   too long computing time for now 
+        suite.addTest(EdamQueryTest("test_format_property_missing"))
 
     return suite
 
